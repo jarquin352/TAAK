@@ -7,9 +7,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 import TaskSearchBar from './TaskSearchBar';
-/**
- * Define TaskList, a React componment of CS4050 project #5.
- */
+
 class TaskList extends React.Component {
   constructor(props) {
     super(props);
