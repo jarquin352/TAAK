@@ -7,6 +7,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import TopBar from './components/topBar/TopBar';
 import Home from './components/home/Home';
 
+
 const theme = createTheme({
   palette: {
     background: {
