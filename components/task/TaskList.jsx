@@ -8,6 +8,9 @@ import Typography from '@mui/material/Typography';
 
 import TaskSearchBar from './TaskSearchBar';
 
+//them attributes that consistently follow that of anno8uncements.jsx
+
+
 class TaskList extends React.Component {
   constructor(props) {
     super(props);
@@ -36,44 +39,53 @@ class TaskList extends React.Component {
 
   render() {
     return (
-      <Container disableGutters maxWidth="false" sx={{ px:1, py:1 }}>
+      <Container disableGutters maxWidth="false" sx={{ 
+      px:1, 
+      py:1, 
+      bgcolor: "transparent",
+      borderColor: "black",
+      borderRadius: 5,
+      fontSize: "0.875rem",
+      fontWeight: "700" }}>
         <TaskSearchBar value={this.state.inputLetters} />
         <Container disableGutters maxWidth="ld" component="main">
           <Grid container spacing={2} alignItems="flex-end" >
-          {this.state.taskTypes?.map(type => (
-            <Grid item xs={12} md={4} key={type.name+"-tasks"} className="new-tasks">
-              <Card variant="outlined" sx={{ borderRadius:0,mb:1}}>
-                <Typography sx={{px:2,py:1,fontWeight:500}}>{type.name}</Typography>
-              </Card>
-              <Stack
-                id={type.name+"-tasks-stack"}
-                type_id={type._id}
-                droppable="true"
-                onDragOver={this.handledragover}
-                onDrop={this.handledrop}
-                spacing={1}
-                className="task-list"
-                sx={{
-                  height: 600,
-                }}
-              >
-                {this.state.tasks?.filter(task => task.type_id === type._id).map(task => (
-                <Card
-                  key={"task"+task._id}
-                  id={"task"+task._id}
-                  draggable="true"
-                  droppable="false"
-                  onDragStart={this.handledrag}
-                  variant="outlined"
-                  className="task-task"
-                >
-                  <CardContent>
-                    <Typography>{task.description}</Typography>
-                  </CardContent>
+            {this.state.taskTypes?.map(type => (
+              <Grid item xs={12} md={4} key={type.name+"-tasks"} className="new-tasks">
+                <Card variant="outlined" sx={{ borderRadius:0,mb:1, position: "relative" }}>
+                  <Typography sx={{px:2,py:1,fontWeight:500}}>{type.name}</Typography>
+                  <Typography sx={{position: "absolute", top: 0, right: 0, height: "10px", width: "10px", borderRadius: "50%", bgcolor: type.color}} />
                 </Card>
-                ))}
-              </Stack>
-            </Grid>
+                <Stack
+                  id={type.name+"-tasks-stack"}
+                  type_id={type._id}
+                  droppable="true"
+                  onDragOver={this.handledragover}
+                  onDrop={this.handledrop}
+                  spacing={1}
+                  className="task-list"
+                  sx={{
+                    height: 600,
+                  }}
+                >
+                  {this.state.tasks?.filter(task => task.type_id === type._id).map(task => (
+                  <Card
+                    key={"task"+task._id}
+                    id={"task"+task._id}
+                    draggable="true"
+                    droppable="false"
+                    onDragStart={this.handledrag}
+                    variant="outlined"
+                    className="task-task"
+                  >
+                    <CardContent>
+                      <Typography>{task.description}</Typography>
+                      
+                    </CardContent>
+                  </Card>
+                  ))}
+                </Stack>
+              </Grid>
             ))}
           </Grid>
         </Container>

@@ -7,6 +7,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import TopBar from './components/topBar/TopBar';
 import Home from './components/home/Home';
 import Announcements from './components/announcements/Announcements'
+import Task from './components/task/TaskList';
 
 const theme = createTheme({
   palette: {
@@ -16,12 +17,14 @@ const theme = createTheme({
   },
 });
 
+
+//This view will contain all static, or views that should remain in whichever route we nav to
+//i.e, top bar, side bar, etc.
 var view = (
   <ThemeProvider theme={theme}>
     <CssBaseline />
     <HashRouter>
       <TopBar />
-      <Announcements/>
       <Routes>
       	<Route exact path="/" element={<Home />}/>
       </Routes>

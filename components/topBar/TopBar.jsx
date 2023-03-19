@@ -20,75 +20,72 @@ import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone';
 import TaskAltTwoToneIcon from '@mui/icons-material/TaskAltTwoTone';
 import EmailTwoToneIcon from '@mui/icons-material/EmailTwoTone';
 import SettingsTwoToneIcon from '@mui/icons-material/SettingsTwoTone';
-
+import Avatar from '@mui/material/Avatar';
 class TopBar extends React.Component {
 
-	//changing the state of the drawer opening, by default this will be false
-	constructor(props){
-		super(props);
-		this.state = {
-			drawerOpen: false
-		}
-	}
+  //changing the state of the drawer opening, by default this will be false
+  constructor(props){
+    super(props);
+    this.state = {
+      drawerOpen: false
+    }
+  }
 
-	render() {
-		return (
-		<div>
-			<AppBar position="static">
-			<Toolbar className="taak-toolbar">
-			{/* Button for the side bar, dynamic for now? */}
-			<Button onClick={() => this.setState({ drawerOpen: !this.state.drawerOpen })}> <MenuTwoToneIcon/></Button>
+  render() {
+    return (
+      <div>
+        <AppBar position="static">
+          <Toolbar className="taak-toolbar">
+            {/* Button for the side bar, dynamic for now? */}
+            <Button onClick={() => this.setState({ drawerOpen: !this.state.drawerOpen })}>
+              <MenuTwoToneIcon/>
+            </Button>
 
-			<Typography variant="h6" className="taak-logo">
-				TAAK - A Task Ticket Management System
-			</Typography>
-			<Stack
-							direction="row"
-							spacing={2}
-							sx={{ '& a.active': {color:theme=>theme.palette.primary.contrastText, bgcolor:theme=>theme.palette.primary.main, } }}
-						>
-							{/*Create a Material UI Button to Home and a Button Task*/}
-						</Stack>
-			</Toolbar>
-		</AppBar>
+            <Typography variant="h6" className="taak-logo">
+              TAAK - A Task Ticket Management System
+            </Typography>
 
-		<Drawer 
-				anchor = "left"
-				open = {this.state.drawerOpen}
-				variant="temporary" // set the variant to "temporary"
-				onClose={() => this.setState({ drawerOpen: false })}
-				ModalProps={{
-					keepMounted: true // to avoid any issue with react strict mode
-				  }}>
-		
-				  <List>
-					<ListItem button component={NavLink} to="/" onClick={() => this.setState({ drawerOpen: false })}>
-						<ListItemIcon><HomeIcon/></ListItemIcon>
-						<ListItemText primary="Home" />
-					</ListItem>
+            {/* Adding Avatar component for profile icon */}
+            <Stack direction="row" spacing={2}>
+              <Avatar alt="Profile Image" src="/path/to/profile/image" />
+            </Stack>
+          </Toolbar>
+        </AppBar>
 
-					<ListItem button component={NavLink} to="/tasks" onClick={() => this.setState({ drawerOpen: false })}>
-					<ListItemIcon><TaskAltTwoToneIcon/></ListItemIcon>
-						<ListItemText primary="Assigned Tasks" />
-					</ListItem>
+        <Drawer 
+          anchor="left"
+          open={this.state.drawerOpen}
+          variant="temporary" // set the variant to "temporary"
+          onClose={() => this.setState({ drawerOpen: false })}
+          ModalProps={{
+            keepMounted: true // to avoid any issue with react strict mode
+          }}>
+          
+          <List>
+            <ListItem button component={NavLink} to="/" onClick={() => this.setState({ drawerOpen: false })}>
+              <ListItemIcon><HomeIcon/></ListItemIcon>
+              <ListItemText primary="Home" />
+            </ListItem>
 
-					
-					<ListItem button component={NavLink} to="/inbox" onClick={() => this.setState({ drawerOpen: false })}>
-					<ListItemIcon><EmailTwoToneIcon/></ListItemIcon>
-						<ListItemText primary="Inbox" />
-					</ListItem>
+            <ListItem button component={NavLink} to="/tasks" onClick={() => this.setState({ drawerOpen: false })}>
+              <ListItemIcon><TaskAltTwoToneIcon/></ListItemIcon>
+              <ListItemText primary="Assigned Tasks" />
+            </ListItem>
 
-					<ListItem button component={NavLink} to="/settings" onClick={() => this.setState({ drawerOpen: false })}>
-					<ListItemIcon><SettingsTwoToneIcon/></ListItemIcon>
-						<ListItemText primary="Settings" />
-					</ListItem>
+            <ListItem button component={NavLink} to="/inbox" onClick={() => this.setState({ drawerOpen: false })}>
+              <ListItemIcon><EmailTwoToneIcon/></ListItemIcon>
+              <ListItemText primary="Inbox" />
+            </ListItem>
 
-				  </List>
-		</Drawer>
-		</div>
-
-		);
-	}
+            <ListItem button component={NavLink} to="/settings" onClick={() => this.setState({ drawerOpen: false })}>
+              <ListItemIcon><SettingsTwoToneIcon/></ListItemIcon>
+              <ListItemText primary="Settings" />
+            </ListItem>
+          </List>
+        </Drawer>
+      </div>
+    );
+  }
 }
-export default TopBar;
 
+export default TopBar;
