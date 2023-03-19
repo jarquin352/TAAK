@@ -6,7 +6,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import TopBar from './components/topBar/TopBar';
 import Home from './components/home/Home';
-
+import Announcements from './components/announcements/Announcements'
 
 const theme = createTheme({
   palette: {
@@ -21,6 +21,7 @@ var view = (
     <CssBaseline />
     <HashRouter>
       <TopBar />
+      <Announcements/>
       <Routes>
       	<Route exact path="/" element={<Home />}/>
       </Routes>

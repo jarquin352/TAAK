@@ -6,7 +6,9 @@ import Container from '@mui/material/Container';
 class Home extends React.Component {
   render() {
     return (
-      <p>Sample output.</p>
+      <p>This is where the admin panel will be
+        
+      </p>
     );
   }
 }
