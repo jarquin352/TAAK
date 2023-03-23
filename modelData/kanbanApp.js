@@ -21,7 +21,16 @@
        {"_id":"2", 'name':'In Progress','class':'inprogress','color':'warning.dark'},
        {"_id":"3", 'name':'Done','class':'done','color':'success.dark'}
      ];
+   
+   // var announcements = [
 
+   //    /*Copy/paste from announcements.jsx
+   //     */
+   // ];
+
+   /*Potential objects: tasksOverviews, users, team? */
+
+/* ---------------------------Functions-------------------------------------------------------------- */
   var taskListModel = function() {
      return tasks;
   };
@@ -30,10 +39,15 @@
      return taskTypes;
   };
 
+//   var announcementsModel = function() {
+//     return announcements;
+//   };
 
+/*--------------------------JSON Object Model------------------------------------ */
   var taskModels =  {
      taskListModel: taskListModel,
-     taskTypeListModel: taskTypeListModel
+     taskTypeListModel: taskTypeListModel,
+   //   announcementsModel:announcementsModel
   };
 
   if( typeof exports !== 'undefined' ) {

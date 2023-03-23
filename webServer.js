@@ -37,7 +37,6 @@ mongoose.connection.on('connected', function () {
 
 
 
-
 var taskModels = require('./modelData/kanbanApp.js').taskModels;
 
 app.use(express.static(__dirname));
