@@ -1,9 +1,10 @@
-
+/* This is where our Logo, or alt logo "TAAK - A Task Management System" styling is contained */
 .taak-logo {
   flex-grow: 1;
   flex-wrap: nowrap;
   color: black;
 }
+
 
 .taak-toolbar {
   background-color: white;

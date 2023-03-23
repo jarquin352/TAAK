@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import './TopBar.css';
+
 
 //adding sidebar
 import { Drawer } from '@mui/material';
@@ -14,13 +14,17 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
-//icons
+//icons + styling
 import HomeIcon from '@mui/icons-material/Home';
 import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone';
 import TaskAltTwoToneIcon from '@mui/icons-material/TaskAltTwoTone';
 import EmailTwoToneIcon from '@mui/icons-material/EmailTwoTone';
 import SettingsTwoToneIcon from '@mui/icons-material/SettingsTwoTone';
+import InfoIcon from '@mui/icons-material/Info';
 import Avatar from '@mui/material/Avatar';
+import logo from '../topBar/ss5topbar.png'; // with import
+import './TopBar.css';
+
 class TopBar extends React.Component {
 
   //changing the state of the drawer opening, by default this will be false
@@ -45,17 +49,18 @@ class TopBar extends React.Component {
               TAAK - A Task Ticket Management System
             </Typography>
 
-            {/* Adding Avatar component for profile icon */}
+            {/* Adding Avatar component for profile icon, needs a state for person name */}
             <Stack direction="row" spacing={2}>
               <Avatar alt="Profile Image" src="/path/to/profile/image" />
             </Stack>
+            
           </Toolbar>
         </AppBar>
 
         <Drawer 
           anchor="left"
           open={this.state.drawerOpen}
-          variant="temporary" // set the variant to "temporary"
+          variant="temporary" 
           onClose={() => this.setState({ drawerOpen: false })}
           ModalProps={{
             keepMounted: true // to avoid any issue with react strict mode
@@ -81,6 +86,12 @@ class TopBar extends React.Component {
               <ListItemIcon><SettingsTwoToneIcon/></ListItemIcon>
               <ListItemText primary="Settings" />
             </ListItem>
+
+            <ListItem button component={NavLink} to="/aboutUs" onClick={() => this.setState({ drawerOpen: false })}>
+              <ListItemIcon><InfoIcon/></ListItemIcon>
+              <ListItemText primary="About Us" />
+            </ListItem>
+
           </List>
         </Drawer>
       </div>

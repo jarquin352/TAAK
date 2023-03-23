@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 
 import TaskSearchBar from './TaskSearchBar';
 
-//them attributes that consistently follow that of anno8uncements.jsx
+//them attributes that consistently follow that of announcements.jsx
 
 
 class TaskList extends React.Component {
@@ -48,13 +48,16 @@ class TaskList extends React.Component {
       fontSize: "0.875rem",
       fontWeight: "700" }}>
         <TaskSearchBar value={this.state.inputLetters} />
-        <Container disableGutters maxWidth="ld" component="main">
+         <Typography variant="h3" sx={{ textAlign: 'center', my: 3 }}>
+          Your Tasks
+        </Typography>
+        <Container disableGutters maxWidth="ld" component="main" sx={{bgcolor: "green"}}>
           <Grid container spacing={2} alignItems="flex-end" >
             {this.state.taskTypes?.map(type => (
-              <Grid item xs={12} md={4} key={type.name+"-tasks"} className="new-tasks">
-                <Card variant="outlined" sx={{ borderRadius:0,mb:1, position: "relative" }}>
-                  <Typography sx={{px:2,py:1,fontWeight:500}}>{type.name}</Typography>
-                  <Typography sx={{position: "absolute", top: 0, right: 0, height: "10px", width: "10px", borderRadius: "50%", bgcolor: type.color}} />
+              <Grid item xs={12} md={4} key={type.name+"-tasks"} className="new-tasks" >
+                <Card variant="outlined" sx={{ borderRadius:5,mb:1, position: "relative",boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)'}}>
+                  <Typography sx={{mx:'auto', width:200, bgcolor: "blue"}} variant  = 'h4'>{type.name}</Typography>
+                  <Typography sx={{position: "absolute", top: 10, right: 10, height: "10px", width: "10px", borderRadius: "50%", bgcolor: type.color}} />
                 </Card>
                 <Stack
                   id={type.name+"-tasks-stack"}
@@ -66,6 +69,11 @@ class TaskList extends React.Component {
                   className="task-list"
                   sx={{
                     height: 600,
+                    '& div': {
+                      borderRightColor: type.color,
+                      borderRightWidth: 2,
+                      bgcolor: "blue"
+                    }
                   }}
                 >
                   {this.state.tasks?.filter(task => task.type_id === type._id).map(task => (
@@ -77,10 +85,16 @@ class TaskList extends React.Component {
                     onDragStart={this.handledrag}
                     variant="outlined"
                     className="task-task"
+                    sx={{ 
+                      borderRadius: 5, 
+                      boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', 
+                      
+                    }}
+                    
                   >
                     <CardContent>
-                      <Typography>{task.description}</Typography>
-                      
+                      <Typography><h5>{task.title}</h5></Typography>
+                      <Typography><body>{task.description}</body></Typography>
                     </CardContent>
                   </Card>
                   ))}

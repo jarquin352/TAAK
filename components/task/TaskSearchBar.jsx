@@ -14,7 +14,7 @@ class TaskSearchBar extends React.Component {
         type="search"
         size="small"
         value={this.props.value}
-        sx={{float:"right"}}
+        sx={{float:"left"}}
       />
     );
   }

@@ -9,17 +9,17 @@
 (function() {
 
   var tasks = [
-      {"_id":"1", "type_id":"1", "description":"Complete Task 1"},
-      {"_id":"2", "type_id":"2", "description":"Complete Task 2"},
-      {"_id":"3", "type_id":"3", "description":"Complete Task 3 "},
-      {"_id":"4", "type_id":"3", "description":"Complete Task 4 "},
-      {"_id":"5", "type_id":"2", "description":"Complete Task 5 "},
+      {"_id":"1", "type_id":"1", "title":"Complete Task 1",'description':'complete the front end'},
+      {"_id":"2", "type_id":"2", "title":"Complete Task 2",'description':'complete the back end'},
+      {"_id":"3", "type_id":"3", "title":"Complete Task 3 ",'description':'complete the front end'},
+      {"_id":"4", "type_id":"3", "title":"Complete Task 4 ",'description':'complete the back end'},
+      {"_id":"5", "type_id":"2", "title":"Complete Task 5 ",'description':'complete the front end'},
     ];
 
   var taskTypes = [
-       {"_id":"1", 'name':'New','class':'new','color':'warning.main'},
-       {"_id":"2", 'name':'In Progress','class':'inprogress','color':'info.main'},
-       {"_id":"3", 'name':'Done','class':'done','color':'success.main'}
+       {"_id":"1", 'name':'New','class':'new','color':'error.dark'},
+       {"_id":"2", 'name':'In Progress','class':'inprogress','color':'warning.dark'},
+       {"_id":"3", 'name':'Done','class':'done','color':'success.dark'}
      ];
 
   var taskListModel = function() {

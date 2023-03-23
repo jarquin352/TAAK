@@ -7,7 +7,11 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import TopBar from './components/topBar/TopBar';
 import Home from './components/home/Home';
 import Announcements from './components/announcements/Announcements'
-import Task from './components/task/TaskList';
+// import TaskList from './components/task/TaskList'; //obsolete?
+import Tasks from './components/task/Tasks'
+import AboutUs from './components/aboutUs/AboutUs';
+
+
 
 const theme = createTheme({
   palette: {
@@ -27,6 +31,8 @@ var view = (
       <TopBar />
       <Routes>
       	<Route exact path="/" element={<Home />}/>
+        <Route path="/AboutUs" element={<AboutUs />} />
+        <Route path="/tasks" element={<Tasks />} />
       </Routes>
     </HashRouter>
   </ThemeProvider>
