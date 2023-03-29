@@ -9,11 +9,11 @@
 (function() {
 
   var tasks = [
-      {"_id":"1", "type_id":"1", "title":"Complete Task 1",'description':'complete the front end'},
-      {"_id":"2", "type_id":"2", "title":"Complete Task 2",'description':'complete the back end'},
-      {"_id":"3", "type_id":"3", "title":"Complete Task 3 ",'description':'complete the front end'},
-      {"_id":"4", "type_id":"3", "title":"Complete Task 4 ",'description':'complete the back end'},
-      {"_id":"5", "type_id":"2", "title":"Complete Task 5 ",'description':'complete the front end'},
+      {"_id":"1", "type_id":"1", "title":"Complete Task 1",'description':'complete the front end','progt':'3','taskSkills':['Machine Learning', 'Web Development']},
+      {"_id":"2", "type_id":"2", "title":"Complete Task 2",'description':'complete the back end','progt':'4','taskSkills':['Machine Learning', 'Full Stack']},
+      {"_id":"3", "type_id":"3", "title":"Complete Task 3 ",'description':'complete the front end','progt':'10','taskSkills':['UI/UX', 'Object Oriented Programming']},
+      {"_id":"4", "type_id":"3", "title":"Complete Task 4 ",'description':'complete the back end','progt':'12','taskSkills':['Machine Learning']},
+      {"_id":"5", "type_id":"2", "title":"Complete Task 5 ",'description':'complete the front end','progt':'5','taskSkills':['Machine Learning', 'Web Development','UI/UX']},
     ];
 
   var taskTypes = [
@@ -34,10 +34,14 @@
     ];
   
   var users = [
-   {'uid':'1', 'u_name':'first last', 'skills':'c++, react', 'availability':'Monday', 'task_assigned':'Task 1'}
+   {'uid':'1', 'u_name':'first last', 'skills': ['Machine Learning', 'Web Development', 'Object Oriented Programming','UI/UX'],
+    'availability':'Monday', 'task_assigned':['_id 1']} 
 
   ]
    /*Potential objects: users, team? */
+   var teams = [
+    {"_id":"1", 'name':'taak', 'members':['uid']}
+   ]
 
 /* ---------------------------Functions-------------------------------------------------------------- */
   var taskListModel = function() {
@@ -56,12 +60,23 @@
     return tasksOverview;
   };
 
+  var usersModel = function(){
+    return users;
+  };
+
+  var teamsModel = function(){
+    return teams;
+  };
+
 /*--------------------------JSON Object Model------------------------------------ */
   var taskModels =  {
      taskListModel: taskListModel,
      taskTypeListModel: taskTypeListModel,
      announcementsModel:announcementsModel,
-     tasksOverviewModel: tasksOverviewModel
+     tasksOverviewModel: tasksOverviewModel,
+     usersModel: usersModel,
+     teamsModel: teamsModel
+
   };
 
   if( typeof exports !== 'undefined' ) {
