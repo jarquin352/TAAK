@@ -20,15 +20,24 @@
        {"_id":"1", 'name':'New','class':'new','color':'error.dark'},
        {"_id":"2", 'name':'In Progress','class':'inprogress','color':'warning.dark'},
        {"_id":"3", 'name':'Done','class':'done','color':'success.dark'}
-     ];
+    ];
    
-   // var announcements = [
+  var announcements = [
+      {"_id":'1','type_id':'1','anTitle':'Finish The Front End','owner':'Tom Sam', 'dueDate':'12/1/2023', 'description':'this needs to be done by [xyz]'},
+      {"_id":'2','type_id':'2','anTitle':'Finish the Back End','owner':'Bob Sam', 'dueDate':'12/1/2023','description':'major progress done on [xyz]'},
+      {"_id":'3','type_id':'3','anTitle':'Turn in Work','owner':'Slom Sam', 'dueDate':'12/1/2023','description':'good progress so far on...'}
+    ];
 
-   //    /*Copy/paste from announcements.jsx
-   //     */
-   // ];
+  var tasksOverview = [
+    {'id':'1','title':'TEST 1','priority':'High','asignees':'Tom Bob','term':'LONG TERM','status':'complete','dueDate':'12/12/1222'},
+    {'id':'2','title':'TEST 2','priority':'LOW','asignees':'Bob Tom','term':'SHORT TERM','status':'INCOMPLETE','dueDate':'12/12/1222'}
+    ];
+  
+  var users = [
+   {'uid':'1', 'u_name':'first last', 'skills':'c++, react', 'availability':'Monday', 'task_assigned':'Task 1'}
 
-   /*Potential objects: tasksOverviews, users, team? */
+  ]
+   /*Potential objects: users, team? */
 
 /* ---------------------------Functions-------------------------------------------------------------- */
   var taskListModel = function() {
@@ -39,15 +48,20 @@
      return taskTypes;
   };
 
-//   var announcementsModel = function() {
-//     return announcements;
-//   };
+  var announcementsModel = function() {
+     return announcements;
+  };
+
+  var tasksOverviewModel = function() {
+    return tasksOverview;
+  };
 
 /*--------------------------JSON Object Model------------------------------------ */
   var taskModels =  {
      taskListModel: taskListModel,
      taskTypeListModel: taskTypeListModel,
-   //   announcementsModel:announcementsModel
+     announcementsModel:announcementsModel,
+     tasksOverviewModel: tasksOverviewModel
   };
 
   if( typeof exports !== 'undefined' ) {
