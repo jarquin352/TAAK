@@ -29,9 +29,9 @@ class TasksOverviews extends React.Component {
                 }}
             >
                 <h1>Tasks Overview</h1>
-                <Grid container spacing={2}sx={{bgcolor: "blue"}}>
+                <Grid container spacing={2}>
                     {tasksOverview.map((tasksOverview) => (
-                        <Grid key={tasksOverview.id} item xs={12} sm={6} md={4} sx={{bgcolor: "green"}}>
+                        <Grid key={tasksOverview.id} item xs={12} sm={6} md={4} >
                             <Card sx={{ minWidth: 275, borderRadius: 5, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)' }}>
                                 <CardContent>
                                     <Typography variant="h5" component="div">{tasksOverview.title}</Typography>

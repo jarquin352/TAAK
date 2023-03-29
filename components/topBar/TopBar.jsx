@@ -22,8 +22,8 @@ import EmailTwoToneIcon from '@mui/icons-material/EmailTwoTone';
 import SettingsTwoToneIcon from '@mui/icons-material/SettingsTwoTone';
 import InfoIcon from '@mui/icons-material/Info';
 import Avatar from '@mui/material/Avatar';
-import logo from '../topBar/ss5topbar.png'; // with import
 import './TopBar.css';
+
 
 class TopBar extends React.Component {
 
@@ -90,6 +90,10 @@ class TopBar extends React.Component {
             <ListItem button component={NavLink} to="/aboutUs" onClick={() => this.setState({ drawerOpen: false })}>
               <ListItemIcon><InfoIcon/></ListItemIcon>
               <ListItemText primary="About Us" />
+            </ListItem>
+            <ListItem button component={NavLink} to="/testing" onClick={() => this.setState({ drawerOpen: false })}>
+              <ListItemIcon><InfoIcon/></ListItemIcon>
+              <ListItemText primary="Testing" />
             </ListItem>
 
           </List>

@@ -11,7 +11,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-// const config = require('dotenv').config();
+const config = require('dotenv').config();
 
 //middleware definitions
 //defines static files in taak static directory
@@ -22,13 +22,13 @@ app.use(bodyParser.json());
 
 //middleware access
 app.use(session({
-  secret: 'PASSWORD',
+  secret: '',
   resave: false,
   saveUninitialized: false
 }));
 
 //connects to db using .env DB, useNewUrlParser, useUnifiedTopology are warning removers when connection is made
-mongoose.connect('mongodb://localhost:27017/',{useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(config.parsed.DB,{useNewUrlParser: true, useUnifiedTopology: true});
 
 //checks DB connection, and outputs DB 
 mongoose.connection.on('connected', function () {
