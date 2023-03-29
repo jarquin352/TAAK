@@ -10,6 +10,7 @@ import Announcements from './components/announcements/Announcements'
 // import TaskList from './components/task/TaskList'; //obsolete?
 import Tasks from './components/task/Tasks'
 import AboutUs from './components/aboutUs/AboutUs';
+import TaskAssigner from './components/task/TaskAssigner'
 
 
 
@@ -33,6 +34,7 @@ var view = (
       	<Route exact path="/" element={<Home />}/>
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/tasks" element={<Tasks />} />
+        <Route path="/testing" element={<TaskAssigner />} />
       </Routes>
     </HashRouter>
   </ThemeProvider>

@@ -51,13 +51,13 @@ class TaskList extends React.Component {
          <Typography variant="h3" sx={{ textAlign: 'center', my: 3 }}>
           Your Tasks
         </Typography>
-        <Container disableGutters maxWidth="ld" component="main" sx={{bgcolor: "green"}}>
+        <Container disableGutters maxWidth="ld" component="main">
           <Grid container spacing={2} alignItems="flex-end" >
             {this.state.taskTypes?.map(type => (
               <Grid item xs={12} md={4} key={type.name+"-tasks"} className="new-tasks" >
                 <Card variant="outlined" sx={{ borderRadius:5,mb:1, position: "relative",boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)'}}>
-                  <Typography sx={{mx:'auto', width:200, bgcolor: "blue"}} variant  = 'h4'>{type.name}</Typography>
-                  <Typography sx={{position: "absolute", top: 10, right: 10, height: "10px", width: "10px", borderRadius: "50%", bgcolor: type.color}} />
+                  <Typography sx={{mx:'auto', width:200}} variant  = 'h4'>{type.name}</Typography>
+                  <Typography sx={{position: "absolute", top: 10, right: 10, height: "10px", width: "10px", borderRadius: 5, bgcolor: type.color}} />
                 </Card>
                 <Stack
                   id={type.name+"-tasks-stack"}
@@ -71,8 +71,7 @@ class TaskList extends React.Component {
                     height: 600,
                     '& div': {
                       borderRightColor: type.color,
-                      borderRightWidth: 2,
-                      bgcolor: "blue"
+                      borderRightWidth: 2
                     }
                   }}
                 >

@@ -25,7 +25,6 @@ class Announcements extends React.Component{
                     flexGrow: 1,
                     m: 1,
                     p: 1,
-                    bgcolor: "green",
                     borderColor: "black",
                     borderRadius: 5,
                     fontSize: "0.875rem",

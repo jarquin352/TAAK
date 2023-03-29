@@ -110,10 +110,10 @@ class PendingTasks extends React.Component{
 
         {/*Table View for pending tasks */}
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <Table sx={{ minWidth: 450, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', margin: .5}} aria-label="simple table">
             <TableHead>
-              <TableRow>
-                <TableCell>Status</TableCell>
+              <TableRow sx={{borderRadius: 5}}>
+                <TableCell align="left">Status</TableCell>
                 <TableCell align="left">Task Name</TableCell>
                 <TableCell align="left">Task Priority</TableCell>
                 <TableCell align="left">Assignee</TableCell>

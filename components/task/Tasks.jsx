@@ -4,7 +4,7 @@ import Container from '@mui/material/Container';
 import Announcements from '../announcements/Announcements';
 import TaskList from '../task/TaskList';
 import PendingTasks from '../task/PendingTasks';
-
+// import SprintTimeline from '../sprint/Sprint';
 //main container for all in ./task
 
 class Tasks extends React.Component {
@@ -13,6 +13,7 @@ class Tasks extends React.Component {
       <div>
           <TaskList/>
           <PendingTasks/>
+          {/* <SprintTimeline/> */}
       </div>
     );
   }

@@ -9,4 +9,5 @@
 .taak-toolbar {
   background-color: white;
   flex-wrap: wrap;
+  /* border-radius: 0 0 20px 20px; //doesnt work...*/
 }
