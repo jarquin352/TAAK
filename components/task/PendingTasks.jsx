@@ -1,15 +1,30 @@
 import React from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
-import Button from '@mui/material/Button';
+// import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+// import Button from '@mui/material/Button';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+
 
 //test task information
-const tasks = [
-  { id: 1, status: 'Pending', name: 'Complete Front End', priority: 'High', assignee: '' },
-  { id: 2, status: 'In Progress', name: 'Complete SRS', priority: 'Medium', assignee: '' },
-  { id: 3, status: 'Pending', name: 'Complete SPMP', priority: 'Low', assignee: '' },
-  { id: 4, status: 'Completed', name: 'Graduate', priority: 'High', assignee: '' },
-];
+// const tasks = [
+//   { id: 1, status: 'Pending', name: 'Complete Front End', priority: 'High', assignee: '' },
+//   { id: 2, status: 'In Progress', name: 'Complete SRS', priority: 'Medium', assignee: '' },
+//   { id: 3, status: 'Pending', name: 'Complete SPMP', priority: 'Low', assignee: '' },
+//   { id: 4, status: 'Completed', name: 'Graduate', priority: 'High', assignee: '' },
+// ];
 
+var tasks = [
+  {"_id":"1", "type_id":"1",'isAssigned':true, "title":"Complete Task 1",'description':'complete the front end','progt':2,'taskSkills':['Machine Learning', 'Web Development'],priority: 'High', assignee: 'Bob Tom'},
+  {"_id":"2", "type_id":"2",'isAssigned':true, "title":"Complete Task 2",'description':'complete the test','progt':4,'taskSkills':['Machine Learning', 'Full Stack'],priority: 'Med', assignee: 'Tom Bob'},
+  {"_id":"3", "type_id":"3",'isAssigned':true,"title":"Complete Task 3 ",'description':'complete the front end','progt':10,'taskSkills':['UI/UX', 'Object Oriented Programming'],priority: 'Low', assignee: 'Sam Tam'},
+  {"_id":"4", "type_id":"3",'isAssigned':true, "title":"Complete Task 4 ",'description':'complete the back end','progt':12,'taskSkills':['Machine Learning'],priority: 'High', assignee: 'Tam Sam'},
+  {"_id":"5", "type_id":"2",'isAssigned':true, "title":"Complete Task 5 ",'description':'complete the front end','progt':5,'taskSkills':['Machine Learning', 'Web Development','UI/UX'],priority: 'Med', assignee: 'John Jerry'},
+
+  {"_id":"6", "type_id":"1",'isAssigned':false, "title":"Unassigned Task 1",'description':'complete the front end','progt':5,'taskSkills':['Machine Learning', 'Web Development','UI/UX'],priority: 'Med', assignee: ''},
+  {"_id":"7", "type_id":"1",'isAssigned':false, "title":"Unassigned Task 2",'description':'complete the front end','progt':5,'taskSkills':['Machine Learning', 'OOP','UI/UX'],priority: 'Low', assignee: ''},
+  {"_id":"8", "type_id":"1",'isAssigned':false, "title":"Unassigned Task 3",'description':'complete the front end','progt':5,'taskSkills':['Machine Learning', 'SQL','Python'],priority: 'High', assignee: ''},
+  {"_id":"9", "type_id":"1",'isAssigned':false, "title":"Unassigned Task 4",'description':'complete the front end','progt':5,'taskSkills':['Machine Learning', 'R','Excel'],priority: 'Low', assignee: ''},
+
+];
 
 class PendingTasks extends React.Component{
   //constructor initializes components state, binds defined methods to this
@@ -24,8 +39,9 @@ class PendingTasks extends React.Component{
         priority: '',
         assignee: ''
       },
-      showForm: false //this will default our form to false, if it is true, then the form will be open without the need to click the button
-
+      //showForm: false, //this will default our form to false, if it is true, then the form will be open without the need to click the button
+      showDialog: false,
+      pendingTasks: tasks.filter((task) => !task.isAssigned) //current list of pending tasks
     };
 
   }
@@ -35,7 +51,8 @@ class PendingTasks extends React.Component{
   //first function --> need to toggle the form, this should simply be boolean, turns form off and on nly
   formToggle = () =>{
     this.setState({
-      showForm: !this.state.showForm //!(Whatever is opposite; i.e if it is currently off, it will turn the state on, and vice versa...)
+      //showForm: !this.state.showForm //!(Whatever is opposite; i.e if it is currently off, it will turn the state on, and vice versa...)
+      showDialog: !this.state.showDialog
     });
   }
 
@@ -66,12 +83,14 @@ class PendingTasks extends React.Component{
     const newId = tasks.length + 1; // initializer for tasks.ID, starts at the size of our var tasks [{},{};]
 
     //...this.state.newTasks expands the state of newTask, like an iterable, and is adding the ID key to each key:value
-    const newTask = {...this.state.newTask, id: newId};
+    const newTask = {...this.state.newTask, '_id': String(newId), 'isAssigned': false};
     
     //once complete, we push our new information to our global tasks.
-    tasks.push(newTask)
 
-    //empty out the form after by resetting everything
+    tasks.push(newTask)
+    console.log(tasks)
+
+    //empty out the form after by resetting everything, turns off the showDialog, and updates pendingTasks to reflect changes
     this.setState({
       newTask:{
         status: '',
@@ -79,22 +98,26 @@ class PendingTasks extends React.Component{
         priority:'',
         assignee: ''
       },
-      showForm:false
+      //showForm:false
+      showDialog: false,
+      pendingTasks: tasks.filter((task) => !task.isAssigned)
     });
   }
 
 /*000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 */
   render(){
-    const { showForm, newTask } = this.state;
+    // const { showForm, newTask } = this.state;
+    const {showDialog, newTask} = this.state;
     return(
       <div>
+        Project Manager Panel
         {/*Button Styling */}
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px', marginRight: '10px' }}>
           <Button variant="contained" onClick={this.formToggle}>Add Task</Button>
         </div>
 
 
-        {showForm && (
+        {/* {showForm && (
           <form onSubmit={this.handleSubmit}>
             <label>Status:</label>
             <input type="text" name="status" value={newTask.status} onChange={this.handleInputChange} />
@@ -106,7 +129,21 @@ class PendingTasks extends React.Component{
             <input type="text" name="assignee" value={newTask.assignee} onChange={this.handleInputChange} />
             <button type="submit">Add</button>
           </form>
-        )}
+        )} */}
+
+        {/*Dialog Form Option*/}
+        <Dialog open = {showDialog} onClose={this.formToggle}>
+          <DialogTitle>Add New Task</DialogTitle>
+            <DialogContent>
+              <input type = "text" name = "title" placeholder = "Task Title" value = {newTask.title} onChange = {this.handleInputChange}/>
+              <input type = "text" name = "priority" placeholder = "Task Priority" value = {newTask.priority} onChange = {this.handleInputChange}/>
+              <input type = "text" name = "assignee" placeholder = "Task Assignee" value = {newTask.assignee} onChange = {this.handleInputChange}/>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick = {this.formToggle}>Cancel</Button>
+              <Button variant = 'contained' onClick = {this.handleSubmit}>Add Task</Button>
+            </DialogActions>
+        </Dialog>
 
         {/*Table View for pending tasks */}
         <TableContainer component={Paper}>
@@ -120,7 +157,7 @@ class PendingTasks extends React.Component{
               </TableRow>
             </TableHead>
             <TableBody>
-                  {tasks.map((task) => (
+                  {this.state.pendingTasks.map((task) => (
                     <TableRow
                       key={task.id}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -128,7 +165,7 @@ class PendingTasks extends React.Component{
                       <TableCell component="th" scope="row">
                         {task.status}
                       </TableCell>
-                      <TableCell align="left">{task.name}</TableCell>
+                      <TableCell align="left">{task.title}</TableCell>
                       <TableCell align="left">{task.priority}</TableCell>
                       <TableCell align="left">{task.assignee}</TableCell>
                     </TableRow>

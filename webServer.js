@@ -35,22 +35,7 @@ mongoose.connection.on('connected', function () {
   console.log("DB Sucessfully Connected")
 });
 
-
-
-var taskModels = require('./modelData/kanbanApp.js').taskModels;
-
-app.use(express.static(__dirname));
-
-app.get('/api/tasks', function (request, response) {
-  response.status(200).send(taskModels.taskListModel());
-  return;
-});
-
-app.get('/api/task-types', function (request, response) {
-  response.status(200).send(taskModels.taskTypeListModel());
-  return;
-});
-
+//node webserver instance
 var server = app.listen(portno, function () {
   var port = server.address().port;
   console.log('Listening at http://localhost:' + port + ' exporting the directory ' + __dirname);

@@ -8,12 +8,22 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { Typography } from '@mui/material';
 
+//obsolete, works on kanbanApp.js for front end testing
 var tasksOverview = [
     {'id':'1','title':'TEST 1','priority':'High','asignees':'Tom Bob','term':'LONG TERM','status':'complete','dueDate':'12/12/1222'},
     {'id':'2','title':'TEST 2','priority':'LOW','asignees':'Bob Tom','term':'SHORT TERM','status':'INCOMPLETE','dueDate':'12/12/1222'}
 ];
 
 class TasksOverviews extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            //reads from kanbanApp.js
+          tasksOverview: tasksOverview
+        };
+      }
+
+
     render() {
         return (
             <Box
@@ -30,7 +40,7 @@ class TasksOverviews extends React.Component {
             >
                 <h1>Tasks Overview</h1>
                 <Grid container spacing={2}>
-                    {tasksOverview.map((tasksOverview) => (
+                    {this.state.tasksOverview.map((tasksOverview) => (
                         <Grid key={tasksOverview.id} item xs={12} sm={6} md={4} >
                             <Card sx={{ minWidth: 275, borderRadius: 5, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)' }}>
                                 <CardContent>
