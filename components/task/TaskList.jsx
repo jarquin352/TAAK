@@ -10,11 +10,11 @@ import TaskSearchBar from './TaskSearchBar';
 
 //them attributes that consistently follow that of announcements.jsx
 var tasksModel = [
-  {"_id":"1", "type_id":"1",'isAssigned':true, "title":"Complete Task 1",'description':'complete the front end','progt':2,'taskSkills':['Machine Learning', 'Web Development'],priority: 'High', assignee: 'Bob Tom'},
-  {"_id":"2", "type_id":"2",'isAssigned':true, "title":"Complete Task 2",'description':'complete the test','progt':4,'taskSkills':['Machine Learning', 'Full Stack'],priority: 'Med', assignee: 'Tom Bob'},
-  {"_id":"3", "type_id":"3",'isAssigned':true,"title":"Complete Task 3 ",'description':'complete the front end','progt':10,'taskSkills':['UI/UX', 'Object Oriented Programming'],priority: 'Low', assignee: 'Sam Tam'},
-  {"_id":"4", "type_id":"3",'isAssigned':true, "title":"Complete Task 4 ",'description':'complete the back end','progt':12,'taskSkills':['Machine Learning'],priority: 'High', assignee: 'Tam Sam'},
-  {"_id":"5", "type_id":"2",'isAssigned':true, "title":"Complete Task 5 ",'description':'complete the front end','progt':5,'taskSkills':['Machine Learning', 'Web Development','UI/UX'],priority: 'Med', assignee: 'John Jerry'},
+  {"_id":"1", "type_id":"3",'isAssigned':true, "title":"Complete Task 1",'description':'complete the front end','progt':2,'taskSkills':['Machine Learning', 'Web Development'],priority: 'High', assignee: 'Bob Tom'},
+  {"_id":"2", "type_id":"4",'isAssigned':true, "title":"Complete Task 2",'description':'complete the test','progt':4,'taskSkills':['Machine Learning', 'Full Stack'],priority: 'Med', assignee: 'Tom Bob'},
+  {"_id":"3", "type_id":"5",'isAssigned':true,"title":"Complete Task 3 ",'description':'complete the front end','progt':10,'taskSkills':['UI/UX', 'Object Oriented Programming'],priority: 'Low', assignee: 'Sam Tam'},
+  {"_id":"4", "type_id":"5",'isAssigned':true, "title":"Complete Task 4 ",'description':'complete the back end','progt':12,'taskSkills':['Machine Learning'],priority: 'High', assignee: 'Tam Sam'},
+  {"_id":"5", "type_id":"4",'isAssigned':true, "title":"Complete Task 5 ",'description':'complete the front end','progt':5,'taskSkills':['Machine Learning', 'Web Development','UI/UX'],priority: 'Med', assignee: 'John Jerry'},
 
   {"_id":"6", "type_id":"1",'isAssigned':false, "title":"Unassigned Task 1",'description':'complete the front end','progt':5,'taskSkills':['Machine Learning', 'Web Development','UI/UX'],priority: 'Med', assignee: ''},
   {"_id":"7", "type_id":"1",'isAssigned':false, "title":"Unassigned Task 2",'description':'complete the front end','progt':5,'taskSkills':['Machine Learning', 'OOP','UI/UX'],priority: 'Low', assignee: ''},
@@ -23,11 +23,20 @@ var tasksModel = [
 
 ];
 
+// var taskTypesModel = [
+//    {"_id":"1", 'name':'New','class':'new','color':'error.dark'},
+//    {"_id":"2", 'name':'In Progress','class':'inprogress','color':'warning.dark'},
+//    {"_id":"3", 'name':'Done','class':'done','color':'success.dark'}
+// ];
+
 var taskTypesModel = [
-   {"_id":"1", 'name':'New','class':'new','color':'error.dark'},
-   {"_id":"2", 'name':'In Progress','class':'inprogress','color':'warning.dark'},
-   {"_id":"3", 'name':'Done','class':'done','color':'success.dark'}
+  {"_id":"1", 'name':'Icebox','class':'icebox','color':'#ab47bc'},
+  {"_id":"2", 'name':'Backlog','class':'backlog','color':'#42a5f5'},
+  {"_id":"3", 'name':'To Do','class':'todo','color':'error.dark'},
+  {"_id":"4", 'name':'In Progress','class':'inprogress','color':'warning.dark'},
+  {"_id":"5", 'name':'Done','class':'done','color':'success.dark'}
 ];
+
 
 
 
@@ -74,9 +83,12 @@ class TaskList extends React.Component {
           Your Tasks
         </Typography>
         <Container disableGutters maxWidth="ld" component="main">
-          <Grid container spacing={2} alignItems="flex-end" >
+          {/* <Grid container spacing={2} alignItems="flex-end" > */}
+          <Grid container spacing = {2} alighItems = 'flex-end' sx={{ display: 'flex', justifyContent: 'center', textAlign: 'center' }}>
             {this.state.taskTypes?.map(type => (
-              <Grid item xs={12} md={4} key={type.name+"-tasks"} className="new-tasks" >
+              //Old grid item that only makes 3 columns....keep for reference
+              // <Grid item xs={12} md={4} key={type.name+"-tasks"} className="new-tasks" >
+                <Grid item md={2} key={type.name+"-tasks"} className="new-tasks">
                 <Card variant="outlined" sx={{ borderRadius:5,mb:1, position: "relative",boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)'}}>
                   <Typography sx={{mx:'auto', width:200}} variant  = 'h4'>{type.name}</Typography>
                   <Typography sx={{position: "absolute", top: 10, right: 10, height: "10px", width: "10px", borderRadius: 5, bgcolor: type.color}} />

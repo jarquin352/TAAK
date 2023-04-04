@@ -8,10 +8,10 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { Typography } from '@mui/material';
 
-//obsolete, works on kanbanApp.js for front end testing
+//obsolete, works on kanbanApp.js for front end testing (same user assigned tasks)
 var tasksOverview = [
-    {'id':'1','title':'TEST 1','priority':'High','asignees':'Tom Bob','term':'LONG TERM','status':'complete','dueDate':'12/12/1222'},
-    {'id':'2','title':'TEST 2','priority':'LOW','asignees':'Bob Tom','term':'SHORT TERM','status':'INCOMPLETE','dueDate':'12/12/1222'}
+    {"_id":"1", "type_id":"1",'isAssigned':true, "title":"Complete Task 1",'description':'complete the front end','progt':2,'taskSkills':['Machine Learning', 'Web Development'],priority: 'High', assignee: 'Bob Tom'},
+      {"_id":"2", "type_id":"2",'isAssigned':true, "title":"Complete Task 2",'description':'complete the test','progt':4,'taskSkills':['Machine Learning', 'Full Stack'],priority: 'Med', assignee: 'Bob Tom'},
 ];
 
 class TasksOverviews extends React.Component {
@@ -46,7 +46,7 @@ class TasksOverviews extends React.Component {
                                 <CardContent>
                                     <Typography variant="h5" component="div">{tasksOverview.title}</Typography>
                                     <Typography sx={{ mb: 1.5 }} color="text.secondary">Priority: {tasksOverview.priority}</Typography>
-                                    <Typography sx={{ mb: 1 }} color="text.secondary">Asignees: {tasksOverview.asignees}</Typography>
+                                    <Typography sx={{ mb: 1 }} color="text.secondary">Asignees: {tasksOverview.assignee}</Typography>
                                     <Typography sx={{ mb: 1 }} color="text.secondary">Term: {tasksOverview.term}</Typography>
                                     <Typography sx={{ mb: 1 }} color="text.secondary">Status: {tasksOverview.status}</Typography>
                                     <Typography sx={{ mb: 1 }} color="text.secondary">Due Date: {tasksOverview.dueDate}</Typography>

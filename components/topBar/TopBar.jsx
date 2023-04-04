@@ -40,13 +40,18 @@ class TopBar extends React.Component {
       <div>
         <AppBar position="static">
           <Toolbar className="taak-toolbar">
+
             {/* Button for the side bar, dynamic for now? */}
             <Button onClick={() => this.setState({ drawerOpen: !this.state.drawerOpen })}>
               <MenuTwoToneIcon/>
             </Button>
 
-            <Typography variant="h6" className="taak-logo">
+            {/* <Typography variant="h6" className="taak-logo">
               TAAK - A Task Ticket Management System
+            </Typography> */}
+
+            <Typography variant="h6" sx={{ width: '25%', display: 'block', margin: '0 auto', textAlign:'center' }} >
+            <img src={"./public/js/taaknavbar.png"} alt="TAAK Logo" className="taak-logo" sx={{ width: '25%', display: 'block', margin: '0 auto' }} />
             </Typography>
 
             {/* Adding Avatar component for profile icon, needs a state for person name */}
