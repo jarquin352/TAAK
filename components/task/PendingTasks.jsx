@@ -90,7 +90,14 @@ class PendingTasks extends React.Component{
       pendingTasks: tasks.filter((task) => !task.isAssigned)
     });
   }
-
+/*000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 */
+//this function will appropriately assign the members to the tasks, and switch to true:
+handleAssigner = (event) =>{
+  event.preventDefault();
+  const value = event.target.value;
+  let testRes = event.target.value.replace('uid','')
+  console.log(testRes)
+}
 
 /*000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 */
   render(){
@@ -98,7 +105,8 @@ class PendingTasks extends React.Component{
     const {showDialog, pendingTasks, users, newTask} = this.state;
     console.log('Pending Tasks:', pendingTasks);
     const suggestedTaskAssignments = taskAssigner(users, pendingTasks)
-
+    console.log(suggestedTaskAssignments)
+    console.log('Pending Tasks 2:', pendingTasks);
     return(
       <div>
       <Typography variant="h3" sx={{ textAlign: 'center', my: 3 }}>Pending Tasks</Typography>
@@ -153,20 +161,27 @@ class PendingTasks extends React.Component{
                       <TableCell component="th" scope="row">{task.title}</TableCell>
                       <TableCell align="left">{task.description}</TableCell>
                       <TableCell align="left">{task.priority}</TableCell>
-                      <TableCell align="left">{task.taskSkills}</TableCell>
+                      <TableCell align="left">{task.taskSkills+" "}</TableCell>
                       <TableCell align="left">{task.progt}</TableCell>
                       {/* <TableCell align="left">{task.assignee}</TableCell> */}
                       <TableCell>
                         {/*Select menu for users....*/}
-                        <select>
-                            <option label value = "sel-user-text">Select a user </option>
-                            <option disabled value = "sugg-user-text" >Suggested User: </option>
-                            <option value = "sugg-user-val">
-                            {suggestedTaskAssignments.some((suggestedTask) => suggestedTask._id === task._id)?suggestedTaskAssignments.find((suggestedTask) => suggestedTask._id === task._id).assignee: ''}
+                        {/* <select onChange={(event) => console.log(`Hello ${event.target.selectedOptions[0].text}`)}> */}
+                        {/* <select onChange={(event) => console.log(`Hello ${event.target.value}`)}> */}
+                        <select onChange  = {this.handleAssigner}>
+                            <option title>Select a User </option>
+                            <option disabled>Suggested User: </option>
+                            <option value =  {suggestedTaskAssignments.some((suggestedTask) => suggestedTask.taskid === task._id)?
+                              "uid"+suggestedTaskAssignments.find((suggestedTask) => suggestedTask.taskid === task._id).userid: 'emptyuser'}>
+                            {/*suggestedTaskAssignments.some((suggestedTask) => suggestedTask._id === task._id)?
+                            suggestedTaskAssignments.find((suggestedTask) => suggestedTask._id === task._id).assignee: ''*/}
+                            {suggestedTaskAssignments.some((suggestedTask) => suggestedTask.taskid === task._id)?
+                            suggestedTaskAssignments.find((suggestedTask) => suggestedTask.taskid === task._id).usermatch: ''}
+                            
                             </option>
                             <option disabled value = "op-0">Select User: </option>
                           {this.state.users.map((user) => (
-                            <option value = {"uid"+user.uid +"-option"} sx={{paddingTop: 50}}>{user.name}</option>
+                            <option value = {"uid"+ user.uid}sx={{paddingTop: 50}}>{user.name}</option>
                           ))}
                         </select>
                       </TableCell>

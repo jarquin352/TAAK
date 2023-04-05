@@ -1,6 +1,4 @@
 'use strict';
-
-
 var express = require('express');
 var portno = 3000;   // Port number to use
 
@@ -13,6 +11,8 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const config = require('dotenv').config();
 
+//uncomment for DB connection
+
 //middleware definitions
 //defines static files in taak static directory
 app.use(express.static(__dirname));
@@ -22,18 +22,18 @@ app.use(bodyParser.json());
 
 //middleware access
 app.use(session({
-  secret: '',
+  secret: 'PASSWORD',
   resave: false,
   saveUninitialized: false
 }));
 
 //connects to db using .env DB, useNewUrlParser, useUnifiedTopology are warning removers when connection is made
-mongoose.connect(config.parsed.DB,{useNewUrlParser: true, useUnifiedTopology: true});
+// mongoose.connect(config.parsed.DB,{useNewUrlParser: true, useUnifiedTopology: true});
 
-//checks DB connection, and outputs DB 
-mongoose.connection.on('connected', function () {
-  console.log("DB Sucessfully Connected")
-});
+// //checks DB connection, and outputs DB 
+// mongoose.connection.on('connected', function () {
+//   console.log("DB Sucessfully Connected")
+// });
 
 //node webserver instance
 var server = app.listen(portno, function () {
