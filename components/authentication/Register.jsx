@@ -14,34 +14,11 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 
-class Login extends React.Component {
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
-	handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      login_name: data.get('username'),
-      password: data.get('password'),
-    });
 
-		axios
-      .post("api/user", {
-				first_name: data.get('firstName'),
-				last_name: data.get('lastName'),
-        user_name: data.get('username'),
-        password: data.get('password')
-      })
-      .then(response => {
-        //message 200
-        let user = response.data;
-        this.props.changeLoggedIn(user);
-        window.location.href = '/';
-      })
-      .catch(err => {
-				console.log(err.response.data);
-				alert(err.response.data);
-      });
-  };
+class Register extends React.Component {
 
 	render() {
 		return (
@@ -54,8 +31,15 @@ class Login extends React.Component {
 						alignItems: 'center',
 					}}
 				>
-					<Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-					</Avatar>
+                        <Avatar src="./public/js/taak-org.png" sx={{
+                            width: '25%',
+                            height: '25%',
+                            bgcolor: 'transparent',
+                            color: 'primary.contrastText',
+                            fontSize: 32,
+                            fontWeight: 'bold',
+                            borderRadius: 0
+                        }} />
 					<Typography component="h1" variant="h5">
 						Sign up
 					</Typography>
@@ -103,6 +87,22 @@ class Login extends React.Component {
 									autoComplete="new-password"
 								/>
 							</Grid>
+							<Grid item xs={12}>
+                                <Select
+                                    native
+                                    fullWidth
+                                    id="user-type"
+                                    label="User Type"
+                                    inputProps={{
+                                        name: 'user-type',
+                                        id: 'user-type',
+                                    }}
+                                >
+									<option title>Select Role</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="member">Member</option>
+                                </Select>
+                            </Grid>
 						</Grid>
 						<Button
 							type="submit"
@@ -125,4 +125,34 @@ class Login extends React.Component {
 		);
 	}
 }
-export default Login;
+export default Register;
+
+
+
+
+// 	handleSubmit = (event) => {
+//     event.preventDefault();
+//     const data = new FormData(event.currentTarget);
+//     console.log({
+//       login_name: data.get('username'),
+//       password: data.get('password'),
+//     });
+
+// 		axios
+//       .post("api/user", {
+// 				first_name: data.get('firstName'),
+// 				last_name: data.get('lastName'),
+//         user_name: data.get('username'),
+//         password: data.get('password')
+//       })
+//       .then(response => {
+//         //message 200
+//         let user = response.data;
+//         this.props.changeLoggedIn(user);
+//         window.location.href = '/';
+//       })
+//       .catch(err => {
+// 				console.log(err.response.data);
+// 				alert(err.response.data);
+//       });
+//   };

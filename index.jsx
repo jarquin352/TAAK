@@ -11,6 +11,7 @@ import Announcements from './components/announcements/Announcements'
 import Tasks from './components/task/Tasks'
 import AboutUs from './components/aboutUs/AboutUs';
 import Login from './components/authentication/Login'
+import Register from './components/authentication/Register'
 // import TaskAssigner from './components/task/TaskAssigner'
 
 
@@ -36,7 +37,8 @@ var view = (
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/tasks" element={<Tasks />} />
         {/* <Route path="/testing" element={<TaskAssigner />} /> */}
-        <Route path="/testing" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </HashRouter>
   </ThemeProvider>

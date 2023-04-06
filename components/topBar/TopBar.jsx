@@ -22,6 +22,7 @@ import EmailTwoToneIcon from '@mui/icons-material/EmailTwoTone';
 import SettingsTwoToneIcon from '@mui/icons-material/SettingsTwoTone';
 import InfoIcon from '@mui/icons-material/Info';
 import Avatar from '@mui/material/Avatar';
+import AvatarGroup from '@mui/material/AvatarGroup';
 import './TopBar.css';
 
 
@@ -56,7 +57,14 @@ class TopBar extends React.Component {
 
             {/* Adding Avatar component for profile icon, needs a state for person name */}
             <Stack direction="row" spacing={2}>
-              <Avatar alt="Profile Image" src="/path/to/profile/image" />
+              <AvatarGroup max={3}>
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
+                <Avatar alt="Agnes Walker" src="/static/images/avatar/4.jpg" />
+                <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" />
+            </AvatarGroup>
+            <Avatar alt="Profile Image" src="/path/to/profile/image" />
             </Stack>
             
           </Toolbar>
@@ -96,9 +104,14 @@ class TopBar extends React.Component {
               <ListItemIcon><InfoIcon/></ListItemIcon>
               <ListItemText primary="About Us" />
             </ListItem>
+            {/*Everything below here is for testing purposes */}
             <ListItem button component={NavLink} to="/testing" onClick={() => this.setState({ drawerOpen: false })}>
               <ListItemIcon><InfoIcon/></ListItemIcon>
-              <ListItemText primary="Testing" />
+              <ListItemText primary="Login Page" />
+            </ListItem>
+            <ListItem button component={NavLink} to="/register" onClick={() => this.setState({ drawerOpen: false })}>
+              <ListItemIcon><InfoIcon/></ListItemIcon>
+              <ListItemText primary="Register Page" />
             </ListItem>
 
           </List>

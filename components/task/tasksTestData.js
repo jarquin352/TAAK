@@ -117,32 +117,54 @@ export const tasks = [
   export const users = [
       {
         uid: 1,
+        teamId: 1,
         name: "Frank the Front End",
         skills: ["HTML", "CSS", "Javascript", "ReactJS"],
         tasks_assigned: []
       },
       {
         uid: 2,
+        teamId: 1,
         name: "Bob the Back End",
         skills: ["MongoDB", "Python", "Javascript", "Django", "ExpressJS"],
         tasks_assigned: []
       },
       {
         uid: 3,
+        teamId: 1,
         name: "Dave the Databaser",
         skills: ["SQL", "Python", "C++", "MongoDB", "R"],
         tasks_assigned: []
       },
       {
         uid: 4,
+        teamId: 1,
         name: "Charlie the C-er",
         skills: ["SQL", "C++", "C", "C#", "Java"],
         tasks_assigned: []
       },
       {
         uid: 5,
+        teamId: 1,
         name: "Stacy the Statician",
         skills: ["C#", "R", "Excel", "MachineLearning", "Python"],
         tasks_assigned: []
       }
     ];
+
+    export const projTeam = [
+      {
+        teamId: 1,
+        teamName: 'CSE 4550',
+        teamMembers: [1,2,3,4,5]
+      }
+    ];
+
+    export const Sprint = [
+      {
+        sprintId: 1,
+        teamId: 1,
+        tasksInSprint: ["1", "2","3","4","5"],
+        startDate: "01-01-2023",
+      }
+    ]
