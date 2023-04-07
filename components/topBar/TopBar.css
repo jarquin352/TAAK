@@ -1,13 +1,15 @@
-/* This is where our Logo, or alt logo "TAAK - A Task Management System" styling is contained */
-.taak-logo {
+/* .taak-logo {
   flex-grow: 1;
   flex-wrap: nowrap;
   color: black;
-}
+} */
 
 
-.taak-toolbar {
+/* .taak-toolbar {
   background-color: white;
   flex-wrap: wrap;
-  /* border-radius: 0 0 20px 20px; //doesnt work...*/
-}
+
+} */
+
+
+/*Remove?*/

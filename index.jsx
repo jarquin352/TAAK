@@ -16,14 +16,18 @@ import Register from './components/authentication/Register'
 
 
 
+// const theme = createTheme({
+//   palette: {
+//     background: {
+//       default: "#EBEDF0"
+//     }
+//   },
+// });
 const theme = createTheme({
-  palette: {
-    background: {
-      default: "#EBEDF0"
-    }
-  },
-});
-
+  palette:{
+    mode: 'dark'
+  }
+})
 
 //This view will contain all static, or views that should remain in whichever route we nav to
 //i.e, top bar, side bar, etc.

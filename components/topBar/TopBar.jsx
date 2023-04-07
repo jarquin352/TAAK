@@ -105,7 +105,7 @@ class TopBar extends React.Component {
               <ListItemText primary="About Us" />
             </ListItem>
             {/*Everything below here is for testing purposes */}
-            <ListItem button component={NavLink} to="/testing" onClick={() => this.setState({ drawerOpen: false })}>
+            <ListItem button component={NavLink} to="/login" onClick={() => this.setState({ drawerOpen: false })}>
               <ListItemIcon><InfoIcon/></ListItemIcon>
               <ListItemText primary="Login Page" />
             </ListItem>
