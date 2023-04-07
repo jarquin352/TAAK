@@ -166,5 +166,6 @@ export const tasks = [
         teamId: 1,
         tasksInSprint: ["1", "2","3","4","5"],
         startDate: "01-01-2023",
+        endDate: "01-14-2023"
       }
     ]
