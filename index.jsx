@@ -4,7 +4,7 @@ import { HashRouter, Routes, Route} from "react-router-dom";
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
-import TopBar from './components/topBar/TopBar';
+// import TopBar from './components/topBar/TopBar';
 import Home from './components/home/Home';
 import Announcements from './components/announcements/Announcements'
 // import TaskList from './components/task/TaskList'; //obsolete?
@@ -23,6 +23,8 @@ import Register from './components/authentication/Register'
 //     }
 //   },
 // });
+
+
 const theme = createTheme({
   palette:{
     mode: 'dark'
@@ -40,7 +42,7 @@ var view = (
       	<Route exact path="/" element={<Home />}/>
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/tasks" element={<Tasks />} />
-        {/* <Route path="/testing" element={<TaskAssigner />} /> */}
+        <Route path="/testing" element={<TaskAssigner />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>

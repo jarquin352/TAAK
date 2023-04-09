@@ -2,6 +2,7 @@ export const tasks = [
     {
       _id: "1",
       type_id: "1",
+      sprintId: 1,
       isAssigned: true,
       title: "Assigned Task 1",
       description: "complete the front end",
@@ -13,6 +14,7 @@ export const tasks = [
     {
       _id: "2",
       type_id: "2",
+      sprintId: 1,
       isAssigned: true,
       title: "Assigned Task 2",
       description: "complete the test",
@@ -24,6 +26,7 @@ export const tasks = [
     {
       _id: "3",
       type_id: "3",
+      sprintId: 1,
       isAssigned: true,
       title: "Assigned Task 3 ",
       description: "complete the front end",
@@ -35,6 +38,7 @@ export const tasks = [
     {
       _id: "4",
       type_id: "3",
+      sprintId: 1,
       isAssigned: true,
       title: "Assigned Task 4 ",
       description: "complete the back end",
@@ -46,6 +50,7 @@ export const tasks = [
     {
       _id: "5",
       type_id: "2",
+      sprintId: 1,
       isAssigned: true,
       title: "Assigned Task 5 ",
       description: "complete the front end",
@@ -58,6 +63,7 @@ export const tasks = [
     {
       _id: "6",
       type_id: "1",
+      sprintId: 1,
       isAssigned: false,
       title: "This Should be Stacy",
       description: "Statistics Stuff",
@@ -69,6 +75,7 @@ export const tasks = [
     {
       _id: "7",
       type_id: "1",
+      sprintId: 1,
       isAssigned: false,
       title: "This should be Charlie",
       description: "Do something with C++",
@@ -80,6 +87,7 @@ export const tasks = [
     {
       _id: "8",
       type_id: "1",
+      sprintId: 1,
       isAssigned: false,
       title: "This Should be Frank",
       description: "Develop a Login UI",
@@ -91,6 +99,7 @@ export const tasks = [
     {
       _id: "9",
       type_id: "1",
+      sprintId: 1,
       isAssigned: false,
       title: "This should be Bob",
       description: "Develop API to fecth data from MongoDB",
@@ -102,6 +111,7 @@ export const tasks = [
     {
       _id: "10",
       type_id: "1",
+      sprintId: 1,
       isAssigned: false,
       title: "This Should be Dave",
       description: "Create Schema for the SQL/noSQL DBs",

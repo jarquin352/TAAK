@@ -28,12 +28,14 @@ app.use(session({
 }));
 
 //connects to db using .env DB, useNewUrlParser, useUnifiedTopology are warning removers when connection is made
-// mongoose.connect(config.parsed.DB,{useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(config.parsed.DB,{useNewUrlParser: true, useUnifiedTopology: true});
 
-// //checks DB connection, and outputs DB 
-// mongoose.connection.on('connected', function () {
-//   console.log("DB Sucessfully Connected")
-// });
+//checks DB connection, and outputs DB 
+mongoose.connection.on('connected', function () {
+  console.log("DB Sucessfully Connected")
+  
+
+});
 
 //node webserver instance
 var server = app.listen(portno, function () {
