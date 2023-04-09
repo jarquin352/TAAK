@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 
 //schema for tasks
 var tasksSchema = new Schema({
-    _id: mongoose.Schema.Types.ObjectId,
+    _id: Number,
     type_id: Number,
     sprintId: Number,
     isAssigned: Boolean,
@@ -13,11 +13,11 @@ var tasksSchema = new Schema({
     progt: Number,
     taskSkills: Array,
     priority: String,
-    assignee: mongoose.Schema.Types.ObjectId
+    assignee: Number
 });
 
 var usersSchema =  new Schema({
-    uid: mongoose.Schema.Types.ObjectId,
+    uid: Number,
     teamId: Number,
     name: String,
     skills: Array,
@@ -43,7 +43,7 @@ var annoucementsSchema =  new Schema({
     anTitle: String,
     uid: mongoose.Schema.Types.ObjectId,
     dueDate: Date,
-    Description: String
+    a_description: String
 });
 
 
