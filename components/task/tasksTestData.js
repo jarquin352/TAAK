@@ -180,6 +180,12 @@
     }
   ]
 
+  const announcements = [
+    {"_id":'1','type_id':'1','title':'Finish The Front End','owner':'Project Manager', 'dueDate':'04/30/2023', 'description':'this needs to be done by [xyz]'},
+    {"_id":'2','type_id':'2','title':'Finish the Back End','owner':'Project Manager', 'dueDate':'04/30/2023','description':'major progress done on [xyz]'},
+    {"_id":'3','type_id':'3','title':'Turn in Work','owner':'Project Manager', 'dueDate':'04/30/2023','description':'good progress so far on...'}
+];
+
   const taskTypes = [
     {"_id":"1", 'name':'Icebox','class':'icebox','color':'#ab47bc'},
     {"_id":"2", 'name':'Backlog','class':'backlog','color':'#42a5f5'},
@@ -187,4 +193,4 @@
     {"_id":"4", 'name':'In Progress','class':'inprogress','color':'warning.dark'},
     {"_id":"5", 'name':'Done','class':'done','color':'success.dark'}
   ];
-    module.exports = {tasks, users, projTeam, Sprints, taskTypes};
+    module.exports = {tasks, users, projTeam, Sprints, taskTypes, announcements};

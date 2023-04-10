@@ -10,18 +10,13 @@ import CardContent from '@mui/material/CardContent';
 import { Typography } from "@mui/material";
 
 //move this to DB after
-var announcementsModel = [
-    {"_id":'1','type_id':'1','anTitle':'Finish The Front End','owner':'Tom Sam', 'dueDate':'12/1/2023', 'description':'this needs to be done by [xyz]'},
-    {"_id":'2','type_id':'2','anTitle':'Finish the Back End','owner':'Bob Sam', 'dueDate':'12/1/2023','description':'major progress done on [xyz]'},
-    {"_id":'3','type_id':'3','anTitle':'Turn in Work','owner':'Slom Sam', 'dueDate':'12/1/2023','description':'good progress so far on...'}
-];
+import {announcements} from '../task/tasksTestData'
 
 class Announcements extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            //reads from kanbanApp.js
-          announcements: announcementsModel
+          announcements: announcements
         };
       }
 
@@ -44,7 +39,7 @@ class Announcements extends React.Component{
                         <Grid key={announcement._id} item xs={12} sm={6} md={4}>
                             <Card sx={{ minWidth: 275, borderRadius:5, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)'}}>
                                 <CardContent>
-                                    <Typography variant="h5" component="div">{announcement.anTitle}</Typography>
+                                    <Typography variant="h5" component="div">{announcement.title}</Typography>
                                     <Typography sx={{ mb: 1.5 }} color="text.secondary">{announcement.owner} - {announcement.dueDate}</Typography>
                                     <Typography sx={{ mb: 1 }} color="text.secondary">{announcement.description}</Typography>
                                 </CardContent>
