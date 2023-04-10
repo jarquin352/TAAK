@@ -8,47 +8,16 @@ import Typography from '@mui/material/Typography';
 
 import TaskSearchBar from './TaskSearchBar';
 
-//them attributes that consistently follow that of announcements.jsx
-var tasksModel = [
-  {"_id":"1", "type_id":"3",'isAssigned':true, "title":"Complete Task 1",'description':'complete the front end','progt':2,'taskSkills':['Machine Learning', 'Web Development'],priority: 'High', assignee: 'Bob Tom'},
-  {"_id":"2", "type_id":"4",'isAssigned':true, "title":"Complete Task 2",'description':'complete the test','progt':4,'taskSkills':['Machine Learning', 'Full Stack'],priority: 'Med', assignee: 'Tom Bob'},
-  {"_id":"3", "type_id":"5",'isAssigned':true,"title":"Complete Task 3 ",'description':'complete the front end','progt':10,'taskSkills':['UI/UX', 'Object Oriented Programming'],priority: 'Low', assignee: 'Sam Tam'},
-  {"_id":"4", "type_id":"5",'isAssigned':true, "title":"Complete Task 4 ",'description':'complete the back end','progt':12,'taskSkills':['Machine Learning'],priority: 'High', assignee: 'Tam Sam'},
-  {"_id":"5", "type_id":"4",'isAssigned':true, "title":"Complete Task 5 ",'description':'complete the front end','progt':5,'taskSkills':['Machine Learning', 'Web Development','UI/UX'],priority: 'Med', assignee: 'John Jerry'},
-
-  {"_id":"6", "type_id":"1",'isAssigned':false, "title":"Unassigned Task 1",'description':'complete the front end','progt':5,'taskSkills':['Machine Learning', 'Web Development','UI/UX'],priority: 'Med', assignee: ''},
-  {"_id":"7", "type_id":"1",'isAssigned':false, "title":"Unassigned Task 2",'description':'complete the front end','progt':5,'taskSkills':['Machine Learning', 'OOP','UI/UX'],priority: 'Low', assignee: ''},
-  {"_id":"8", "type_id":"1",'isAssigned':false, "title":"Unassigned Task 3",'description':'complete the front end','progt':5,'taskSkills':['Machine Learning', 'SQL','Python'],priority: 'High', assignee: ''},
-  {"_id":"9", "type_id":"1",'isAssigned':false, "title":"Unassigned Task 4",'description':'complete the front end','progt':5,'taskSkills':['Machine Learning', 'R','Excel'],priority: 'Low', assignee: ''},
-
-];
-
-// var taskTypesModel = [
-//    {"_id":"1", 'name':'New','class':'new','color':'error.dark'},
-//    {"_id":"2", 'name':'In Progress','class':'inprogress','color':'warning.dark'},
-//    {"_id":"3", 'name':'Done','class':'done','color':'success.dark'}
-// ];
-
-var taskTypesModel = [
-  {"_id":"1", 'name':'Icebox','class':'icebox','color':'#ab47bc'},
-  {"_id":"2", 'name':'Backlog','class':'backlog','color':'#42a5f5'},
-  {"_id":"3", 'name':'To Do','class':'todo','color':'error.dark'},
-  {"_id":"4", 'name':'In Progress','class':'inprogress','color':'warning.dark'},
-  {"_id":"5", 'name':'Done','class':'done','color':'success.dark'}
-];
-
-
-
-
-
+//front end data
+import {tasks, users, projTeam, Sprints, taskTypes} from './tasksTestData.js'
 
 class TaskList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       inputLetters: '',
-      tasks:tasksModel.filter((task) => task.isAssigned),
-      taskTypes:taskTypesModel
+      tasks:tasks.filter((task) => task.isAssigned),
+      taskTypes: taskTypes
     };
   }
 
@@ -109,7 +78,7 @@ class TaskList extends React.Component {
                     }
                   }}
                 >
-                  {this.state.tasks?.filter(task => task.type_id === type._id).map(task => (
+                  {this.state.tasks?.filter(task => task.type_id === parseInt(type._id)).map(task => (
                   <Card
                     key={"task"+task._id}
                     id={"task"+task._id}

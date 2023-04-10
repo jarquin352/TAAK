@@ -25,6 +25,9 @@ import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import './TopBar.css';
 
+//front end data
+import {users, projTeam} from '../task/tasksTestData'
+
 
 class TopBar extends React.Component {
 
@@ -32,11 +35,16 @@ class TopBar extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      drawerOpen: false
+      drawerOpen: false,
+      users: users,
+      projTeam: projTeam
     }
   }
 
   render() {
+    const {users, projTeam} = this.state;
+    const teamMembers = projTeam[0].teamMembers.map(memberId => users.find(user => user.uid === memberId));
+
     return (
       <div>
         <AppBar position="static">
@@ -57,16 +65,13 @@ class TopBar extends React.Component {
 
             {/* Adding Avatar component for profile icon, needs a state for person name */}
             <Stack direction="row" spacing={2}>
-              <AvatarGroup max={3}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-                <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-                <Avatar alt="Agnes Walker" src="/static/images/avatar/4.jpg" />
-                <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" />
-            </AvatarGroup>
-            <Avatar alt="Profile Image" src="/path/to/profile/image" />
+              <AvatarGroup max = {3}>
+              {teamMembers.map(member => (
+                <Avatar key={member.uid} alt={member.name} src="/static/images/avatar/1.jpg" />
+              ))}
+              </AvatarGroup>
+              <Avatar alt="Profile Image" src="/path/to/profile/image" />
             </Stack>
-            
           </Toolbar>
         </AppBar>
 

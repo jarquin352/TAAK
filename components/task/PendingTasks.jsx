@@ -3,6 +3,7 @@ import React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Dialog, DialogTitle, DialogContent, DialogActions, styled, Input} from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { taskAssigner } from './taskassigner.js';
+import {tasks, users, projTeam, Sprints} from './tasksTestData.js'
 
 
 class PendingTasks extends React.Component{
@@ -103,10 +104,10 @@ handleAssigner = (event) =>{
   render(){
     // const { showForm, newTask } = this.state;
     const {showDialog, pendingTasks, users, newTask} = this.state;
-    console.log('Pending Tasks:', pendingTasks);
+    //console.log('Pending Tasks:', pendingTasks);
     const suggestedTaskAssignments = taskAssigner(users, pendingTasks)
-    console.log(suggestedTaskAssignments)
-    console.log('Pending Tasks 2:', pendingTasks);
+    //console.log(suggestedTaskAssignments)
+    //console.log('Pending Tasks 2:', pendingTasks);
     return(
       <div>
       <Typography variant="h3" sx={{ textAlign: 'center', my: 3 }}>Pending Tasks</Typography>
@@ -239,177 +240,3 @@ export default PendingTasks;
           </form>
         )} */}
 /*0000000000000000000000000000000000____FORM OPTION___0000000000000000000000000000000000000000000000 */
-
-
-/*0000000000000000000000000000000000____MOCK DATA FOR TESTING___0000000000000000000000000000000000000000000000 */
-
-const tasks = [
-  {
-    _id: "1",
-    type_id: "1",
-    isAssigned: true,
-    title: "Assigned Task 1",
-    description: "complete the front end",
-    progt: 2,
-    taskSkills: [],
-    priority: "High",
-    assignee: "Bob Tom"
-  },
-  {
-    _id: "2",
-    type_id: "2",
-    isAssigned: true,
-    title: "Assigned Task 2",
-    description: "complete the test",
-    progt: 4,
-    taskSkills: [],
-    priority: "Med",
-    assignee: "Tom Bob"
-  },
-  {
-    _id: "3",
-    type_id: "3",
-    isAssigned: true,
-    title: "Assigned Task 3 ",
-    description: "complete the front end",
-    progt: 10,
-    taskSkills: [],
-    priority: "Low",
-    assignee: "Sam Tam"
-  },
-  {
-    _id: "4",
-    type_id: "3",
-    isAssigned: true,
-    title: "Assigned Task 4 ",
-    description: "complete the back end",
-    progt: 12,
-    taskSkills: [],
-    priority: "High",
-    assignee: "Tam Sam"
-  },
-  {
-    _id: "5",
-    type_id: "2",
-    isAssigned: true,
-    title: "Assigned Task 5 ",
-    description: "complete the front end",
-    progt: 5,
-    taskSkills: [],
-    priority: "Med",
-    assignee: "John Jerry"
-  },
-
-  {
-    _id: "6",
-    type_id: "1",
-    isAssigned: false,
-    title: "This Should be Stacy",
-    description: "Statistics Stuff",
-    progt: 5,
-    taskSkills: ["R", "Excel", "MachineLearning"],
-    priority: "Low",
-    assignee: ""
-  },
-  {
-    _id: "7",
-    type_id: "1",
-    isAssigned: false,
-    title: "This should be Charlie",
-    description: "Do something with C++",
-    progt: 5,
-    taskSkills: ["C++", "C"],
-    priority: "Low",
-    assignee: ""
-  },
-  {
-    _id: "8",
-    type_id: "1",
-    isAssigned: false,
-    title: "This Should be Frank",
-    description: "Develop a Login UI",
-    progt: 10,
-    taskSkills: ["HTML", "CSS", "Javascript"],
-    priority: "Med",
-    assignee: ""
-  },
-  {
-    _id: "9",
-    type_id: "1",
-    isAssigned: false,
-    title: "This should be Bob",
-    description: "Develop API to fecth data from MongoDB",
-    progt: 4,
-    taskSkills: ["MongoDB", "Javascript", "ExpressJS"],
-    priority: "Low",
-    assignee: ""
-  },
-  {
-    _id: "10",
-    type_id: "1",
-    isAssigned: false,
-    title: "This Should be Dave",
-    description: "Create Schema for the SQL/noSQL DBs",
-    progt: 5,
-    taskSkills: ["SQL", "MongoDB"],
-    priority: "High",
-    assignee: ""
-  }
-];
-
-
-
-const users = [
-    {
-      uid: 1,
-      name: "Frank the Front End",
-      skills: ["HTML", "CSS", "Javascript", "ReactJS"],
-      tasks_assigned: []
-    },
-    {
-      uid: 2,
-      name: "Bob the Back End",
-      skills: ["MongoDB", "Python", "Javascript", "Django", "ExpressJS"],
-      tasks_assigned: []
-    },
-    {
-      uid: 3,
-      name: "Dave the Databaser",
-      skills: ["SQL", "Python", "C++", "MongoDB", "R"],
-      tasks_assigned: []
-    },
-    {
-      uid: 4,
-      name: "Charlie the C-er",
-      skills: ["SQL", "C++", "C", "C#", "Java"],
-      tasks_assigned: []
-    },
-    {
-      uid: 5,
-      name: "Stacy the Statician",
-      skills: ["C#", "R", "Excel", "MachineLearning", "Python"],
-      tasks_assigned: []
-    }
-  ];
-
-
-//test task information (old)
-// const tasks = [
-//   { id: 1, status: 'Pending', name: 'Complete Front End', priority: 'High', assignee: '' },
-//   { id: 2, status: 'In Progress', name: 'Complete SRS', priority: 'Medium', assignee: '' },
-//   { id: 3, status: 'Pending', name: 'Complete SPMP', priority: 'Low', assignee: '' },
-//   { id: 4, status: 'Completed', name: 'Graduate', priority: 'High', assignee: '' },
-// ];
-
-// var tasks = [
-//   {"_id":"1", "type_id":"1",'isAssigned':true, "title":"Complete Task 1",'description':'complete the front end','progt':2,'taskSkills':['Machine Learning', 'Web Development'],priority: 'High', assignee: 'Bob Tom'},
-//   {"_id":"2", "type_id":"2",'isAssigned':true, "title":"Complete Task 2",'description':'complete the test','progt':4,'taskSkills':['Machine Learning', 'Full Stack'],priority: 'Med', assignee: 'Tom Bob'},
-//   {"_id":"3", "type_id":"3",'isAssigned':true,"title":"Complete Task 3 ",'description':'complete the front end','progt':10,'taskSkills':['UI/UX', 'Object Oriented Programming'],priority: 'Low', assignee: 'Sam Tam'},
-//   {"_id":"4", "type_id":"3",'isAssigned':true, "title":"Complete Task 4 ",'description':'complete the back end','progt':12,'taskSkills':['Machine Learning'],priority: 'High', assignee: 'Tam Sam'},
-//   {"_id":"5", "type_id":"2",'isAssigned':true, "title":"Complete Task 5 ",'description':'complete the front end','progt':5,'taskSkills':['Machine Learning', 'Web Development','UI/UX'],priority: 'Med', assignee: 'John Jerry'},
-
-//   {"_id":"6", "type_id":"1",'isAssigned':false, "title":"Unassigned Task 1",'description':'complete the front end','progt':5,'taskSkills':['Machine Learning', ' Web Development',' UI/UX'],priority: 'Med', assignee: ''},
-//   {"_id":"7", "type_id":"1",'isAssigned':false, "title":"Unassigned Task 2",'description':'complete the front end','progt':5,'taskSkills':['Machine Learning', ' OOP',' UI/UX'],priority: 'Low', assignee: ''},
-//   {"_id":"8", "type_id":"1",'isAssigned':false, "title":"Unassigned Task 3",'description':'complete the front end','progt':5,'taskSkills':['Machine Learning', ' SQL',' Python'],priority: 'High', assignee: ''},
-//   {"_id":"9", "type_id":"1",'isAssigned':false, "title":"Unassigned Task 4",'description':'complete the front end','progt':5,'taskSkills':['Machine Learning', ' R',' Excel'],priority: 'Low', assignee: ''},
-// ];
