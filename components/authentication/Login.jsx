@@ -37,6 +37,7 @@ class Login extends React.Component {
         if (user) {
           // Login successful
           this.setState({ isLoggedIn: true });
+          localStorage.setItem('isLoggedIn', true);
           window.location.href = '/'
         } else {
           // Login failed
