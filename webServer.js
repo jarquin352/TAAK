@@ -13,10 +13,34 @@ const config = require('dotenv').config();
 
 //uncomment for DB connection
 
-//middleware definitions
+//middleware definitions front end (back end sim)
 //defines static files in taak static directory
-app.use(express.static(__dirname));
+/*--------------------------------------------------------------------------- */
+var taakmodels = require('../taak/components/task/tasksTestData').taakmodels
 
+app.use(express.static(__dirname));
+app.get('/api/tasks', function(req, res){
+  res.status(200).send(taakmodels.tasksModel())
+})
+app.get('/api/users', function(req, res){
+  res.status(200).send(taakmodels.usersModel())
+})
+app.get('/api/proj-team', function(req, res){
+  res.status(200).send(taakmodels.projTeamModel())
+})
+app.get('/api/sprints', function(req, res){
+  res.status(200).send(taakmodels.sprintsModel())
+})
+app.get('/api/authentication', function(req, res){
+  res.status(200).send(taakmodels.authenticationModel())
+})
+app.get('/api/announcements', function(req, res){
+  res.status(200).send(taakmodels.announcementsModel())
+})
+app.get('/api/task-types', function(req, res){
+  res.status(200).send(taakmodels.taskTypesModel())
+})
+/*--------------------------------------------------------------------------- */
 //defines body-parser when json
 app.use(bodyParser.json());
 

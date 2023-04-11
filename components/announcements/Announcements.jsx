@@ -9,14 +9,11 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { Typography } from "@mui/material";
 
-//move this to DB after
-import {announcements} from '../task/tasksTestData'
-
 class Announcements extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-          announcements: announcements
+          announcements: window.taakmodels.announcementsModel(),
         };
       }
 

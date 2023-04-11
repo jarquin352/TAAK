@@ -3,7 +3,7 @@ import React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Dialog, DialogTitle, DialogContent, DialogActions, styled, Input} from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { taskAssigner } from './taskassigner.js';
-import {tasks, users, projTeam, Sprints} from './tasksTestData.js'
+//import {tasks, users, projTeam, Sprints} from './tasksTestData.js'
 
 
 class PendingTasks extends React.Component{
@@ -23,8 +23,10 @@ class PendingTasks extends React.Component{
       },
       //showForm: false, //this will default our form to false, if it is true, then the form will be open without the need to click the button
       showDialog: false,
-      pendingTasks: tasks.filter((task) => !task.isAssigned),//current list of pending tasks
-      users: users,
+      //pendingTasks: tasks.filter((task) => !task.isAssigned),//current list of pending tasks
+      pendingTasks: window.taakmodels.tasksModel().filter((task)=> !task.isAssigned),
+      //users: users,
+      users: window.taakmodels.usersModel()
     };
 
   }
@@ -88,7 +90,8 @@ class PendingTasks extends React.Component{
       },
       //showForm:false
       showDialog: false,
-      pendingTasks: tasks.filter((task) => !task.isAssigned)
+      //pendingTasks: tasks.filter((task) => !task.isAssigned)
+      pendingTasks: window.taakmodels.tasksModel().filter((task)=> !task.isAssigned),
     });
   }
 /*000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 */

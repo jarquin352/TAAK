@@ -9,15 +9,17 @@ import Typography from '@mui/material/Typography';
 import TaskSearchBar from './TaskSearchBar';
 
 //front end data
-import {tasks, users, projTeam, Sprints, taskTypes} from './tasksTestData.js'
+//import {tasks, users, projTeam, Sprints, taskTypes} from './tasksTestData.js'
 
 class TaskList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       inputLetters: '',
-      tasks:tasks.filter((task) => task.isAssigned),
-      taskTypes: taskTypes
+      // tasks:tasks.filter((task) => task.isAssigned),
+      // taskTypes: taskTypes
+      tasks: window.taakmodels.tasksModel().filter((task)=> task.isAssigned),
+      taskTypes: window.taakmodels.taskTypesModel()
     };
   }
 

@@ -9,14 +9,19 @@ import CardContent from '@mui/material/CardContent';
 import { Typography } from '@mui/material';
 
 //front end data
-import {tasks, users, projTeam, Sprints, taskTypes, announcements} from '../task/tasksTestData'
+//import {tasks, users, projTeam, Sprints, taskTypes, announcements} from '../task/tasksTestData'
 
 class TasksOverview extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        tasksOverview: tasks.filter((task) => task.isAssigned),
-        users: users.reduce((obj, user) => {
+        // tasksOverview: tasks.filter((task) => task.isAssigned),
+        // users: users.reduce((obj, user) => {
+        //   obj[user.uid] = user.name;
+        //   return obj;
+        // }, {}),
+        tasksOverview: window.taakmodels.tasksModel().filter((task)=> task.isAssigned),
+        users: window.taakmodels.usersModel().reduce((obj, user) => {
           obj[user.uid] = user.name;
           return obj;
         }, {}),

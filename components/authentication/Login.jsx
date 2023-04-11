@@ -13,8 +13,39 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
+import {users, authentication} from '../task/tasksTestData';
+
 
 class Login extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            email: '',
+            password:'',
+            isLoggedIn:false,
+        };
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        const email = data.get('username');
+        const password = data.get('password');
+        // const user = authentication.find(u => u.email === email && u.pwd === password);
+        taakmodels.authenticationModel()
+        const user = window.taakmodels.authenticationModel().find(u => u.email === email && u.pwd === password);
+        if (user) {
+          // Login successful
+          this.setState({ isLoggedIn: true });
+          window.location.href = '/'
+        } else {
+          // Login failed
+          alert("Invalid email or password. Please try again.");
+        }
+      }
+      
+    
+
 	render() {
 		return (
 			<div style={{ display: 'flex'}}>
@@ -118,6 +149,7 @@ class Login extends React.Component {
 }
 
 export default Login;
+
 
 //above render
 

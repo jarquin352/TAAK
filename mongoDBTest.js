@@ -28,7 +28,7 @@ const config = require('dotenv').config();
 const {Users, Task, Projectteam, Sprint,Announcements} = require('./models/dataSchema.js');
 const {users, tasks} = require('./components/task/tasksTestData.js');
 // make a connection 
-mongoose.connect('mongodb+srv://taakdb:taakdb@taak.d7e4se5.mongodb.net/?retryWrites=true&w=majority',{useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect('red',{useNewUrlParser: true, useUnifiedTopology: true})
 
 // get reference to database
 var db = mongoose.connection;

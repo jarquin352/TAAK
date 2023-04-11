@@ -26,7 +26,7 @@ import AvatarGroup from '@mui/material/AvatarGroup';
 import './TopBar.css';
 
 //front end data
-import {users, projTeam} from '../task/tasksTestData'
+//import {users, projTeam} from '../task/tasksTestData'
 
 
 class TopBar extends React.Component {
@@ -36,8 +36,10 @@ class TopBar extends React.Component {
     super(props);
     this.state = {
       drawerOpen: false,
-      users: users,
-      projTeam: projTeam
+      //users: users,
+      //projTeam: projTeam
+      users: window.taakmodels.usersModel(),
+      projTeam: window.taakmodels.projTeamModel(),
     }
   }
 
