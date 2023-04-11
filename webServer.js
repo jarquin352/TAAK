@@ -16,7 +16,7 @@ const config = require('dotenv').config();
 //middleware definitions front end (back end sim)
 //defines static files in taak static directory
 /*--------------------------------------------------------------------------- */
-var taakmodels = require('../taak/components/task/tasksTestData').taakmodels
+var taakmodels = require('./models/tasksTestData').taakmodels
 
 app.use(express.static(__dirname));
 app.get('/api/tasks', function(req, res){
