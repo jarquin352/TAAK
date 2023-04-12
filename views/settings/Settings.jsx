@@ -55,7 +55,7 @@ class Settings extends React.Component {
             <div>
                 <Container component="main" maxWidth="md">
                     <CssBaseline />
-                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '100px' }}>
                         <Avatar src={this.state.avatarUrl} sx={{ width: 150, height: 150 }} />
                         <input type="file" />
                     </Box>

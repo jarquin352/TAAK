@@ -66,6 +66,7 @@ class PendingTasks extends React.Component{
 /*000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 */
   //third function --> handle the instance of form submission (when user finishes and hits enter)
   handleSubmit = (event) => {
+    console.log('Works')
     event.preventDefault() //prevents DOM refresh with default form behavior 
     const newId = tasks.length + 1; // initializer for tasks.ID, starts at the size of our var tasks [{},{};]
 
@@ -90,8 +91,8 @@ class PendingTasks extends React.Component{
       },
       //showForm:false
       showDialog: false,
-      //pendingTasks: tasks.filter((task) => !task.isAssigned)
-      pendingTasks: window.taakmodels.tasksModel().filter((task)=> !task.isAssigned),
+      pendingTasks: tasks.filter((task) => !task.isAssigned)
+      // pendingTasks: window.taakmodels.tasksModel().filter((task)=> !task.isAssigned),
     });
   }
 /*000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 */
@@ -139,7 +140,7 @@ handleAssigner = (event) =>{
             </DialogContent>
             <DialogActions>
               <Button onClick = {this.formToggle}>Cancel</Button>
-              <Button variant = 'contained' onClick = {this.handleSubmit}>Add Task</Button>
+              <Button variant = 'contained' onClick = {this.handleSubmit}>SUBMIT</Button>
             </DialogActions>
         </Dialog>
 

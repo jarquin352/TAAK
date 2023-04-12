@@ -5,10 +5,10 @@
     type_id: 1,
     sprintId: 1,
     isAssigned: true,
-    title: "Assigned Task 1",
-    description: "complete the front end",
+    title: "TAAK Task Assigner Button",
+    description: "Button for adding task is broken upon DOM data loading.",
     progt: 2,
-    taskSkills: [],
+    taskSkills: ['Javascript', 'ReactJS', 'HTML'],
     priority: "High",
     assignee: 5
   },
@@ -237,9 +237,9 @@
   ]
 
   var announcements = [
-    {"_id":'1','type_id':'1','title':'Finish The Front End','owner':'Project Manager', 'dueDate':'04/30/2023', 'description':'this needs to be done by [xyz]'},
-    {"_id":'2','type_id':'2','title':'Finish the Back End','owner':'Project Manager', 'dueDate':'04/30/2023','description':'major progress done on [xyz]'},
-    {"_id":'3','type_id':'3','title':'Turn in Work','owner':'Project Manager', 'dueDate':'04/30/2023','description':'good progress so far on...'}
+    {"_id":'1','type_id':'1','title':'Announcement 1','owner':'Adam Admin - PM', 'dueDate':'01/31/2023', 'description':'Announcement description 1'},
+    {"_id":'2','type_id':'2','title':'Announcement 2','owner':'Adam Admin - PM', 'dueDate':'01/31/2023','description':'Announcement description 2'},
+    {"_id":'3','type_id':'3','title':'Announcement 3','owner':'Adam Admin - PM', 'dueDate':'01/31/2023','description':'Announcement description 3'}
   ];
 
   var taskTypes = [
@@ -535,9 +535,9 @@
 //   ]
 
 //   const announcements = [
-//     {"_id":'1','type_id':'1','title':'Finish The Front End','owner':'Project Manager', 'dueDate':'04/30/2023', 'description':'this needs to be done by [xyz]'},
-//     {"_id":'2','type_id':'2','title':'Finish the Back End','owner':'Project Manager', 'dueDate':'04/30/2023','description':'major progress done on [xyz]'},
-//     {"_id":'3','type_id':'3','title':'Turn in Work','owner':'Project Manager', 'dueDate':'04/30/2023','description':'good progress so far on...'}
+//     {"_id":'1','type_id':'1','title':'Finish The Front End','owner':'Adam Admin - PM', 'dueDate':'01/31/2023', 'description':'this needs to be done by [xyz]'},
+//     {"_id":'2','type_id':'2','title':'Finish the Back End','owner':'Adam Admin - PM', 'dueDate':'01/31/2023','description':'major progress done on [xyz]'},
+//     {"_id":'3','type_id':'3','title':'Turn in Work','owner':'Adam Admin - PM', 'dueDate':'01/31/2023','description':'good progress so far on...'}
 // ];
 
 //   const taskTypes = [

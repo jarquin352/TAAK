@@ -20,6 +20,8 @@ class TasksOverview extends React.Component {
         //   obj[user.uid] = user.name;
         //   return obj;
         // }, {}),
+        sprint: window.taakmodels.sprintsModel(),
+        //taskTypes: window.taakmodels.taskTypesModel(),
         tasksOverview: window.taakmodels.tasksModel().filter((task)=> task.isAssigned),
         users: window.taakmodels.usersModel().reduce((obj, user) => {
           obj[user.uid] = user.name;
@@ -29,7 +31,7 @@ class TasksOverview extends React.Component {
     }
   
     render() {
-      const { tasksOverview, users } = this.state;
+      const { tasksOverview, users, taskTypes } = this.state;
       return (
         <Box
           sx={{
@@ -46,15 +48,7 @@ class TasksOverview extends React.Component {
           <h1>Tasks Overview</h1>
           <Grid container spacing={2}>
             {tasksOverview.map(
-              ({
-                id,
-                title,
-                priority,
-                assignee,
-                term,
-                status,
-                dueDate,
-              }) => (
+              ({id,title,priority,assignee,term,status,dueDate,}) => (
                 <Grid key={id} item xs={12} sm={6} md={4}>
                   <Card
                     sx={{
@@ -82,4 +76,5 @@ class TasksOverview extends React.Component {
   }
   
   export default TasksOverview;
+  
   

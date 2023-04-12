@@ -6,7 +6,7 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-import TaskSearchBar from './TaskSearchBar';
+// import TaskSearchBar from './TaskSearchBar';
 
 //front end data
 //import {tasks, users, projTeam, Sprints, taskTypes} from './tasksTestData.js'
@@ -49,7 +49,7 @@ class TaskList extends React.Component {
       borderRadius: 5,
       fontSize: "0.875rem",
       fontWeight: "700" }}>
-        <TaskSearchBar value={this.state.inputLetters} />
+        {/* <TaskSearchBar value={this.state.inputLetters} /> */}
          <Typography variant="h3" sx={{ textAlign: 'center', my: 3 }}>
           Your Tasks
         </Typography>
