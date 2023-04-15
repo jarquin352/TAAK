@@ -1,12 +1,14 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs')
 const Schema = mongoose.Schema
+// const autoIncrement = require('mongoose-auto-increment');
 
 
 //schema for tasks
 var tasksSchema = new Schema({
     _id: Number,
     type_id: Number,
-    sprintId: Number,
+    sprintid: Number,
     isAssigned: Boolean,
     title: String,
     description: String,
@@ -18,21 +20,22 @@ var tasksSchema = new Schema({
 
 var usersSchema =  new Schema({
     uid: Number,
-    teamId: Number,
+    authid: Number,
+    teamid: Number,
     name: String,
     skills: Array,
     tasks_assigned: Array
 });
 
 var projTeamSchema =  new Schema({
-    teamId: Number,
+    teamid: Number,
     teamName: String,
     teamMembers: Array
 });
 
 var sprintSchema =  new Schema({
-    sprintId: Number,
-    teamId: Number,
+    sprintid: Number,
+    teamid: Number,
     tasksInSprint: Array,
     startDate: Date,
     endDate: Date
@@ -40,17 +43,46 @@ var sprintSchema =  new Schema({
 var annoucementsSchema =  new Schema({
     a_id: Number,
     type_id: Number,
-    anTitle: String,
-    uid: mongoose.Schema.Types.ObjectId,
+    title: String,
+    owner: String,
     dueDate: Date,
-    a_description: String
+    description: String
 });
 
+var authenticationSchema = new Schema({
+    authid: Number,
+    email: String,
+    password: String
+    
+})
 
+
+//methods
+//checks password, implmenet bcrypt after....
+// authenticationSchema.methods.comparePassword = async function(password){
+//     return await compare(password, this.password)
+// }
+
+//this is just for testing....
+authenticationSchema.methods.comparePassword = function(password){
+    return password === this.password;
+};
+
+// authenticationSchema.plugin(autoIncrement.plugin, {
+//   model: 'Auth',
+//   field: 'authid',
+// });
+// usersSchema.plugin(autoIncrement.plugin, {
+//   model: 'Users',
+//   field: 'uid',
+// });
+
+//exports
 var Task = mongoose.model('tasks', tasksSchema);
 var Users = mongoose.model('users', usersSchema);
 var Projectteam = mongoose.model('projectteam', projTeamSchema);
 var Sprint = mongoose.model('sprints', sprintSchema);
-var Announcements = mongoose.model('announcements', annoucementsSchema)
+var Announcements = mongoose.model('announcements', annoucementsSchema);
+var Auth = mongoose.model('authentication', authenticationSchema);
 
-module.exports = {Task, Users, Projectteam, Sprint, Announcements};
+module.exports = {Task, Users, Projectteam, Sprint, Announcements, Auth};
