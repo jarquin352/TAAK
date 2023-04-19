@@ -7,8 +7,13 @@
 //import announcement, team schema
 const mongoose = require('mongoose');
 const {Announcements,Projectteam} = require('../models/dataSchema');
+//lines 11 to 16 are connections to .env
+const path = require('path');
+const dotenv = require('dotenv');
+const envPath = path.join(__dirname, '..', '.env');
+dotenv.config({ path: envPath });
 
-mongoose.connect('removed',{useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
       console.log('Database connection established');
       //testRegister();
@@ -32,16 +37,20 @@ const createAnnouncement = async(req, res) => {
     else{
         //get team ID --uncomment after
         //const teamid = req.session.teamid;
-
-        //push announcements to projTeam
-      const announcement = await Announcements.create({a_id, type_id, title,owner,dueDate,description},
-            function (err, announcement){
-                if (err) {
-                    res.status(400).send('Unable to create an announcement');
-                    return;
-                }
-                res.status(200).send('A new announcement has been created.')
+        try {
+            const announcement = await Announcements.create({
+              a_id,
+              type_id,
+              title,
+              owner,
+              dueDate,
+              description,
             });
+            res.status(200).send('A new announcement has been created.');
+          } catch (err) {
+            res.status(400).send('Unable to create an announcement');
+          }
+        //push announcements to projTeam
         //If user is in team 'x', they will inherit team's announcement list
     }
 
