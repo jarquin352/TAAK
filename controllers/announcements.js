@@ -7,7 +7,7 @@
 //import announcement, team schema
 const mongoose = require('mongoose');
 const {Announcements,Projectteam} = require('../models/dataSchema');
-//lines 11 to 16 are connections to .env
+//lines 11 to 16 are configs to .env
 const path = require('path');
 const dotenv = require('dotenv');
 const envPath = path.join(__dirname, '..', '.env');

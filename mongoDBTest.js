@@ -14,7 +14,7 @@ authentication = taakmodels.authenticationModel();
 
 // make a connection 
 // mongoose.connect('red',{useNewUrlParser: true, useUnifiedTopology: true})
-mongoose.connect('mongodb+srv://taakdb:taakdb@taak.d7e4se5.mongodb.net/taakdata?retryWrites=true&w=majority',{useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('removed',{useNewUrlParser: true, useUnifiedTopology: true});
 
 // get reference to database
 var db = mongoose.connection;
