@@ -2,10 +2,11 @@ const mongoose = require('mongoose');
 const { Auth, Users } = require('../models/dataSchema');
 
 /*Remove after Testing */
-mongoose.connect('fill from env',{useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect('mongodb+srv://taakdb:taakdb@taak.d7e4se5.mongodb.net/taakdata?retryWrites=true&w=majority',{useNewUrlParser: true, useUnifiedTopology: true})
   .then(() => {
       console.log('Database connection established');
-      testRegister();
+      //testRegister();
+      testLogin();
   })
   .catch((err) => console.error('Database connection error', err));
 
@@ -81,7 +82,30 @@ const register = async (req, res) => {
         }
       }
   };
+
+  //make a function that checks the login of a user, checks session cookies
+  const checkLogin = async (req, res) => {
+    //checks if session has a user id in browser storage
+    if(!req.session.user_id){
+      res.status(401).send('Authentication required, please login');
+      return;
+    }
+    //session found
+    res.status(200).send(req.session.user);
+  };
+
+  //creat a logout function that logs a users out by destroying a session
+  const logout = async(res, req) => {
+    req.session.destroy(function(err){
+      if(err){
+        res.status(400).send('Unable to log out.');
+        return;
+      }
+      res.status(200).send();
+    });
+  };
   
+  module.exports = {logout, checkLogin, register, login};
 
 
 
@@ -105,10 +129,10 @@ const register = async (req, res) => {
 //     await login(req, res);
 // };
 
-const testRegister = async() => {
-    const req = {body: {name: 'Node Testing', email:'node@node.com', password:'password2', skills:['Node','Express'] }}
-    const res = {
-      status: (statusCode) => ({ send: (message) => console.log(statusCode, message) }),
-    };
-    await register(req, res);
-}
+// const testRegister = async() => {
+//     const req = {body: {name: 'Node Testing', email:'adamadmin@taak.com', password:'password2', skills:['Node','Express'] }}
+//     const res = {
+//       status: (statusCode) => ({ send: (message) => console.log(statusCode, message) }),
+//     };
+//     await register(req, res);
+// }
