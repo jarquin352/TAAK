@@ -8,7 +8,7 @@
 const mongoose = require('mongoose');
 const {Announcements,Projectteam} = require('../models/dataSchema');
 
-mongoose.connect('mongodb+srv://taakdb:taakdb@taak.d7e4se5.mongodb.net/taakdata?retryWrites=true&w=majority',{useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect('removed',{useNewUrlParser: true, useUnifiedTopology: true})
   .then(() => {
       console.log('Database connection established');
       //testRegister();
