@@ -57,18 +57,31 @@ const createAnnouncement = async(req, res) => {
 }
 
 const getAnnouncements = async(req, res) => {
-    if(!req.session.user_id){
-        res.status(401).send('Authentication required, please login');
-        return;
-      }
-    
-}
+    if (!req.session.user_id) {
+      res.status(401).send('Authentication required, please login');
+      return;
+    }
+  try {
+    // Retrieve announcements from the database
+    const announcements = await Announcements.find();
+    res.status(200).send(announcements);
+  } catch (err) {
+    res.status(500).send('Failed to get announcements');
+  }
+};
 
 const deleteAnnouncements = async(req, res) => {
-    if(!req.session.user_id){
-        res.status(401).send('Authentication required, please login');
-        return;
-      }
+    if (!req.session.user_id) {
+      res.status(401).send('Authentication required, please login');
+      return;
+    }
+  try {
+    // Delete one announcements from the database
+    await Announcements.deleteOne();
+    res.status(200).send('announcements deleted');
+  } catch (err) {
+    res.status(500).send('Failed to delete announcements');
+  }
     
 }
 
