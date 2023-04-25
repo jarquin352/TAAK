@@ -78,7 +78,7 @@ const deleteAnnouncements = async(req, res) => {
   try {
     // Delete one announcements from the database
     await Announcements.deleteOne();
-    res.status(200).send('announcements deleted');
+    res.status(200).send('announcement deleted');
   } catch (err) {
     res.status(500).send('Failed to delete announcements');
   }
