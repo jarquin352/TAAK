@@ -4,22 +4,22 @@
 //create function to toggle announcements(?), possibly goes to Announcements.jsx...
 //...to toggle the component on or off; hold off for now.
 
-//import announcement, team schema
-const mongoose = require('mongoose');
-const {Announcements,Projectteam} = require('../models/dataSchema');
-//lines 11 to 16 are configs to .env
-const path = require('path');
-const dotenv = require('dotenv');
-const envPath = path.join(__dirname, '..', '.env');
-dotenv.config({ path: envPath });
+// //import announcement, team schema
+// const mongoose = require('mongoose');
+// const {Announcements,Projectteam} = require('../models/dataSchema');
+// //lines 11 to 16 are configs to .env
+// const path = require('path');
+// const dotenv = require('dotenv');
+// const envPath = path.join(__dirname, '..', '.env');
+// dotenv.config({ path: envPath });
 
-mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-      console.log('Database connection established');
-      //testRegister();
-      testAnnouncement();
-  })
-  .catch((err) => console.error('Database connection error', err));
+// mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true })
+//   .then(() => {
+//       console.log('Database connection established');
+//       //testRegister();
+//       testAnnouncement();
+//   })
+//   .catch((err) => console.error('Database connection error', err));
 
 const createAnnouncement = async(req, res) => {
     //always maintain a user check to ensure uses are logged in.
@@ -86,20 +86,20 @@ const deleteAnnouncements = async(req, res) => {
 }
 
 //test code
-const testAnnouncement = async() => {
-    const req = {body:
-        {
-            a_id: 4,
-            type_id: 1,
-            title: 'Title For Announcements.js',
-            owner: 'Test Owner',
-            dueDate: '2023-01-21',
-            description: 'Test for Announcements.js'
-        }
-    }
+// const testAnnouncement = async() => {
+//     const req = {body:
+//         {
+//             a_id: 4,
+//             type_id: 1,
+//             title: 'Title For Announcements.js',
+//             owner: 'Test Owner',
+//             dueDate: '2023-01-21',
+//             description: 'Test for Announcements.js'
+//         }
+//     }
 
-    const res = {
-      status: (statusCode) => ({ send: (message) => console.log(statusCode, message) }),
-    };
-    await createAnnouncement(req, res);
-}
+//     const res = {
+//       status: (statusCode) => ({ send: (message) => console.log(statusCode, message) }),
+//     };
+//     await createAnnouncement(req, res);
+// }

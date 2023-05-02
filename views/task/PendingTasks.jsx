@@ -130,6 +130,7 @@ handleAssigner = (event) =>{
               alignItems: "center",
               gap: 2
             }}>
+              
               <input type = "text" name = "title" placeholder = "Task Title" value = {newTask.title} onChange = {this.handleInputChange} />
               <input type = "text" name = "description" placeholder = "Task Description" value = {newTask.description} onChange = {this.handleInputChange} />
               <input type = "number" name = "progt" placeholder = "Estimated Programming Time (hours)" value = {newTask.progt} onChange = {this.handleInputChange} />
@@ -143,7 +144,7 @@ handleAssigner = (event) =>{
               <Button variant = 'contained' onClick = {this.handleSubmit}>SUBMIT</Button>
             </DialogActions>
         </Dialog>
-
+        
         {/*Table View for pending tasks */}
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 450, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', margin: .5}} aria-label="simple table">

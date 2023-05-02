@@ -10,7 +10,7 @@ const config = require('dotenv').config();
 const MongoDBStore = require("connect-mongodb-session")(session)
 
 
-mongoose.connect('removed', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(config.parsed.DB, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.on("open", function () {
   console.log("DB connected successfully");
 });
@@ -36,7 +36,7 @@ app.use(
       secure: false
     },
     store: new MongoDBStore({
-        uri: 'removed',
+        uri: config.parsed.DB,
         collection: 'sessions'
     }),
 
