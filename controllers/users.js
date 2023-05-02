@@ -1,50 +1,107 @@
 const mongoose = require('mongoose');
 const { Auth, Users } = require('../models/dataSchema');
+//second attp at login
+const login = async (req, res) => {
+  const { email, password } = req.body;
 
+  try {
+    // Find the user in the database
+    const user = await Auth.findOne({ email: email });
 
-/*Remove after Testing */
-mongoose.connect('removed',{useNewUrlParser: true, useUnifiedTopology: true})
-  .then(() => {
-      console.log('Database connection established');
-      //testRegister();
-      testLogin();
-  })
-  .catch((err) => console.error('Database connection error', err));
-
-//login function, unsalted access for now....
-const login = async (req, res) =>{
-    const {email, password} = req.body
-    try {
-        //check if an error occurs, or user was not found via email first.
-        const user = await Auth.findOne({email: email});
-        //if an error occurs, or if the email is wrong
-        if(!user){
-            console.log('No email:', email, ' was found.')
-            res.status(400).send('Email not recognized')
-            return;
-        }
-        //checks if password was correct
-        const passwordCheck = await user.comparePassword(password);
-        //password is not correct, 400 code is outputted
-        if(!passwordCheck){
-            res.status(400).send("Wrong Password!");
-            return;
-        }
-        //both email and password is found, create a new session.
-        const loggedInUser = await Users.findOne({authid: user.authid}).populate('authid');
-        if (!loggedInUser) {
-            console.log(`No user found with authid: ${auth.authid}`);
-            res.status(400).send("User not found");
-            return;
-        };
-        console.log(`User ${loggedInUser.name} logged in`);
-        console.log(loggedInUser)
-        res.status(200).send("Login successful");
-    } catch (err) {
-        console.error(err);
-        res.status(500).send("Internal Server Error");
+    if (!user) {
+      return res.status(401).json({ error: 'Invalid credentials' });
     }
+
+    // Check the password
+    const isMatch = await user.comparePassword(password);
+
+    if (!isMatch) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+
+    // Create a session
+    const foundUser = await Users.findOne({ authid: user.authid }).populate('authid');
+    req.session.user = foundUser;
+    
+    req.session.save(); // Save the session
+    
+    // Add a cookie to the response
+    console.log('loginFunction')
+    res.status(200).json({ message: 'Login successful' });
+    console.log(req.session);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server error' });
+  }
 };
+
+// const login = async (req, res) => {
+//   const { email, password } = req.body;
+//   try {
+//     const user = await Auth.findOne({ email: email });
+//     if (!user) {
+//       console.log(`No email: ${email} was found.`);
+//       res.status(400).send('Email not recognized');
+//       return;
+//     }
+//     const passwordCheck = await user.comparePassword(password);
+//     if (!passwordCheck) {
+//       res.status(400).send('Wrong Password!');
+//       return;
+//     }
+
+//     // Create a new session
+//     const foundUser = await Users.findOne({authid: user.authid}).populate('authid');
+//     req.session.regenerate(function (err) {
+//       if (err) {
+//         console.error(err);
+//         res.status(500).send('Internal Server Error');
+//         return;
+//       }
+//       // req.session.user_id = foundUser._id;
+//       // req.session.user = foundUser.name;
+//       req.session.user = foundUser;
+//       req.session.cookie.originalMaxAge = 3600000; // 1 hour
+//       req.session.cookie.reSave = true;
+//       req.session.save(function (err) {
+//         if (err) {
+//           console.error(err);
+//           res.status(500).send('Internal Server Error');
+//           return;
+//         }
+//         console.log(req.session)
+//         res.status(200).send('Login successful');
+//       });
+//     });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send('Internal Server Error');
+//   }
+// };
+
+
+
+const checkLogin = async (req, res) => {
+  const user = req.session.user;
+  if (user) {
+    res.json({ user });
+  } else {
+    res.status(401).json({ message: 'You are not logged in' });
+  }
+}
+
+
+//make a function that checks the login of a user, checks session cookies
+// const checkLogin = async (req, res) => {
+//   //checks if session has a user id in browser storage
+//   if(!req.session.user_id){
+//     res.status(401).send('Authentication required, please login');
+//     return;
+//   }
+//   //session found
+//   res.status(200).send(req.session.user);
+// };
+
 
 //register function
 const register = async (req, res) => {
@@ -84,16 +141,6 @@ const register = async (req, res) => {
       }
   };
 
-  //make a function that checks the login of a user, checks session cookies
-  const checkLogin = async (req, res) => {
-    //checks if session has a user id in browser storage
-    if(!req.session.user_id){
-      res.status(401).send('Authentication required, please login');
-      return;
-    }
-    //session found
-    res.status(200).send(req.session.user);
-  };
 
   //creat a logout function that logs a users out by destroying a session
   const logout = async(res, req) => {

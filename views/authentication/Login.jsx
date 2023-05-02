@@ -17,46 +17,41 @@ import axios from 'axios';
 
 
 class Login extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            email: '',
-            password:'',
-            isLoggedIn:false,
-        };
-    }
 
-    handleSubmit = (event) => {
+	handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        const email = data.get('username');
-        const password = data.get('password');
-        // const user = authentication.find(u => u.email === email && u.pwd === password);
-        taakmodels.authenticationModel()
-        const user = window.taakmodels.authenticationModel().find(u => u.email === email && u.pwd === password);
-        if (user) {
-          // Login successful
-          this.setState({ isLoggedIn: true });
-          localStorage.setItem('isLoggedIn', true);
-          window.location.href = '/'
-        } else {
-          // Login failed
-          alert("Invalid email or password. Please try again.");
-        }
-      }
-      
+        console.log({
+          email: data.get('username'),
+          password: data.get('password'),
+        });
     
+            axios
+          .post("api/login", {
+            email: data.get('username'),
+            password: data.get('password')
+          })
+          .then(response => {
+            let user = response.data;
+            this.props.changeLoggedIn(user);
+          })
+          .catch(err => {
+                    console.log(err.response.data);
+                    alert(err.response.data);
+          });
+      };
 
-	render() {
+      
+      render() {
 		return (
-			<div style={{ display: 'flex'}}>
+            <div style={{ display: 'flex'}}>
                 <Container maxWidth="xs" sx={{ px:1, py:1 }}>
                     <Box sx={{
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
 						justifyContent: 'center',
-						height: '75vh'
+						height: '105vh'
                     }}>
                         <Typography variant="h3" component="h1" gutterBottom>
 							Having Trouble Making Progress?
@@ -84,9 +79,9 @@ class Login extends React.Component {
 						paddingLeft: 4 // add some padding to the left of the border
 						
                     }}>
-                        <Avatar src="./public/js/ss5topbar.png" sx={{
-                            width: 304,
-                            height: 114,
+                        <Avatar src="./public/js/TAAK_BAR_WHITE_REGULAR.png" sx={{
+                            width: 350,
+                            height: 79,
                             bgcolor: 'transparent',
                             color: 'primary.contrastText',
                             fontSize: 32,
@@ -106,7 +101,7 @@ class Login extends React.Component {
                                 name="username"
                                 autoComplete="username"
                                 autoFocus
-                            />
+                                />
                             <TextField
                                 margin="normal"
                                 required
@@ -116,17 +111,17 @@ class Login extends React.Component {
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
-                            />
+                                />
                             <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
                                 label="Remember me"
-                            />
+                                />
                             <Button
                                 type="submit"
                                 fullWidth
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
-                            >
+                                >
                                 Sign In
                             </Button>
                             <Grid container>
@@ -157,22 +152,49 @@ export default Login;
 // 	handleSubmit = (event) => {
 //     event.preventDefault();
 //     const data = new FormData(event.currentTarget);
-//     console.log({
 //       username: data.get('username'),
 //       password: data.get('password'),
 //     });
 
 // 		axios
 //       .post("api/admin/login", {
-//         username: data.get('username'),
-//         password: data.get('password')
-//       })
-//       .then(response => {
-//         let user = response.data;
-//         this.props.changeLoggedIn(user);
-//       })
-//       .catch(err => {
-// 				console.log(err.response.data);
-// 				alert(err.response.data);
-//       });
-//   };
+    //         username: data.get('username'),
+    //         password: data.get('password')
+    //       })
+    //       .then(response => {
+        //         let user = response.data;
+        //         this.props.changeLoggedIn(user);
+        //       })
+        //       .catch(err => {
+            // 				console.log(err.response.data);
+            // 				alert(err.response.data);
+            //       });
+            //   };
+            
+            
+            
+            
+            
+            
+// Front end
+            // handleSubmit = (event) => {
+            //     event.preventDefault();
+            //     const data = new FormData(event.currentTarget);
+            //     const email = data.get('username');
+            //     const password = data.get('password');
+            //     // const user = authentication.find(u => u.email === email && u.pwd === password);
+            //     taakmodels.authenticationModel()
+            //     const user = window.taakmodels.authenticationModel().find(u => u.email === email && u.pwd === password);
+            //     if (user) {
+            //       // Login successful
+            //       this.setState({ isLoggedIn: true });
+            //       localStorage.setItem('isLoggedIn', true);
+            //       window.location.href = '/'
+            //     } else {
+            //       // Login failed
+            //       alert("Invalid email or password. Please try again.");
+            //     }
+            //   }
+              
+            
+            //     console.log({

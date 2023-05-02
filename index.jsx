@@ -1,50 +1,98 @@
 import ReactDOM from 'react-dom/client';
-import React, { useState, useEffect } from 'react';
-import { HashRouter, Routes, Route, useLocation } from "react-router-dom";
+import React from 'react';
+import { HashRouter, Routes, Route} from "react-router-dom";
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import TopBar from './views/topBar/TopBar';
 import Home from './views/home/Home';
-// import TaskList from './components/task/TaskList'; //obsolete?
 import Tasks from './views/task/Tasks'
 import AboutUs from './views/aboutUs/AboutUs';
 import Login from './views/authentication/Login'
 import Register from './views/authentication/Register'
-import Inbox from './views/inbox/Inbox'
 import Settings from './views/settings/Settings'
-// import TaskAssigner from './components/task/TaskAssigner'
+import { NavLink, Navigate } from "react-router-dom";
+import axios from 'axios';
+
 
 const theme = createTheme({
-  palette:{
-    mode: 'dark'
+  palette: {
+    mode: 'dark',
+  //   background: {
+  //     default: 'transparent',
+  //   },
+  // },
+  // components: {
+  //   MuiCssBaseline: {
+  //     styleOverrides: {
+  //       body: {
+  //         background: `
+  //           linear-gradient(to top, #09203f 0%, #537895 100%),
+  //           radial-gradient(circle at top right, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.05) 40%),
+  //           radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.05) 40%)
+  //         `,
+  //       },
+  //     },
+  //   },
+  },
+});
+
+
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      current_user: null,
+      isAuthenticated: false
+    };
   }
-})
 
-const App = () => {
-  const location = useLocation();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  componentDidMount(){
+    this.checkLogin();
+  }
 
-  useEffect(() => {
-    const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
-    setIsLoggedIn(storedIsLoggedIn === 'true');
-  }, []);
+  checkLogin = () => {
+    axios.get('/api/currentUser')
+      .then((response) => {
+        if (response.status===200) {
+          this.setState({current_user: response.data, isAuthenticated: true});
+        } else {
+          this.setState({isAuthenticated: false});
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.response.status===401) {
+          this.setState({isAuthenticated: false});
+        }
+      });
+  }
 
-  return (
-    <>
-      {location.pathname !== '/login' && location.pathname !== '/register' && isLoggedIn && <TopBar />}
-      <Routes>
-        <Route exact path="/" element={isLoggedIn ? <Home /> : <Login />} />
-        <Route path="/AboutUs" element={<AboutUs />} />
-        <Route path="/tasks" element={<Tasks />} />
-        <Route path="/settings"element={<Settings/>} />
-        <Route path="/inbox" element={<Inbox />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
-    </>
-  );
-};
+  changeLoggedIn = user => {
+    this.setState({ current_user: user, isAuthenticated: true });
+  };
+
+  render() {
+    const { isAuthenticated } = this.state;
+    return (
+      <>
+        {isAuthenticated && <TopBar />}
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route path="/AboutUs" element={<AboutUs />} />
+          <Route path="/tasks" element={<Tasks />} />
+          { isAuthenticated ?
+            <Route path="/login" element={<Navigate to="/" />} />:
+            <Route path="/login" element={<Login changeLoggedIn={this.changeLoggedIn} />} />
+          }
+          <Route path="/register" element={<Register />} />
+          <Route path="/settings" element={<Settings  />} />
+        </Routes>
+      </>
+    );
+  }
+}
 
 const view = (
   <ThemeProvider theme={theme}>
@@ -57,60 +105,3 @@ const view = (
 
 const root = ReactDOM.createRoot(document.getElementById('reactapp'));
 root.render(view);
-
-
-//use this for backend, the top is just for front end display...
-
-// import ReactDOM from 'react-dom/client';
-// import React from 'react';
-// import { HashRouter, Routes, Route, useLocation } from "react-router-dom";
-// import CssBaseline from '@mui/material/CssBaseline';
-// import { ThemeProvider, createTheme } from '@mui/material/styles';
-
-// import TopBar from './components/topBar/TopBar';
-// import Home from './components/home/Home';
-// import Announcements from './components/announcements/Announcements'
-// // import TaskList from './components/task/TaskList'; //obsolete?
-// import Tasks from './components/task/Tasks'
-// import AboutUs from './components/aboutUs/AboutUs';
-// import Login from './components/authentication/Login'
-// import Register from './components/authentication/Register'
-// // import TaskAssigner from './components/task/TaskAssigner'
-
-// const theme = createTheme({
-//   palette:{
-//     mode: 'dark'
-//   }
-// })
-
-// const App = () => {
-//   const location = useLocation();
-//   const isLoggedIn = localStorage.getItem('isLoggedIn');
-//   console.log(isLoggedIn)
-
-//   return (
-//     <>
-//       {location.pathname !== '/login' && location.pathname !== '/register' && <TopBar />}
-//       <Routes>
-//         <Route exact path="/" element={<Home />} />
-//         <Route path="/AboutUs" element={<AboutUs />} />
-//         <Route path="/tasks" element={<Tasks />} />
-//         <Route path="/testing" />
-//         <Route path="/login" element={<Login />} />
-//         <Route path="/register" element={<Register />} />
-//       </Routes>
-//     </>
-//   );
-// };
-
-// const view = (
-//   <ThemeProvider theme={theme}>
-//     <CssBaseline />
-//     <HashRouter>
-//       <App />
-//     </HashRouter>
-//   </ThemeProvider>
-// );
-
-// const root = ReactDOM.createRoot(document.getElementById('reactapp'));
-// root.render(view);

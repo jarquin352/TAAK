@@ -24,6 +24,9 @@ import InfoIcon from '@mui/icons-material/Info';
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import './TopBar.css';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp'
+
+import axios from 'axios';
 
 //front end data
 //import {users, projTeam} from '../task/tasksTestData'
@@ -42,6 +45,19 @@ class TopBar extends React.Component {
       projTeam: window.taakmodels.projTeamModel(),
     }
   }
+
+  handleLogout = () => {
+		axios.post('/api/logout')
+			.then((response) => {
+				if (response.status===200) {
+					console.log(response);
+					location.reload();
+				}
+			})
+			.catch((error) => {
+				console.log(error.data);
+			});
+	}
 
   render() {
     const {users, projTeam} = this.state;
@@ -111,17 +127,16 @@ class TopBar extends React.Component {
               <ListItemIcon><InfoIcon/></ListItemIcon>
               <ListItemText primary="About Us" />
             </ListItem>
-            {/*Everything below here is for testing purposes ENABLE BACK AFTER PROTOYPE 1*/}
-            {/* <ListItem button component={NavLink} to="/login" onClick={() => this.setState({ drawerOpen: false })}>
-              <ListItemIcon><InfoIcon/></ListItemIcon>
-              <ListItemText primary="Login Page" />
-            </ListItem>
-            <ListItem button component={NavLink} to="/register" onClick={() => this.setState({ drawerOpen: false })}>
-              <ListItemIcon><InfoIcon/></ListItemIcon>
-              <ListItemText primary="Register Page" />
-            </ListItem> */}
-
           </List>
+          <div style={{ flexGrow: 1 }}></div>
+
+        <List>
+          <ListItem button component={NavLink} to="/"onClick={this.handleLogout}>
+            <ListItemIcon><ExitToAppIcon /></ListItemIcon>
+            <ListItemText primary="Logout" />
+          </ListItem>
+        </List>
+
         </Drawer>
       </div>
     );

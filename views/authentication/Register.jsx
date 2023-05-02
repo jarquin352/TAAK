@@ -2,23 +2,55 @@ import React from 'react';
 import { NavLink } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
+//import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+//import FormControlLabel from '@mui/material/FormControlLabel';
+//import Checkbox from '@mui/material/Checkbox';
+import { FormControlLabel, Checkbox } from '@mui/material';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import axios from 'axios';
+import { FormGroup } from '@mui/material';
+//import { createTheme, ThemeProvider } from '@mui/material/styles';
+//import axios from 'axios';
 
 import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+//import MenuItem from '@mui/material/MenuItem';
 
 
 class Register extends React.Component {
+	// constructor(props) {
+	// 	super(props);
+	// 	this.state = { 
+	// 	  unlimitedSkills: null // initialize your state object here 
+	// 	};
+	//   }
+
+	handleSubmit = (event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        console.log({
+		  name: data.get('firstName') + ' ' +  data.get('lastName'),
+          email: data.get('username'),
+          password: data.get('password'),
+        });
+    
+        //     axios
+        //   .post("api/login", {
+        //     email: data.get('username'),
+        //     password: data.get('password')
+        //   })
+        //   .then(response => {
+        //     let user = response.data;
+        //     this.props.changeLoggedIn(user);
+        //   })
+        //   .catch(err => {
+        //             console.log(err.response.data);
+        //             alert(err.response.data);
+        //   });
+      };
 
 	render() {
 		return (
@@ -71,7 +103,7 @@ class Register extends React.Component {
 									required
 									fullWidth
 									id="username"
-									label="User Name"
+									label="Email"
 									name="username"
 									autoComplete="username"
 								/>
@@ -85,6 +117,16 @@ class Register extends React.Component {
 									type="password"
 									id="password"
 									autoComplete="new-password"
+								/>
+							</Grid>
+							<Grid item xs={12}>
+								<TextField
+									required
+									fullWidth
+									name="teamcode"
+									label="Teamcode"
+									id="teamCode"
+									inputProps={{ maxLength: 7, pattern: '[0-9]*' }}
 								/>
 							</Grid>
 							<Grid item xs={12}>
