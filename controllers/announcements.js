@@ -4,6 +4,8 @@
 //create function to toggle announcements(?), possibly goes to Announcements.jsx...
 //...to toggle the component on or off; hold off for now.
 
+const { Announcement } = require("@material-ui/icons");
+
 // //import announcement, team schema
 // const mongoose = require('mongoose');
 // const {Announcements,Projectteam} = require('../models/dataSchema');
@@ -63,7 +65,7 @@ const getAnnouncements = async(req, res) => {
     }
   try {
     // Retrieve announcements from the database
-    const announcements = await Announcements.find();
+    const announcements = await Announcements.find({ title: Announcements.title  });
     res.status(200).send(announcements);
   } catch (err) {
     res.status(500).send('Failed to get announcements');
@@ -77,7 +79,7 @@ const deleteAnnouncements = async(req, res) => {
     }
   try {
     // Delete one announcements from the database
-    await Announcements.deleteOne();
+    await Announcements.deleteOne({title: Announcements.title });
     res.status(200).send('announcement deleted');
   } catch (err) {
     res.status(500).send('Failed to delete announcements');
