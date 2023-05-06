@@ -1,8 +1,11 @@
 import React from 'react';
 // import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Dialog, DialogTitle, DialogContent, DialogActions, styled, Input} from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow,TextField, Paper, Button, Dialog, DialogTitle, DialogContent, DialogActions, styled, Input} from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { taskAssigner } from './taskassigner.js';
+import {FormControl, FormLabel, FormControlLabel} from '@mui/material';
+import { RadioGroup, Radio } from '@mui/material';
+
 //import {tasks, users, projTeam, Sprints} from './tasksTestData.js'
 
 
@@ -120,7 +123,74 @@ handleAssigner = (event) =>{
           <Button variant="contained" onClick={this.formToggle}>Add Task</Button>
         </div>
         {/*Dialog Form Option*/}
-        <Dialog open = {showDialog} onClose={this.formToggle}>
+        <Dialog open={showDialog} onClose={this.formToggle}> 
+              <DialogTitle>Task Information</DialogTitle>
+              <DialogContent>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="title"
+                  label="Task Title"
+                  type="text"
+                  fullWidth
+                  value='Test'
+                  onChange={(e) => this.handleChange("title", e)}
+                />
+                  <TextField
+                    margin="dense"
+                    id="description"
+                    label="Task Description"
+                    type="text"
+                    fullWidth
+                    value='Test'
+                    onChange={(e) => this.handleChange("description", e)}
+                  />
+                <TextField
+                  margin='dense'
+                  id="date"
+                  label="Sprint Date"
+                  type="date"
+                  fullWidth
+                  value='Test'
+                  onChange={(e) => this.handleChange("date", e)}
+                  InputLabelProps={{
+                    shrink: true
+                  }}
+                />
+              <FormControl component="fieldset" margin="dense">
+                <FormLabel component="legend">Task Priority</FormLabel>
+                <RadioGroup
+                  aria-label="priority"
+                  name="priority"
+                  value={this.state.priority}
+                  onChange={(e) => this.handleChange("priority", e)}
+                >
+                  <FormControlLabel value="low" control={<Radio />} label="Low" />
+                  <FormControlLabel value="medium" control={<Radio />} label="Medium" />
+                  <FormControlLabel value="high" control={<Radio />} label="High" />
+                </RadioGroup>
+              </FormControl>
+              <TextField
+                  margin='dense'
+                  id="date"
+                  label="Estimated Time Required (Hours)"
+                  type="number"
+                  fullWidth
+                  value='Test'
+                  onChange={(e) => this.handleChange("date", e)}
+                  InputLabelProps={{
+                    shrink: true
+                  }}
+                />
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={this.handleClose}>Cancel</Button>
+                <Button onClick={this.handleSave} color="primary">
+                  Save
+                </Button>
+              </DialogActions>
+            </Dialog>
+        {/* <Dialog open = {showDialog} onClose={this.formToggle}>
           <DialogTitle>Add New Task</DialogTitle>
             <DialogContent
             sx={{
@@ -143,7 +213,7 @@ handleAssigner = (event) =>{
               <Button onClick = {this.formToggle}>Cancel</Button>
               <Button variant = 'contained' onClick = {this.handleSubmit}>SUBMIT</Button>
             </DialogActions>
-        </Dialog>
+        </Dialog> */}
         
         {/*Table View for pending tasks */}
         <TableContainer component={Paper}>

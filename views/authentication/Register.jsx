@@ -14,56 +14,58 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { FormGroup } from '@mui/material';
 //import { createTheme, ThemeProvider } from '@mui/material/styles';
-//import axios from 'axios';
+import axios from 'axios';
 
 import Select from '@mui/material/Select';
 //import MenuItem from '@mui/material/MenuItem';
 
 
 class Register extends React.Component {
-	// constructor(props) {
-	// 	super(props);
-	// 	this.state = { 
-	// 	  unlimitedSkills: null // initialize your state object here 
-	// 	};
-	//   }
+	constructor(props) {
+		super(props);
+		this.state = { 
+		  //unlimitedSkills: null // initialize your state object here 
+		  isAdmin: null
+		};
+	  }
 
 	handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-		  name: data.get('firstName') + ' ' +  data.get('lastName'),
-          email: data.get('username'),
-          password: data.get('password'),
-        });
-    
-        //     axios
-        //   .post("api/login", {
-        //     email: data.get('username'),
-        //     password: data.get('password')
-        //   })
-        //   .then(response => {
-        //     let user = response.data;
-        //     this.props.changeLoggedIn(user);
-        //   })
-        //   .catch(err => {
-        //             console.log(err.response.data);
-        //             alert(err.response.data);
-        //   });
+		const userAccount = {		  
+		name: data.get('firstName') + ' ' +  data.get('lastName'),
+		email: data.get('username'),
+		password: data.get('password'),
+		teamCode: parseInt(data.get('teamcode')),
+		isAdmin: this.state.isAdmin
+		}
+        console.log(userAccount);
+        axios
+          .post("api/user", userAccount)
+          .then(response => {
+            let user = response.data;
+            this.props.changeLoggedIn(user);
+			window.location.href = '/';
+          })
+          .catch(err => {
+                    console.log(err.response.data);
+                    alert(err.response.data);
+          });
       };
 
 	render() {
 		return (
-			<Container component="main" maxWidth="xs" sx={{ px:1, py:1 }}>
+			<Container component="main" maxWidth="xs" sx={{ px:1, py:20, margin:'0 auto' }}>
 				<Box
 					sx={{
 						marginTop: 8,
 						display: 'flex',
 						flexDirection: 'column',
 						alignItems: 'center',
+						
 					}}
 				>
-                        <Avatar src="./public/js/taak-org.png" sx={{
+                        <Avatar src="./public/js/TAAK_ROCKET_WHITE.png" sx={{
                             width: '25%',
                             height: '25%',
                             bgcolor: 'transparent',
@@ -125,8 +127,8 @@ class Register extends React.Component {
 									fullWidth
 									name="teamcode"
 									label="Teamcode"
-									id="teamCode"
-									inputProps={{ maxLength: 7, pattern: '[0-9]*' }}
+									id="teamcode"
+									inputProps={{ maxLength: 7, type:'number', pattern: '[0-9]*' }}
 								/>
 							</Grid>
 							<Grid item xs={12}>
@@ -139,6 +141,15 @@ class Register extends React.Component {
                                         name: 'user-type',
                                         id: 'user-type',
                                     }}
+									onChange={(event) => {
+										console.log(event.target.value)
+										if (event.target.value === 'admin'){
+											this.setState({isAdmin: true}); // log the selected value
+										}
+										else{
+											this.setState({isAdmin: false})
+										}
+									}}
                                 >
 									<option title>Select Role</option>
                                     <option value="admin">Admin</option>

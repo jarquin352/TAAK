@@ -18,22 +18,22 @@ import axios from 'axios';
 const theme = createTheme({
   palette: {
     mode: 'dark',
-  //   background: {
-  //     default: 'transparent',
-  //   },
-  // },
-  // components: {
-  //   MuiCssBaseline: {
-  //     styleOverrides: {
-  //       body: {
-  //         background: `
-  //           linear-gradient(to top, #09203f 0%, #537895 100%),
-  //           radial-gradient(circle at top right, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.05) 40%),
-  //           radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.05) 40%)
-  //         `,
-  //       },
-  //     },
-  //   },
+    background: {
+      default: 'transparent',
+    },
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          background: `
+            radial-gradient(rgb(2, 25, 69) 0%, rgb(139, 102, 241) 240%),
+            radial-gradient(circle at top left, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.05) 80%),
+            radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.05) 80%)
+          `,
+        },
+      },
+    },
   },
 });
 
@@ -86,7 +86,7 @@ class App extends React.Component {
             <Route path="/login" element={<Navigate to="/" />} />:
             <Route path="/login" element={<Login changeLoggedIn={this.changeLoggedIn} />} />
           }
-          <Route path="/register" element={<Register />} />
+          <Route path="/register" element={<Register changeLoggedIn = {this.changeLoggedIn} />} />
           <Route path="/settings" element={<Settings  />} />
         </Routes>
       </>

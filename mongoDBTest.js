@@ -14,7 +14,7 @@
 
 // // make a connection 
 // // mongoose.connect('red',{useNewUrlParser: true, useUnifiedTopology: true})
-// mongoose.connect('removed',{useNewUrlParser: true, useUnifiedTopology: true});
+// mongoose.connect(config.parsed.DB,{useNewUrlParser: true, useUnifiedTopology: true});
 
 // // get reference to database
 // var db = mongoose.connection;

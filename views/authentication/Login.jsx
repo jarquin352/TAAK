@@ -43,8 +43,13 @@ class Login extends React.Component {
 
       
       render() {
+        const { theme } = this.props;
 		return (
-            <div style={{ display: 'flex'}}>
+            <div style={{ display: 'flex',
+            backgroundImage: 'url("./public/js/HOME_BACKGROUND.png")', 
+            backgroundSize: 'cover',
+            ...theme,
+            display: 'flex',}}>
                 <Container maxWidth="xs" sx={{ px:1, py:1 }}>
                     <Box sx={{
                         display: 'flex',

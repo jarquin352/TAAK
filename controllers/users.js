@@ -1,5 +1,15 @@
 const mongoose = require('mongoose');
-const { Auth, Users } = require('../models/dataSchema');
+const { Auth, Users, Projectteam } = require('../models/dataSchema');
+
+/*Remove after Testing */
+mongoose.connect('mongodb+srv://taakdb:taakdb@taak.d7e4se5.mongodb.net/taakdata?retryWrites=true&w=majority',{useNewUrlParser: true, useUnifiedTopology: true})
+  .then(() => {
+      console.log('Database connection established');
+      //testRegister();
+      testRegister();
+  })
+  .catch((err) => console.error('Database connection error', err));
+
 //second attp at login
 const login = async (req, res) => {
   const { email, password } = req.body;
@@ -29,6 +39,8 @@ const login = async (req, res) => {
     console.log('loginFunction')
     res.status(200).json({ message: 'Login successful' });
     console.log(req.session);
+
+    
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Server error' });
@@ -105,7 +117,7 @@ const checkLogin = async (req, res) => {
 
 //register function
 const register = async (req, res) => {
-    let { name, email, password, skills } = req.body;
+    let { name, email, password, skills, teamCode, isAdmin } = req.body;
   
     if (!email) {
       res.status(400).send("An email is required.");
@@ -115,26 +127,64 @@ const register = async (req, res) => {
     if (!password) {
       res.status(400).send("A password is required.");
       return;
-    } else {
+    } 
+    else {
         try {
           const existingAuth = await Auth.findOne({ email });
           if (existingAuth) {
             res.status(400).send("Email is already taken");
             return;
           }
+          //create an authentication model
           const auth = await Auth.create({
             email: email,
             password: password
           });
-    
-          const user = await Users.create({
-            authid: auth.authid,
-            name: name,
-            skills: skills
-          });
-    
+
+          //check for a valid team.
+          const existingTeam = await Projectteam.findOne({ teamCode });
+          //team found
+          if(existingTeam){
+            const user = await Users.create({
+              name: name,
+              authid: auth._id,
+              isAdmin: isAdmin,
+              skills: skills,
+              tasks_assigned: [],
+              teamid: existingTeam._id
+            })
+
+            existingTeam.teamMembers.push(user._id);
+            await existingTeam.save();
+          }
+
+          else if(!existingTeam){
+            const newTeam = await Projectteam.create({
+              teamName: "New Team",
+              teamMembers:[],
+              teamCode: generateRandomNumber()
+            })
+
+            const user = await Users.create({
+              name: name,
+              authid: auth._id,
+              isAdmin: isAdmin,
+              skills: skills,
+              tasks_assigned: [],
+              teamid: newTeam._id
+            })
+            newTeam.teamMembers.push(user._id);
+            await newTeam.save();
+          }
+          
+          else{
+            res.status(500).send("Internal Server Error")
+          }
+
           res.status(200).send("Registration successful");
-        } catch (err) {
+        } 
+        
+        catch (err) {
           console.error(err);
           res.status(500).send("Internal Server Error");
         }
@@ -152,10 +202,14 @@ const register = async (req, res) => {
       res.status(200).send();
     });
   };
+
+  function generateRandomNumber() {
+    const min = 1000000;
+    const max = 9999999;
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
   
   module.exports = {logout, checkLogin, register, login};
-
-
 
 
 
@@ -177,10 +231,15 @@ const register = async (req, res) => {
 //     await login(req, res);
 // };
 
-// const testRegister = async() => {
-//     const req = {body: {name: 'Node Testing', email:'adamadmin@taak.com', password:'password2', skills:['Node','Express'] }}
-//     const res = {
-//       status: (statusCode) => ({ send: (message) => console.log(statusCode, message) }),
-//     };
-//     await register(req, res);
-// }
+const testRegister = async() => {
+    const req = {body: 
+    {name: 'Node Testing', 
+    email:'hapsdpy@taak.com', 
+    password:'password2', 
+    skills:['Node','Express'],
+    teamCode: 1231231 }}
+    const res = {
+      status: (statusCode) => ({ send: (message) => console.log(statusCode, message) }),
+    };
+    await register(req, res);
+}

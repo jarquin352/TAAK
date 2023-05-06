@@ -39,7 +39,7 @@ app.use(
         uri: config.parsed.DB,
         collection: 'sessions'
     }),
-
+    
   })
 );
 
