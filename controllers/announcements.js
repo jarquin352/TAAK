@@ -65,7 +65,7 @@ const getAnnouncements = async(req, res) => {
     }
   try {
     // Retrieve announcements from the database
-    const announcements = await Announcements.find({ title: Announcements.title  });
+    const announcements = await Announcements.find({ teamid:req.session.teamid  });
     res.status(200).send(announcements);
   } catch (err) {
     res.status(500).send('Failed to get announcements');
@@ -79,7 +79,7 @@ const deleteAnnouncements = async(req, res) => {
     }
   try {
     // Delete one announcements from the database
-    await Announcements.deleteOne({title: Announcements.title });
+    await Announcements.deleteOne({ teamid:req.session.teamid });
     res.status(200).send('announcement deleted');
   } catch (err) {
     res.status(500).send('Failed to delete announcements');
