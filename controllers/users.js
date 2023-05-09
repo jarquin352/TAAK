@@ -101,26 +101,35 @@ const login = async (req, res) => {
 
 
 
-const checkLogin = async (req, res) => {
-  const user = req.session.user;
-  if (user) {
-    res.json({ user });
-  } else {
-    res.status(401).json({ message: 'You are not logged in' });
-  }
-}
+// const checkLogin = async (req, res) => {
+//   const user = req.session.user;
+//   if (user) {
+//     res.json({ user });
+//   } else {
+//     res.status(401).json({ message: 'You are not logged in' });
+//   }
+// }
+
+// const checkLogin = async (req, res) => {
+//   const user = req.session.user;
+//   if (user) {
+//     res.json({ user });
+//   } else {
+//     res.status(401).json({ message: 'You are not logged in' });
+//   }
+// }
 
 
 //make a function that checks the login of a user, checks session cookies
-// const checkLogin = async (req, res) => {
-//   //checks if session has a user id in browser storage
-//   if(!req.session.user_id){
-//     res.status(401).send('Authentication required, please login');
-//     return;
-//   }
-//   //session found
-//   res.status(200).send(req.session.user);
-// };
+const checkLogin = async (req, res) => {
+  //checks if session has a user id in browser storage
+  if(!req.session.user){
+    res.status(401).send('Authentication required, please login');
+    return;
+  }
+  //session found
+  res.status(200).send(req.session.user);
+};
 
 
 //register function
