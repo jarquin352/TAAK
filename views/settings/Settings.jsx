@@ -21,6 +21,7 @@ class Settings extends React.Component {
             lastName: '',
             email: '',
             password: '',
+            skills:'',
             receiveEmails: false,
             avatarUrl: 'https://via.placeholder.com/150',
         };
@@ -97,6 +98,17 @@ class Settings extends React.Component {
                                         type="password"
                                         value={this.state.password}
                                         onChange={(event) => this.setState({ password: event.target.value })}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        name="skills"
+                                        label="Skills"
+                                        type="text"
+                                        value={this.state.skills}
+                                        onChange={(event) => this.setState({ skills: event.target.value })}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>

@@ -1,5 +1,5 @@
 var express = require('express');
-var portno = 3000;   // Port number to use
+var portno = process.env.PORT || 3000;   // Port number to use
 const mongoose = require('mongoose');
 // mongoose.Promise = require('bluebird');
 mongoose.Promise = global.Promise;

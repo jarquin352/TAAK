@@ -160,6 +160,7 @@ getUsers = () => {
         pendingTasks: tasks.filter((task) => !task.isAssigned)
         // pendingTasks: window.taakmodels.tasksModel().filter((task)=> !task.isAssigned),
       });
+      location.reload();
     })
     .catch(err => {
               console.log(err.response.data);
@@ -332,10 +333,10 @@ getPriorityColor = (priority) => {
               </DialogActions>
             </Dialog>
         {/*Dialog for Deleting a Task*/}
-        <TableContainer component={Paper} style ={{border:'4px inset #4e43c0', boxShadow: "10px 8px 31px rgba(2, 25, 69, 0.6)",borderRadius: "15px"}}>
+        <TableContainer component={Paper} style ={{border:'4px inset #4e43c0', boxShadow: "10px 8px 31px rgba(2, 25, 69, 0.6)",borderRadius: "15px", backgroundColor: 'dark'}}>
           <Table aria-label="pending-tasks-table">
             <TableHead>
-              <TableRow>
+              <TableRow style = {{backgroundColor: '#6f6f70'}}>
                 <TableCell>Title</TableCell>
                 <TableCell>Description</TableCell>
                 <TableCell>Priority</TableCell>
