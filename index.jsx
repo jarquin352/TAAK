@@ -13,6 +13,7 @@ import Register from './views/authentication/Register'
 import Settings from './views/settings/Settings'
 import { NavLink, Navigate } from "react-router-dom";
 import axios from 'axios';
+import './index.css'
 
 
 const theme = createTheme({

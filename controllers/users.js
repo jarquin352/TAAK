@@ -2,13 +2,22 @@ const mongoose = require('mongoose');
 const { Auth, Users, Projectteam } = require('../models/dataSchema');
 
 /*Remove after Testing */
-mongoose.connect('removed',{useNewUrlParser: true, useUnifiedTopology: true})
-  .then(() => {
-      console.log('Database connection established');
-      //testRegister();
-      testRegister();
-  })
-  .catch((err) => console.error('Database connection error', err));
+// /*Database connection*/
+// //lines 10 to 23 are configs to .env + database connections
+// const path = require('path');
+// const dotenv = require('dotenv');
+// const e = require('express');
+// const envPath = path.join(__dirname, '..', '.env');
+// dotenv.config({ path: envPath });
+
+// //remove db connection after testing functions
+// mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true })
+//   .then(() => {
+//       console.log('Database connection established');
+//       //testRegister();
+//       testCode();
+//   })
+//   .catch((err) => console.error('Database connection error', err));
 
 //second attp at login
 const login = async (req, res) => {
@@ -30,9 +39,8 @@ const login = async (req, res) => {
     }
 
     // Create a session
-    const foundUser = await Users.findOne({ authid: user.authid }).populate('authid');
-    req.session.user = foundUser;
-    
+    // const foundUser = await Users.findOne({ authid: user._id });
+    req.session.user = user;
     req.session.save(); // Save the session
     
     // Add a cookie to the response
@@ -203,23 +211,33 @@ const register = async (req, res) => {
     });
   };
 
+  const getUsers = async (req, res) =>{
+    if (!req.session.user) {
+      res.status(401).send("Not logged in");
+      return;
+    }
+    const userAdmin = await Users.findOne({authid:req.session.user._id})
+    if (!userAdmin.isAdmin) {
+      res.status(401).send("You must be an admin to execute this.");
+      return;
+    }
+    try{
+      const listUsers = await Users.find({})
+      res.status(200).send(listUsers)
+    } catch (err) {
+      console.log(err);
+      res.status(400).send('Unable to list of users');
+    };
+  }
+
   function generateRandomNumber() {
     const min = 1000000;
     const max = 9999999;
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
   
-  module.exports = {logout, checkLogin, register, login};
 
-
-
-
-
-
-
-
-
-
+  module.exports = {logout, checkLogin, register, login,getUsers};
 
 
 /*TEST FUNCTIONS*/
@@ -231,15 +249,27 @@ const register = async (req, res) => {
 //     await login(req, res);
 // };
 
-const testRegister = async() => {
-    const req = {body: 
-    {name: 'Node Testing', 
-    email:'hapsdpy@taak.com', 
-    password:'password2', 
-    skills:['Node','Express'],
-    teamCode: 1231231 }}
-    const res = {
-      status: (statusCode) => ({ send: (message) => console.log(statusCode, message) }),
-    };
-    await register(req, res);
-}
+// const testRegister = async() => {
+//     const req = {body: 
+//     {name: 'Node Testing', 
+//     email:'hapsdpy@taak.com', 
+//     password:'password2', 
+//     skills:['Node','Express'],
+//     teamCode: 1231231 }}
+//     const res = {
+//       status: (statusCode) => ({ send: (message) => console.log(statusCode, message) }),
+//     };
+//     await register(req, res);
+// }
+
+//test code for getUserzs
+// const testCode = async() => {
+//     const req = {session:{user:{_id:'645327bd38a1fae459caa96c'}}}
+//     // const req = {session:{user:{_id:'645327bd38a1fae459caa96b'}}}
+//     const res = {
+//     status: (statusCode) => ({ send: (message) => console.log(statusCode, message) }),
+//   };
+//     await getUsers(req, res);
+
+// }
+

@@ -5,6 +5,8 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import axios from 'axios';
+import { css } from "@mui/system";
 
 // import TaskSearchBar from './TaskSearchBar';
 
@@ -18,10 +20,53 @@ class TaskList extends React.Component {
       inputLetters: '',
       // tasks:tasks.filter((task) => task.isAssigned),
       // taskTypes: taskTypes
-      tasks: window.taakmodels.tasksModel().filter((task)=> task.isAssigned),
-      taskTypes: window.taakmodels.taskTypesModel()
+      tasks: [],
+      taskTypes: [],
     };
   }
+
+  componentDidMount(){
+    this.userTasks();
+    this.typesTask();
+  }
+
+  //get all tasks
+  userTasks = (req, res) =>{
+    axios
+    .get('/api/getUserTasks')
+    .then(response => {
+      const yourTasks = response.data;
+      console.log(yourTasks)
+      this.setState({
+        tasks: yourTasks,
+      });
+    })
+    .catch(error => {
+      console.log(error);
+      if (error.response.status===401) {
+        window.location.href = '#/login';
+      }
+    });
+  }
+
+  typesTask = (req, res) => {
+    axios
+    .get('/api/getTaskTypes')
+    .then(response => {
+      const taskTypes = response.data;
+      console.log(taskTypes)
+      this.setState({
+        taskTypes: taskTypes,
+      });
+    })
+    .catch(error => {
+      console.log(error);
+      if (error.response.status===401) {
+        window.location.href = '#/login';
+      }
+    });
+  }
+
 
   handledragover = event => {
     event.preventDefault();
@@ -32,6 +77,22 @@ class TaskList extends React.Component {
     var task_id = event.dataTransfer.getData("task_id");
     if(event.target.classList.contains('task-list')) {
       event.target.appendChild(document.getElementById(task_id));
+      console.log(task_id)
+      const taskInStack = {
+        type_id: event.target.getAttribute('type_id'),
+        task_id: task_id
+    }
+    axios
+      .post('/api/updateKanban', taskInStack)
+      .then(response => {
+        let updatedTask = response.data;
+        console.log(updatedTask)
+        // window.location.href = '/';
+      })
+      .catch(err => {
+                console.log(err.response.data);
+                alert(err.response.data);
+      });
     }
   };
 
@@ -40,6 +101,7 @@ class TaskList extends React.Component {
   };
 
   render() {
+    console.log(this.state.tasks)
     return (
       <Container disableGutters maxWidth="false" sx={{ 
       px:1, 
@@ -50,7 +112,7 @@ class TaskList extends React.Component {
       fontSize: "0.875rem",
       fontWeight: "700" }}>
         {/* <TaskSearchBar value={this.state.inputLetters} /> */}
-         <Typography variant="h3" sx={{ textAlign: 'center', my: 3 }}>
+         <Typography variant="h4" sx={{ textAlign: 'center', my: 3 }}>
           Your Tasks
         </Typography>
         <Container disableGutters maxWidth="ld" component="main">
@@ -60,7 +122,7 @@ class TaskList extends React.Component {
               //Old grid item that only makes 3 columns....keep for reference
               // <Grid item xs={12} md={4} key={type.name+"-tasks"} className="new-tasks" >
                 <Grid item md={2} key={type.name+"-tasks"} className="new-tasks">
-                <Card variant="outlined" sx={{ borderRadius:5,mb:1, position: "relative",boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)'}}>
+                <Card variant="outlined" sx={{ borderRadius:5,mb:1, position: "relative",boxShadow: '10px 8px 31px rgba(2, 25, 69, 0.6)'}}>
                   <Typography sx={{mx:'auto', width:200}} variant  = 'h4'>{type.name}</Typography>
                   <Typography sx={{position: "absolute", top: 10, right: 10, height: "10px", width: "10px", borderRadius: 5, bgcolor: type.color}} />
                 </Card>
@@ -80,10 +142,10 @@ class TaskList extends React.Component {
                     }
                   }}
                 >
-                  {this.state.tasks?.filter(task => task.type_id === parseInt(type._id)).map(task => (
+                  {this.state.tasks?.filter(task => task.type_id === type._id).map(task => (
                   <Card
                     key={"task"+task._id}
-                    id={"task"+task._id}
+                    id={task._id}
                     draggable="true"
                     droppable="false"
                     onDragStart={this.handledrag}
@@ -91,14 +153,14 @@ class TaskList extends React.Component {
                     className="task-task"
                     sx={{ 
                       borderRadius: 5, 
-                      boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', 
+                      boxShadow: '10px 8px 31px rgba(2, 25, 69, 0.6)', 
                       
                     }}
                     
                   >
                     <CardContent>
-                      <Typography><h5>{task.title}</h5></Typography>
-                      <Typography><body>{task.description}</body></Typography>
+                      <Typography><h4>{task.title}</h4></Typography>
+                      <Typography>{task.description}</Typography>
                     </CardContent>
                   </Card>
                   ))}

@@ -23,7 +23,6 @@ import SettingsTwoToneIcon from '@mui/icons-material/SettingsTwoTone';
 import InfoIcon from '@mui/icons-material/Info';
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
-import './TopBar.css';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 
 import axios from 'axios';
@@ -65,7 +64,7 @@ class TopBar extends React.Component {
 
     return (
       <div>
-        <AppBar position="static">
+        <AppBar position="static" style={{ background: '#191f45', boxShadow: 'none' }}>
           <Toolbar className="taak-toolbar">
 
             {/* Button for the side bar, dynamic for now? */}
@@ -78,7 +77,7 @@ class TopBar extends React.Component {
             </Typography> */}
 
             <Typography variant="h6" sx={{ width: '25%', display: 'block', margin: '0 auto', textAlign:'center' }} >
-            <img src={"./public/js/taaknavbar.png"} alt="TAAK Logo" className="taak-logo" sx={{ width: '25%', display: 'block', margin: '0 auto' }}/>
+            <img src={"./public/js/TAAK_BAR_WHITE_REGULAR_reduced.png"} alt="TAAK Logo" className="taak-logo" sx={{ width: '25%', display: 'block', margin: '0 auto' }}/>
             </Typography>
 
             {/* Adding Avatar component for profile icon, needs a state for person name */}

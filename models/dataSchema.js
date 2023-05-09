@@ -6,6 +6,7 @@ const Schema = mongoose.Schema
 
 //schema for tasks
 var tasksSchema = new Schema({
+    _id: Schema.Types.ObjectId,
     //_id: Number,
     type_id: {type: Schema.Types.ObjectId, ref:'taskTypesSchema'},
     sprintid: {type: Schema.Types.ObjectId, ref:'sprintSchema'},
@@ -19,6 +20,7 @@ var tasksSchema = new Schema({
 });
 
 var taskTypesSchema = new Schema({
+    _id: Schema.Types.ObjectId,
     name: String,
     class: String,
     color: String
@@ -26,6 +28,7 @@ var taskTypesSchema = new Schema({
 
 //done
 var usersSchema =  new Schema({
+    _id: Schema.Types.ObjectId,
     authid: {type: Schema.Types.ObjectId, ref:'authenticationSchema'},
     isAdmin: Boolean,
     teamid: {type: Schema.Types.ObjectId, ref:'projTeamSchema'},
@@ -36,12 +39,14 @@ var usersSchema =  new Schema({
 
 //done
 var projTeamSchema =  new Schema({
+    _id: Schema.Types.ObjectId,
     teamName: String,
     teamMembers: [{type: Schema.Types.ObjectId, ref:'usersSchema'}],
     teamCode: Number
 });
 
 var sprintSchema =  new Schema({
+    _id: Schema.Types.ObjectId,
     teamid: {type: Schema.Types.ObjectId, ref:'projTeamSchema'},
     tasksInSprint: [{type: Schema.Types.ObjectId, ref:'tasksSchema'}],
     startDate: Date,
@@ -50,6 +55,7 @@ var sprintSchema =  new Schema({
 
 //done
 var annoucementsSchema =  new Schema({
+    _id: Schema.Types.ObjectId,
     teamid: {type: Schema.Types.ObjectId, ref:'projTeamSchema'},
     title: String,
     owner: String,
@@ -59,6 +65,7 @@ var annoucementsSchema =  new Schema({
 
 //done
 var authenticationSchema = new Schema({
+    _id: Schema.Types.ObjectId,
     email: String,
     password: String
 })
@@ -86,13 +93,14 @@ authenticationSchema.methods.comparePassword = function(password){
 
 //exports
 var Task = mongoose.model('tasks', tasksSchema);
+var TaskType = mongoose.model('tasktypes', taskTypesSchema);
 var Users = mongoose.model('users', usersSchema);
 var Projectteam = mongoose.model('projectteam', projTeamSchema);
 var Sprint = mongoose.model('sprints', sprintSchema);
 var Announcements = mongoose.model('announcements', annoucementsSchema);
 var Auth = mongoose.model('authentication', authenticationSchema);
 
-module.exports = {Task, Users, Projectteam, Sprint, Announcements, Auth};
+module.exports = {Task, Users, Projectteam, Sprint, Announcements, Auth, TaskType};
 
 /*var tasksSchema = new Schema({
     //_id: Number,
