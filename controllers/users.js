@@ -154,6 +154,7 @@ const register = async (req, res) => {
           }
           //create an authentication model
           const auth = await Auth.create({
+            _id: new mongoose.Types.ObjectId(),
             email: email,
             password: password
           });
@@ -163,6 +164,7 @@ const register = async (req, res) => {
           //team found
           if(existingTeam){
             const user = await Users.create({
+              _id: new mongoose.Types.ObjectId(),
               name: name,
               authid: auth._id,
               isAdmin: isAdmin,
@@ -177,12 +179,14 @@ const register = async (req, res) => {
 
           else if(!existingTeam){
             const newTeam = await Projectteam.create({
+              _id: new mongoose.Types.ObjectId(),
               teamName: "New Team",
               teamMembers:[],
               teamCode: generateRandomNumber()
             })
 
             const user = await Users.create({
+              _id: new mongoose.Types.ObjectId(),
               name: name,
               authid: auth._id,
               isAdmin: isAdmin,
