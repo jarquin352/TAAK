@@ -28,27 +28,24 @@ const getTasks = async (req, res) => {
     }
     const userReq = await Users.findOne({authid:req.session.user._id})
     const sprintReq = await Sprint.findOne({teamid:userReq.teamid});
-    console.log(sprintReq)
+    console.log(sprintReq);
 
     try {
-    //all tasks
-    let tasks = [];
-    // let resTasks = [];
       if(userReq.isAdmin){
-          for(let i = 0; i < sprintReq.tasksInSprint.length; i++){
-            let task = await Task.findOne({_id:sprintReq.tasksInSprint[i]});
-            tasks.push(task);
-          }
-          // for(let i = 0; i < tasks.length; i++){
-          //   let user = await Users.findOne({_id:tasks[i].assignee});
-          //   tasks[i].assignee = user;
-          // }
-          res.status(200).send(tasks);
+        const sprintTasks = await Sprint.findOne({teamid:userReq.teamid})
+        .populate({
+          path: "tasksInSprint",
+          model: Task,
+          populate: { path: "assignee", model:Users, select: 'name' }
+        });
+        res.status(200).send(sprintTasks);
+        console.log(sprintTasks.tasksInSprint[0].assignee.name)
+        // res.status(400).send('team tasks sent')
       }
       //triggers kanban call
       else{
-        const tasks = await Task.find({assignee: userReq._id})
-        res.status(200).send(tasks);
+        const selfTasks = await Task.find({assignee: userReq._id})
+        res.status(200).send(selfTasks);
       }
     } catch (err) {
       console.log(err);

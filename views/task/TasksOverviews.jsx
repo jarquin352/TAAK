@@ -38,8 +38,9 @@ class TasksOverview extends React.Component {
       .then(response => {
         console.log(response)
         this.setState({
-          tasksOverview:response.data.filter((task)=> task.isAssigned)
+          tasksOverview:response.data.tasksInSprint.filter((task)=> task.isAssigned)
         });
+        console.log(this.state.tasksOverview)
       })
       .catch(error => {
         console.log(error);
@@ -48,7 +49,7 @@ class TasksOverview extends React.Component {
         }
       });
     }
-
+    
     render() {
       const { tasksOverview, users, taskTypes } = this.state;
       return (
