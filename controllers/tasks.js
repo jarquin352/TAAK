@@ -26,7 +26,9 @@ const getTasks = async (req, res) => {
       res.status(401).send('Authentication required, please login');
       return;
     }
+    //get user info
     const userReq = await Users.findOne({authid:req.session.user._id})
+    //get sprint tasks
     const sprintReq = await Sprint.findOne({teamid:userReq.teamid});
     console.log(sprintReq);
 
@@ -39,8 +41,8 @@ const getTasks = async (req, res) => {
           populate: { path: "assignee", model:Users, select: 'name' }
         });
         res.status(200).send(sprintTasks);
-        console.log(sprintTasks.tasksInSprint[0].assignee.name)
-        // res.status(400).send('team tasks sent')
+        //console.log(sprintTasks.tasksInSprint[0].assignee.name)
+        //res.status(200).send('team tasks sent')
       }
       //triggers kanban call
       else{
@@ -208,7 +210,7 @@ module.exports = {getTasks,createTask,assignTask,deleteTask, getUserTasks, getTa
 
 /*Test code*/
 
-//testcode for getTasks (works)
+//testcode for getTasks (isAdmin = true) (works)
 // const testCode = async() => {
 //   const req = {session:{user:{_id:'645327bd38a1fae459caa96c'}}}
 
@@ -296,7 +298,7 @@ module.exports = {getTasks,createTask,assignTask,deleteTask, getUserTasks, getTa
 //   await deleteTask(req, res);
 // }
 
-// //testcode for getTasks (works)
+//testcode for getTasks (works)
 // const testCode = async() => {
 //   const req = {session:{user:{_id:'645327bd38a1fae459caa96c'}}}
 

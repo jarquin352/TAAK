@@ -112,7 +112,7 @@ class TaskList extends React.Component {
       fontSize: "0.875rem",
       fontWeight: "700" }}>
         {/* <TaskSearchBar value={this.state.inputLetters} /> */}
-         <Typography variant="h4" sx={{ textAlign: 'center', my: 3 }}>
+         <Typography variant="h4" sx={{ textAlign: 'center', my: 3, textShadow:'7px 1px 26px rgba(0, 0, 0, 0.8)'}}>
           Your Tasks
         </Typography>
         <Container disableGutters maxWidth="ld" component="main">
@@ -121,9 +121,9 @@ class TaskList extends React.Component {
             {this.state.taskTypes?.map(type => (
               //Old grid item that only makes 3 columns....keep for reference
               // <Grid item xs={12} md={4} key={type.name+"-tasks"} className="new-tasks" >
-                <Grid item md={2} key={type.name+"-tasks"} className="new-tasks">
-                <Card variant="outlined" sx={{ borderRadius:5,mb:1, position: "relative",boxShadow: '10px 8px 31px rgba(2, 25, 69, 0.6)'}}>
-                  <Typography sx={{mx:'auto', width:200}} variant  = 'h4'>{type.name}</Typography>
+                <Grid item md={2} key={type.name+"-tasks"} className="new-tasks" sx={{background:"rgba(142, 142, 142, 0.2)", margin:1, padding: 2, borderRadius: 5}}>
+                <Card variant="outlined" sx={{ borderRadius:5,mb:1, position: "relative",boxShadow: '5px 5px 5px 2px rgba(18, 18, 34, 0.7'}}>
+                  <Typography sx={{mx:'auto', width:200}} variant  = 'h5'>{type.name}</Typography>
                   <Typography sx={{position: "absolute", top: 10, right: 10, height: "10px", width: "10px", borderRadius: 5, bgcolor: type.color}} />
                 </Card>
                 <Stack
@@ -138,7 +138,7 @@ class TaskList extends React.Component {
                     height: 600,
                     '& div': {
                       borderRightColor: type.color,
-                      borderRightWidth: 2
+                      borderRightWidth: 4
                     }
                   }}
                 >
@@ -153,7 +153,7 @@ class TaskList extends React.Component {
                     className="task-task"
                     sx={{ 
                       borderRadius: 5, 
-                      boxShadow: '10px 8px 31px rgba(2, 25, 69, 0.6)', 
+                      boxShadow: '5px 5px 5px 2px rgba(18, 18, 34, 0.7)', 
                       
                     }}
                     

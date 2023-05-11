@@ -28,7 +28,7 @@ const theme = createTheme({
       styleOverrides: {
         body: {
           background: `
-            radial-gradient(rgb(2, 25, 69) 0%, rgb(139, 102, 241) 240%),
+            linear-gradient(112.1deg, #121222 11.4%, rgb(63, 76, 119) 300.2%),
             radial-gradient(circle at top left, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.05) 80%),
             radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.05) 80%)
           `,

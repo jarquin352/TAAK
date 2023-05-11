@@ -37,10 +37,10 @@ class TasksOverview extends React.Component {
       .get('/api/getTasks')
       .then(response => {
         console.log(response)
+        
         this.setState({
           tasksOverview:response.data.tasksInSprint.filter((task)=> task.isAssigned)
         });
-        console.log(this.state.tasksOverview)
       })
       .catch(error => {
         console.log(error);
@@ -80,7 +80,7 @@ class TasksOverview extends React.Component {
                     <CardContent>
                       <Typography variant="h5" component="div">{title}</Typography>
                       <Typography sx={{ mb: 1.5 }} color="text.secondary">Priority: {priority}</Typography>
-                      <Typography sx={{ mb: 1 }} color="text.secondary">Assignee:{assignee}</Typography>
+                      <Typography sx={{ mb: 1 }} color="text.secondary">Assignee:{assignee.name}</Typography>
                       <Typography sx={{ mb: 1 }} color="text.secondary">Description:{description}</Typography>
                       {/* <Typography sx={{ mb: 1 }} color="text.secondary">Term: {term}</Typography>
                       <Typography sx={{ mb: 1 }} color="text.secondary">Status: {status}</Typography>

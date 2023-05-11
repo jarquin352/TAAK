@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Auth, Users, Projectteam } = require('../models/dataSchema');
 
-/*Remove after Testing */
+// /*Remove after Testing */
 // /*Database connection*/
 // //lines 10 to 23 are configs to .env + database connections
 // const path = require('path');
@@ -243,6 +243,65 @@ const register = async (req, res) => {
     };
   }
 
+const getSpecificUser = async (req, res) =>{
+  if (!req.session.user) {
+    res.status(401).send("Not logged in");
+    return;
+  }
+  const user = await Users.findOne({authid:req.session.user._id}).populate({path:'authid', model:Auth});
+  try{
+    res.status(200).send(user)
+  } catch (err) {
+    console.log(err);
+    res.status(400).send('Unable to list of users');
+  };
+}
+
+const editUser = async (req, res) => {
+  if (!req.session.user) {
+    res.status(401).send("Not logged in");
+    return;
+  }
+  const {name, email, password, skills} = req.body;
+  //get the user + authentication first.
+  const userInfo = await Users.findOne({authid:req.session.user._id});
+  const userAuth = await Auth.findOne({_id:userInfo.authid});
+  try{
+    //change the name if the if statement is true (this works)
+    if (name !== '' && name !== null && name !== userInfo.name) {
+      userInfo.name = name;
+      console.log('namechanged')
+    }
+    //doesn't work.
+    if (skills && skills !== userInfo.skills) {
+      skills.forEach(item => {
+        if (!userInfo.skills.includes(item)) {
+          userInfo.skills.push(item);
+        }
+        console.log('skills changed')
+      });
+    }
+    //works
+    if(email!== '' && email !== null && email != userAuth.email){
+      userAuth.email = email;
+      console.log('email changed')
+    }
+    //works
+    if(password!== '' && password !== null && password != userAuth.password){
+      userAuth.password = password;
+      console.log('password changed')
+    }
+    await userAuth.save();
+    await userInfo.save();
+    res.status(200).send('Successfully changed user settings.')
+  } catch (err) {
+    console.log(err);
+    res.status(400).send('Unable to change user settings');
+  };
+
+}
+
+
   function generateRandomNumber() {
     const min = 1000000;
     const max = 9999999;
@@ -250,7 +309,7 @@ const register = async (req, res) => {
   }
   
 
-  module.exports = {logout, checkLogin, register, login,getUsers};
+  module.exports = {logout, checkLogin, register, login,getUsers, editUser,getSpecificUser};
 
 
 /*TEST FUNCTIONS*/
@@ -283,6 +342,28 @@ const register = async (req, res) => {
 //     status: (statusCode) => ({ send: (message) => console.log(statusCode, message) }),
 //   };
 //     await getUsers(req, res);
+
+// }
+
+// //test code for editUser
+// const testCode = async() => {
+//     const req = {session:{user:{_id:'645327bd38a1fae459caa96c'}},
+//                  body: { email: 'admin@taak.com', password: 'password',name:'Admin AdminNamechange', skills: ['TestSkills1'] }}
+//     // const req = {session:{user:{_id:'645327bd38a1fae459caa96b'}}}
+//     const res = {
+//     status: (statusCode) => ({ send: (message) => console.log(statusCode, message) }),
+//   };
+//     await editUser(req, res);
+
+// }
+
+//test code for editUser
+// const testCode = async() => {
+//     const req = {session:{user:{_id:'645327bd38a1fae459caa96b'}}}
+//     const res = {
+//     status: (statusCode) => ({ send: (message) => console.log(statusCode, message) }),
+//   };
+//     await getSpecificUser(req, res);
 
 // }
 

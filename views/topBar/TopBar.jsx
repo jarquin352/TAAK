@@ -64,12 +64,12 @@ class TopBar extends React.Component {
 
     return (
       <div>
-        <AppBar position="static" style={{ background: '#191f45', boxShadow: 'none' }}>
+        <AppBar position="static" style={{ background: '#191931', boxShadow: 'none' }}>
           <Toolbar className="taak-toolbar">
 
             {/* Button for the side bar, dynamic for now? */}
             <Button onClick={() => this.setState({ drawerOpen: !this.state.drawerOpen })}>
-              <MenuTwoToneIcon/>
+              <MenuTwoToneIcon sx ={{color:'white'}}/>
             </Button>
 
             {/* <Typography variant="h6" className="taak-logo">
@@ -95,10 +95,13 @@ class TopBar extends React.Component {
         <Drawer 
           anchor="left"
           open={this.state.drawerOpen}
-          variant="temporary" 
+          variant="permamant" 
           onClose={() => this.setState({ drawerOpen: false })}
           ModalProps={{
             keepMounted: true // to avoid any issue with react strict mode
+          }}
+          sx={{
+            width: 60
           }}>
           
           <List>

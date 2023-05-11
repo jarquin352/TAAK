@@ -55,7 +55,7 @@ getPendingTasks = () => {
   .then(response => {
     //console.log(response)
     this.setState({
-      pendingTasks:response.data.filter((task)=> !task.isAssigned)
+      pendingTasks:response.data.tasksInSprint.filter((task)=> !task.isAssigned)
     });
   })
   .catch(error => {
@@ -83,7 +83,10 @@ getUsers = () => {
   });
 }
 
-
+/*Adi - assignTask()*/
+// assignTask = () =>{
+  
+// }
 /*000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 */
 
   //first function --> need to toggle the form, this should simply be boolean, turns form off and on nly
@@ -160,13 +163,13 @@ getUsers = () => {
         pendingTasks: tasks.filter((task) => !task.isAssigned)
         // pendingTasks: window.taakmodels.tasksModel().filter((task)=> !task.isAssigned),
       });
-      location.reload();
     })
     .catch(err => {
-              console.log(err.response.data);
-              alert(err.response.data);
+      console.log(err.response.data);
+      alert(err.response.data);
     });
-    
+    location.reload();
+    this.handleFormToggle();
   }
 /*0000000000000000000000000000000000000000000000000000000__Handles the Deleteing of Tasks + Button__000000000000000000000000000000000000000000 */
 handleDeleteDialogOpen = (id) => {
@@ -185,18 +188,18 @@ handleDeleteDialogClose = () => {
 };
 handleTaskDelete = () =>{
   const delTask = {
-    _id: this.state.selectedTaskId
+    task_id: this.state.selectedTaskId
   }
   console.log(delTask)
   axios
-  .delete("/api/delAnnouncement", { data: delTask })
+  .delete("/api/deleteTask", { data: delTask })
   .then(response => {
     console.log(response)
-    location.reload();
   })
   .catch(err => {
     console.log(err.response.data);
   });
+  location.reload();
   this.handleDeleteDialogClose();
 }
 /*000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 */
@@ -231,12 +234,12 @@ getPriorityColor = (priority) => {
     //console.log('Pending Tasks 2:', pendingTasks);
     return (
       
-      <div style={{ padding: '80px'}}>
-        <Typography variant="h4" sx={{ textAlign: 'center', my: 3 }}>Pending Tasks</Typography>
+      <div style={{ padding: '100px'}}>
+        <Typography variant="h4" sx={{ textAlign: 'center', my:1 }}>Pending Tasks</Typography>
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px', marginRight: '10px' }}>
           {/* <Button variant="contained" onClick={this.formToggle}>Add Task</Button> */}
           {/*This button is for adding a task. */}
-          <Button variant="contained" style={{backgroundColor:'#191f45', color:'#8F95B9', border: '3px double rgba(25, 31, 69, 0.1)', borderRadius: "10px"}}
+          <Button variant="contained" style={{backgroundColor:'#303046', color:'#8F95B9', border: '3px double rgba(25, 31, 69, 0.1)', borderRadius: "10px"}}
             onClick={this.formToggle}
             ><AddCircleTwoToneIcon/></Button>
         </div>
@@ -333,28 +336,29 @@ getPriorityColor = (priority) => {
               </DialogActions>
             </Dialog>
         {/*Dialog for Deleting a Task*/}
-        <TableContainer component={Paper} style ={{border:'4px inset #4e43c0', boxShadow: "10px 8px 31px rgba(2, 25, 69, 0.6)",borderRadius: "15px", backgroundColor: 'dark'}}>
+        <TableContainer component={Paper} sx ={{border:'2px inset #4e43c0', boxShadow: "10px 8px 31px rgba(2, 25, 69, 0.6)",borderRadius: "15px", backgroundColor:"rgba(142, 142, 142, 0.2)"}}>
           <Table aria-label="pending-tasks-table">
             <TableHead>
-              <TableRow style = {{backgroundColor: '#6f6f70'}}>
-                <TableCell>Title</TableCell>
-                <TableCell>Description</TableCell>
-                <TableCell>Priority</TableCell>
-                <TableCell>Skills Required</TableCell>
-                <TableCell>Progress</TableCell>
-                <TableCell>Assignee</TableCell>
+              <TableRow sx= {{backgroundColor:'#121212'}}>
+                <TableCell><Typography variant='h4' sx={{fontSize: 18}}>{'Title'}</Typography></TableCell>
+                <TableCell><Typography variant='h4'sx={{fontSize: 18}}>{'Description'}</Typography></TableCell>
+                <TableCell><Typography variant='h4'sx={{fontSize: 18}}>{'Priority'}</Typography></TableCell>
+                <TableCell><Typography variant='h4'sx={{fontSize: 18}}>{'Skills Required'}</Typography></TableCell>
+                <TableCell><Typography variant='h4'sx={{fontSize: 18}}>{'Estimated Time (hrs)'}</Typography></TableCell>
+                <TableCell><Typography variant='h4'sx={{fontSize: 18}}>{'Assignee'}</Typography></TableCell>
+                <TableCell><Typography variant='h4'sx={{fontSize: 18}}>{'Remove Task'}</Typography></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {this.state.pendingTasks.map((task) => (
                 <TableRow
                   key={task._id}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 }, color:'#202020'}}
                 >
                   <TableCell component="th" scope="row">{task.title}</TableCell>
                   <TableCell align="left">{task.description}</TableCell>
                   <TableCell align="left">
-                    <span style={{ backgroundColor: this.getPriorityColor(task.priority), color: 'white', borderRadius: '15px', padding: '3px 10px' }}>{task.priority}</span>
+                    <span style={{ backgroundColor: this.getPriorityColor(task.priority), color: '#202020', borderRadius: '15px', padding: '3px 10px' }}>{task.priority}</span>
                   </TableCell>
                   <TableCell align="left">{task.taskSkills + " "}</TableCell>
                   <TableCell align="left">{task.progt}</TableCell>
