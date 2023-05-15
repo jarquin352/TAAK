@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Box, Avatar, Tooltip, Grid,TextField, Button } from '@mui/material';
+import { Container, Box, Avatar, Tooltip, Grid,TextField, Button, Typography } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import axios from 'axios';
 
@@ -96,15 +96,15 @@ class Groupchat extends Component {
     );
     
     return (
-      <Container maxWidth="md" style={{ minHeight: '90vh', display: 'flex', flexDirection: 'column', backgroundColor: 'transparent', padding: 20, borderRadius: 5 }}>
-        <Box sx={{ flex: '1 0 auto' }}>
-          <h1>Chat Component</h1>
-          <h2>Team: {teamName}</h2>
+      <Container maxWidth="md" style={{ minHeight: '90vh', display: 'flex', flexDirection: 'column', backgroundColor: 'rgba(142, 142, 142, 0.2)', padding: 20, borderRadius: 30 }}>
+        <Box sx={{ flex: '1 0 auto',textAlign:"center"}}>
+        <Typography variant="h3">{'Chat'}</Typography>
+          <Typography variant="h6">{teamName}</Typography>
           <Box display="flex" justifyContent="center" flexWrap="wrap" alignItems="center">
             {teamMembers.map((member) => (
               <Tooltip key={member._id} title={member.name}>
-                <Avatar sx={{ margin: '5px',backgroundColor: '#333b75', color:"#000000" }} alt={member.name}>
-                  {member.name.charAt(0)}
+                <Avatar sx={{ margin: '5px',backgroundColor: '#333b75', color:"#B2B2B2" }} alt={member.name}>
+                  {member.name.split(' ').map((split) => split.charAt(0))}
                 </Avatar>
               </Tooltip>
             ))}
@@ -129,7 +129,7 @@ class Groupchat extends Component {
                           color: '#fff',
                           fontSize: '0.8rem',
                           alignSelf: message.sender.authid === current_user._id ? 'flex-end' : 'flex-start',
-                          marginTop: 2,
+                          marginTop: 1,
                         }}
                       >
                         {message.sender.name}
@@ -148,6 +148,21 @@ class Groupchat extends Component {
                   >
                     {message.message}
                   </div>
+                    <div
+                      style={{
+                        color: '#fff',
+                        fontSize: '0.8rem',
+                        alignSelf: message.sender.authid === current_user._id ? 'flex-end' : 'flex-start',
+                        marginTop: 1,
+                        textAlign: message.sender.authid === current_user._id ? 'right' : 'left',
+                        paddingRight: message.sender.authid === current_user._id ? 0 : '10px',
+                        paddingLeft: message.sender.authid === current_user._id ? '10px' : 0,
+                        paddingBottom:15
+
+                      }}
+                    >
+                        {new Date(message.createdAt).toLocaleDateString()} {new Date(message.createdAt).toLocaleTimeString()}
+                    </div>
                 </React.Fragment>
               ))}
             </Box>
