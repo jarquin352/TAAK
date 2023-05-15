@@ -132,12 +132,16 @@ class Login extends React.Component {
                             <Grid container>
                                 <Grid item xs>
                                     <Link href="#" variant="body2">
-                                        Forgot your password?
+                                    Forgot your<br />password?
                                     </Link>
                                 </Grid>
                                 <Grid item>
                                     <Link to="/register" variant="body2" component={NavLink}>
-                                        {"Don't have an account? Get Started"}
+                                    <div>
+                                        Don't have an account?
+                                        <br />
+                                        Get Started
+                                    </div>
                                     </Link>
                                 </Grid>
                             </Grid>

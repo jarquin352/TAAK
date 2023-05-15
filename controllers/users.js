@@ -257,12 +257,31 @@ const getSpecificUser = async (req, res) =>{
   };
 }
 
+const getTeamMembers = async(req, res)=>{
+  if (!req.session.user) {
+    res.status(401).send("Not logged in");
+    return;
+  }
+  const user = await Users.findOne({authid:req.session.user._id});
+  try{
+    const teamMembers = await Projectteam.findOne({_id:user.teamid}).populate({
+      path: "teamMembers",
+      model: Users
+    });
+    res.status(200).send(teamMembers);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send('Unable to list of users');
+  };
+}
+
 const editUser = async (req, res) => {
   if (!req.session.user) {
     res.status(401).send("Not logged in");
     return;
   }
   const {name, email, password, skills} = req.body;
+  console.log(name, email, password, skills);
   //get the user + authentication first.
   const userInfo = await Users.findOne({authid:req.session.user._id});
   const userAuth = await Auth.findOne({_id:userInfo.authid});
@@ -309,7 +328,7 @@ const editUser = async (req, res) => {
   }
   
 
-  module.exports = {logout, checkLogin, register, login,getUsers, editUser,getSpecificUser};
+  module.exports = {logout, checkLogin, register, login,getUsers, editUser,getSpecificUser, getTeamMembers};
 
 
 /*TEST FUNCTIONS*/
@@ -365,5 +384,16 @@ const editUser = async (req, res) => {
 //   };
 //     await getSpecificUser(req, res);
 
+// }
+
+
+//test code for editUser (works)
+// const testCode = async() => {
+//     //adam admin req.session.user._id
+//     const req = {session:{user:{_id:'645327bd38a1fae459caa96c'}}}
+//     const res = {
+//     status: (statusCode) => ({ send: (message) => console.log(statusCode, message) }),
+//   };
+//     await getTeamMembers(req, res);
 // }
 

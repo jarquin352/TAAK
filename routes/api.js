@@ -2,15 +2,17 @@ const express = require('express');
 const router = express.Router();
 
 
-const {logout, checkLogin, register, login, getUsers,getSpecificUser, editUser} = require('../controllers/users.js')
+const {logout, checkLogin, register, login, getUsers,getSpecificUser, editUser, getTeamMembers} = require('../controllers/users.js')
 const {createAnnouncement,getAnnouncements,deleteAnnouncements} = require('../controllers/announcements.js')
 const {getTasks,createTask,assignTask,deleteTask, getUserTasks, getTaskTypes, updateTask} = require('../controllers/tasks.js')
-//login routes
+const {getMessages} = require('../controllers/groupchat.js')
+//login + setting routes
 router.post('/login', login);
 router.post('/logout', logout);
 router.post('/user', register);
 router.get('/currentUser',checkLogin);
 router.get('/allUsers',getUsers);
+router.get('/getTeam', getTeamMembers);
 router.post('/editUser', editUser);
 router.get('/selfUser', getSpecificUser)
 
@@ -27,5 +29,8 @@ router.get('/getTaskTypes', getTaskTypes);
 router.post('/updateKanban', updateTask);
 router.post('/createTask', createTask);
 router.delete('/deleteTask', deleteTask);
+
+//messages routes
+router.get('/groupMessages', getMessages);
 
 module.exports = router;

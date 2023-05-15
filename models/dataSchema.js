@@ -70,6 +70,14 @@ var authenticationSchema = new Schema({
     password: String
 })
 
+//done
+var messegesSchema = new Schema({
+    _id: Schema.Types.ObjectId,
+    team: {type: Schema.Types.ObjectId, ref: 'projTeamSchema',},
+    sender: {type: Schema.Types.ObjectId,ref: 'usersSchema',},
+    message: String,
+    createdAt: {type: Date, default: Date.now},
+  });
 
 //methods
 //checks password, implmenet bcrypt after....
@@ -99,8 +107,9 @@ var Projectteam = mongoose.model('projectteam', projTeamSchema);
 var Sprint = mongoose.model('sprints', sprintSchema);
 var Announcements = mongoose.model('announcements', annoucementsSchema);
 var Auth = mongoose.model('authentication', authenticationSchema);
+var Messages = mongoose.model('messeges', messegesSchema);
 
-module.exports = {Task, Users, Projectteam, Sprint, Announcements, Auth, TaskType};
+module.exports = {Task, Users, Projectteam, Sprint, Announcements, Auth, TaskType,Messages};
 
 /*var tasksSchema = new Schema({
     //_id: Number,

@@ -136,7 +136,8 @@ getUsers = () => {
 
     //...this.state.newTasks expands the state of newTask, like an iterable, and is adding the ID key to each key:value
     let newTask = {"isAssigned": false,...this.state.newTask};
-    newTask.taskSkills = newTask.taskSkills.split(', ');
+    newTask.taskSkills = newTask.taskSkills.replaceAll(" ", "");
+    newTask.taskSkills = newTask.taskSkills.split(',');
     newTask.date = new Date(newTask.date);
     console.log(newTask);
     newTask.progt = parseInt(newTask.progt);
@@ -168,8 +169,11 @@ getUsers = () => {
       console.log(err.response.data);
       alert(err.response.data);
     });
-    location.reload();
-    this.handleFormToggle();
+
+    this.formToggle();
+    setTimeout(() => {
+      location.reload();
+    }, 200)
   }
 /*0000000000000000000000000000000000000000000000000000000__Handles the Deleteing of Tasks + Button__000000000000000000000000000000000000000000 */
 handleDeleteDialogOpen = (id) => {
@@ -204,12 +208,14 @@ handleTaskDelete = () =>{
 }
 /*000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 */
 //this function will appropriately assign the members to the tasks, and switch to true:
-handleAssigner = (event) =>{
+handleAssigner = (event) => {
   event.preventDefault();
   const value = event.target.value;
-  let testRes = event.target.value.replace('uid','')
-  console.log(testRes)
-}
+  // Extract the user ID from the value
+  const userId = value.startsWith('uid') ? value.substring(3) : null;
+  console.log(userId);
+};
+
 /*000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 */
 getPriorityColor = (priority) => {
   switch(priority) {
@@ -232,6 +238,7 @@ getPriorityColor = (priority) => {
     const suggestedTaskAssignments = taskAssigner(users, pendingTasks)
     //console.log(suggestedTaskAssignments)
     //console.log('Pending Tasks 2:', pendingTasks);
+    console.log(users)
     return (
       
       <div style={{ padding: '100px'}}>
@@ -336,7 +343,7 @@ getPriorityColor = (priority) => {
               </DialogActions>
             </Dialog>
         {/*Dialog for Deleting a Task*/}
-        <TableContainer component={Paper} sx ={{border:'2px inset #4e43c0', boxShadow: "10px 8px 31px rgba(2, 25, 69, 0.6)",borderRadius: "15px", backgroundColor:"rgba(142, 142, 142, 0.2)"}}>
+        <TableContainer component={Paper} sx ={{border:'1px inset #4e43c0', boxShadow: "10px 8px 31px rgba(2, 25, 69, 0.6)",borderRadius: "15px", backgroundColor:"rgba(142, 142, 142, 0.2)"}}>
           <Table aria-label="pending-tasks-table">
             <TableHead>
               <TableRow sx= {{backgroundColor:'#121212'}}>
@@ -358,7 +365,7 @@ getPriorityColor = (priority) => {
                   <TableCell component="th" scope="row">{task.title}</TableCell>
                   <TableCell align="left">{task.description}</TableCell>
                   <TableCell align="left">
-                    <span style={{ backgroundColor: this.getPriorityColor(task.priority), color: '#202020', borderRadius: '15px', padding: '3px 10px' }}>{task.priority}</span>
+                    <span style={{ backgroundColor: 'this.getPriorityColor(task.priority)', color: '#202020', borderRadius: '15px', padding: '3px 10px' }}>{task.priority}</span>
                   </TableCell>
                   <TableCell align="left">{task.taskSkills + " "}</TableCell>
                   <TableCell align="left">{task.progt}</TableCell>
@@ -371,7 +378,7 @@ getPriorityColor = (priority) => {
                           color: '#000000',
                           border: 'none',
                           padding: '8px 36px 8px 12px',
-                          borderRadius: '50px',
+                          borderRadius: '5px',
                           appearance: 'none',
                           outline: 'none',
                           cursor: 'pointer',
@@ -381,29 +388,16 @@ getPriorityColor = (priority) => {
                         <option disabled>Suggested User: </option>
                         <option
                           value={
-                            suggestedTaskAssignments.some(
-                              (suggestedTask) => suggestedTask.taskid === task._id
-                            )
-                              ? 'uid' +
-                                suggestedTaskAssignments.find(
-                                  (suggestedTask) => suggestedTask.taskid === task._id
-                                ).userid
-                              : 'emptyuser'
+                            suggestedTaskAssignments.some((suggestedTask) => suggestedTask.taskid === task._id)?suggestedTaskAssignments.find((suggestedTask) => suggestedTask.taskid === task._id).userid: 'emptyuser'
                           }
                         >
-                          {suggestedTaskAssignments.some(
-                            (suggestedTask) => suggestedTask.taskid === task._id
-                          )
-                            ? suggestedTaskAssignments.find(
-                                (suggestedTask) => suggestedTask.taskid === task._id
-                              ).usermatch
-                            : ''}
+                          {suggestedTaskAssignments.some((suggestedTask) => suggestedTask.taskid === task._id)? suggestedTaskAssignments.find((suggestedTask) => suggestedTask.taskid === task._id).usermatch: ''}
                         </option>
                         <option disabled value="op-0">
                           Select User:{' '}
                         </option>
                         {this.state.users.map((user) => (
-                          <option value={'uid' + user.uid}>{user.name}</option>
+                          <option value={user._id}>{user.name}</option>
                         ))}
                       </select>
                     </div>

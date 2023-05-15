@@ -29,7 +29,7 @@ export const taskAssigner = (users, tasks) => {
         ).length;
         if (bestMatch === null || commonValues > bestMatchLength) {
           bestMatch = user.name;
-          bestMatchId = user.uid;
+          bestMatchId = user._id;
           bestMatchLength = commonValues;
         }
       }

@@ -15,6 +15,7 @@ import axios from 'axios';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
+import HomeIcon from '@mui/icons-material/Home';
 
 class Settings extends React.Component {
     constructor(props) {
@@ -26,14 +27,18 @@ class Settings extends React.Component {
             email: '',
             password: '',
             showPassword: false,
-            skills:[],
+            skills:'',
             avatarUrl: 'https://via.placeholder.com/150',
+            teamName:'',
+            teamCode:'',
+            teamMembers:[]
         };
     }
 
       componentDidMount() {
         this.checkLogin();
         this.getUserInfo();
+        this.getTeam();
       }
 /*Login Authentication */
       checkLogin() {
@@ -64,9 +69,8 @@ getUserInfo = () =>{
             lastName: response.data.name.split(" ")[1],
             email: response.data.authid.email,
             password: response.data.authid.password,
-            skills:response.data.skills
+            skills:response.data.skills.join()
         });
-        console.log(this.state.skills)
       }
     })
     .catch(err => {
@@ -75,34 +79,31 @@ getUserInfo = () =>{
 }
 
 submitUserEdits = () => {
-    const {firstName, lastName, email, password, skills} = this.state;
-    const skillSet = skills.split(',')
-    const userChanges = {		  
-    name: firstName + ' ' + lastName,
-    email: email,
-    password: password,
-    skills:skillSet
-    }
-    console.log(userChanges)
-    // axios
-    //     .post('api/editUser', userChanges)
-    //     .then((response) => {
-    //         console.log(response.data);
-    //         this.getUserInfo();
-    //         location.reload();
-
-    //     })
-    //     .catch(err => {
-    //         console.log(err.response.data);
-    //     });
-}
+    const { firstName, lastName, email, password, skills } = this.state;
+    console.log(firstName, lastName, email, password, skills);
+    const userChanges = {
+      name: firstName + ' ' + lastName,
+      email: email,
+      password: password,
+      skills: skills.split(',')
+    };
+    console.log(userChanges);
+    axios
+      .post('api/editUser', userChanges)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+  };
+  
 
 toggleShowPassword = () => {
     this.setState(prevState => ({
       showPassword: !prevState.showPassword,
     }));
   }
-
 
 /*User Settings */
 /*Avatar Styling */
@@ -138,8 +139,27 @@ stringToColor = (string) => {
     }
 
 /*End of Avatar Styling */
+/*Team Member Information */
 
-
+getTeam = () => {
+  axios
+  .get('/api/getTeam')
+  .then(response => {
+    console.log(response.data)
+    this.setState({
+      teamName:response.data.teamName,
+      teamCode:response.data.teamCode,
+      teamMembers:response.data.teamMembers
+    });
+  })
+  .catch(error => {
+    console.log(error);
+    if (error.response.status===401) {
+      window.location.href = '#/login';
+    }
+  });
+}
+/*Team Member Information */
     render() {
         return (
             <div>
@@ -148,7 +168,50 @@ stringToColor = (string) => {
                     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '100px' }}>
                         <Avatar {...this.stringAvatar(this.state.firstName + ' ' +this.state.lastName)} />
                     </Box>
+                    
                     <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '100px', my: -13}}>
+              
+                      <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                                <TextField
+                                  disabled
+                                  fullWidth
+                                  id="outlined-disabled"
+                                  label="Team Name"
+                                  value={this.state.teamName}
+                                />
+                        </Grid>
+                        <Grid item xs={12}>
+                              <TextField
+                                disabled
+                                fullWidth
+                                id="outlined-disabled"
+                                label="Team Code"
+                                value={this.state.teamCode}
+                              />
+                        </Grid>
+                        <Grid item xs={12}>
+                        <ul style={{ listStyleType: 'none' }}>
+                          {this.state.teamMembers.map((member) => (
+                            <li key={member._id} style={{padding:4}}>
+                              <span
+                                style={{
+                                  backgroundColor: '#35374C',
+                                  color: '#D7D7D7',
+                                  borderRadius: '15px',
+                                  padding: '3px 10px',
+                                }}
+                              >
+                                {member.name}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                        </Grid>
+                      </Grid>
+                    </Box>
+                      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
                         <form>
                             <Grid container spacing={2}>
                                 <Grid item xs={12} sm={6}>
@@ -214,15 +277,18 @@ stringToColor = (string) => {
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} onClick = {this.submitUserEdits}>
+                                    <Button type="submit" fullWidth variant="contained" style={{backgroundColor:'#191943', color:'#AFB3CF', border: '3px double rgba(25, 31, 69, 0.1)', borderRadius: "10px"}} onClick = {this.submitUserEdits}>
                                         Save Changes
                                     </Button>
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <NavLink to="/">Back to Home</NavLink>
+                                  <Button component={NavLink} to="/" fullWidth variant="contained" style={{backgroundColor:'#303046', color:'#AFB3CF', border: '3px double rgba(25, 31, 69, 0.1)', borderRadius: "10px"}}>
+                                    <Typography type="h4">Return Home </Typography><HomeIcon/>
+                                  </Button>
                                 </Grid>
                             </Grid>
                         </form>
+                    </Box>
                     </Box>
                 </Container>
             </div>

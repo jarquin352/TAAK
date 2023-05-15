@@ -30,9 +30,29 @@ import axios from 'axios';
 //front end data
 //import {users, projTeam} from '../task/tasksTestData'
 
+function stringToColor(string) {
+  let hash = 0;
+  let i;
+
+  /* eslint-disable no-bitwise */
+  for (i = 0; i < string.length; i += 1) {
+    hash = string.charCodeAt(i) + ((hash << 5) - hash);
+  }
+
+  let color = '#';
+
+  for (i = 0; i < 3; i += 1) {
+    const value = (hash >> (i * 8)) & 0xff;
+    color += `00${value.toString(16)}`.slice(-2);
+  }
+  /* eslint-enable no-bitwise */
+
+  return color;
+}
+
 
 class TopBar extends React.Component {
-
+  
   //changing the state of the drawer opening, by default this will be false
   constructor(props){
     super(props);
@@ -40,9 +60,42 @@ class TopBar extends React.Component {
       drawerOpen: false,
       //users: users,
       //projTeam: projTeam
-      users: window.taakmodels.usersModel(),
-      projTeam: window.taakmodels.projTeamModel(),
+      projTeam: [],
     }
+  }
+  
+  componentDidMount(){
+    this.getTeamMembers();
+  }
+
+  stringAvatar = (name)=> {
+   return {
+     sx: {
+       bgcolor: stringToColor(name),
+       color:"black"
+     },
+     children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+   }
+  }
+
+  stringToColor = (string) => {
+    let hash = 0;
+    let i;
+  
+    /* eslint-disable no-bitwise */
+    for (i = 0; i < string.length; i += 1) {
+      hash = string.charCodeAt(i) + ((hash << 5) - hash);
+    }
+  
+    let color = '#';
+  
+    for (i = 0; i < 3; i += 1) {
+      const value = (hash >> (i * 8)) & 0xff;
+      color += `00${value.toString(16)}`.slice(-2);
+    }
+    /* eslint-enable no-bitwise */
+  
+    return color;
   }
 
   handleLogout = () => {
@@ -58,10 +111,24 @@ class TopBar extends React.Component {
 			});
 	}
 
-  render() {
-    const {users, projTeam} = this.state;
-    const teamMembers = projTeam[0].teamMembers.map(memberId => users.find(user => user.uid === memberId));
+  getTeamMembers = () =>{
+    axios
+      .get('/api/getTeam')
+      .then(response => {
+        console.log(response)
+        this.setState({
+          projTeam:response.data.teamMembers
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
+  
+  render() {
+    const {projTeam} = this.state;
+    console.log(projTeam)
     return (
       <div>
         <AppBar position="static" style={{ background: '#191931', boxShadow: 'none' }}>
@@ -83,8 +150,9 @@ class TopBar extends React.Component {
             {/* Adding Avatar component for profile icon, needs a state for person name */}
             <Stack direction="row" spacing={2}>
               <AvatarGroup max = {3}>
-              {teamMembers.map(member => (
-                <Avatar key={member.uid} alt={member.name} src="/static/images/avatar/1.jpg" />
+              {projTeam.map(member => (
+                
+                <Avatar key={member._id} {...this.stringAvatar(member.name)} alt={member.name} />
               ))}
               </AvatarGroup>
               <Avatar alt="Profile Image" src="/path/to/profile/image" />
@@ -115,9 +183,9 @@ class TopBar extends React.Component {
               <ListItemText primary="Assigned Tasks" />
             </ListItem>
 
-            <ListItem button component={NavLink} to="/inbox" onClick={() => this.setState({ drawerOpen: false })}>
+            <ListItem button component={NavLink} to="/messages" onClick={() => this.setState({ drawerOpen: false })}>
               <ListItemIcon><EmailTwoToneIcon/></ListItemIcon>
-              <ListItemText primary="Inbox" />
+              <ListItemText primary="Group Chat" />
             </ListItem>
 
             <ListItem button component={NavLink} to="/settings" onClick={() => this.setState({ drawerOpen: false })}>

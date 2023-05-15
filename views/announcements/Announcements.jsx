@@ -18,6 +18,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import axios from "axios";
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
+import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
 
 // const StyledButton = styled(Button)({
 //   fontSize: "0.875rem",
@@ -137,6 +138,8 @@ class Announcements extends React.Component {
     render() {
         const { addAnnouncementOpen, title, date, description, deleteConfirmOpen } = this.state;
         return (
+          <div>
+          <Typography variant="h4" sx={{ textAlign: 'center',my:3, textShadow:'7px 1px 26px rgba(0, 0, 0, 0.8)'}}>Announcements and Updates</Typography>
             <Box
             sx={{
               flexGrow: 1,
@@ -148,7 +151,23 @@ class Announcements extends React.Component {
               fontWeight: "700"
             }}
           >
-            <h1>Announcements and Updates</h1>
+            <Typography variant="h5" component="div" sx={{ display: 'flex', justifyContent: 'flex-end', marginBottom:'20px', mx:4}}>
+            <div style={{ marginLeft: 'auto' }}>
+              <Button
+                variant="contained"
+                style={{
+                  backgroundColor: '#303046',
+                  color: '#8F95B9',
+                  border: '3px double rgba(25, 31, 69, 0.1)',
+                  borderRadius: '10px',
+                }}
+                onClick={this.handleClickOpen}
+              >
+                <AddCircleTwoToneIcon />
+              </Button>
+            </div>
+        </Typography>
+          <div style={{background:"rgba(142, 142, 142, 0.2)", margin:30, padding: 16, borderRadius: 20}}>
             <Grid container spacing={2}>
               {this.state.announcements.map((announcement) => (
                 <Grid key={announcement._id} item xs={12} sm={6} md={4}>
@@ -156,7 +175,7 @@ class Announcements extends React.Component {
                     sx={{
                       minWidth: 275,
                       borderRadius: 5,
-                      boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                      boxShadow: '5px 5px 5px 2px rgba(18, 18, 34, 0.7)',
                       position: 'relative'
                     }}
                   >
@@ -197,7 +216,7 @@ class Announcements extends React.Component {
                           {announcement.title}
                         </Typography>
                         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                          {`${announcement.owner} - ${announcement.dueDate}`}
+                          {`${announcement.owner} - ${announcement.announcementDate.substring(0,10)}`}
                         </Typography>
                         <Typography sx={{ mb: 1 }} color="text.secondary">
                           {announcement.description}
@@ -226,14 +245,10 @@ class Announcements extends React.Component {
                     </Button>
                   </CardContent>
                 </Card> */}
-              <Typography variant="h5" component="div">
-                <Button variant="contained" onClick={this.handleClickOpen}>
-                  Create an Announcement
-                </Button>
-              </Typography>
 
               </Grid>
             </Grid>
+            </div>
 
              {/* Form dialog code Delete Announcement */}
             <Dialog open={deleteConfirmOpen} onClose={this.handleDeleteConfirmClose}>
@@ -296,6 +311,8 @@ class Announcements extends React.Component {
               </DialogActions>
             </Dialog>
           </Box>
+          </div>
+
         );//return
     }//render
 }//classAnnouncements

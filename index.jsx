@@ -7,6 +7,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import TopBar from './views/topBar/TopBar';
 import Home from './views/home/Home';
 import Tasks from './views/task/Tasks'
+import Groupchat from './views/groupchat/Groupchat';
 import AboutUs from './views/aboutUs/AboutUs';
 import Login from './views/authentication/Login'
 import Register from './views/authentication/Register'
@@ -88,6 +89,7 @@ class App extends React.Component {
             <Route path="/login" element={<Login changeLoggedIn={this.changeLoggedIn} />} />
           }
           <Route path="/register" element={<Register changeLoggedIn = {this.changeLoggedIn} />} />
+          <Route path="/messages" element={<Groupchat current_user={this.state.current_user} />} />
           <Route path="/settings" element={<Settings  />} />
         </Routes>
       </>

@@ -186,15 +186,16 @@ const deleteTask = async (req, res) =>{
         //find the task
         const existingTask = await Task.findOne({_id:task_id});
         if(!existingTask.isAssigned){
+          const sprintUpdate = await Sprint.updateOne({_id: existingTask.sprintid}, {$pull: {tasksInSprint: task_id}});
           await Task.deleteOne({_id:task_id});
-          res.status(200).send('unassigned task deleted');
+          res.status(200).send('unassigned task deleted from tasklist and sprint');
         }
         else{
           //remove from sprint
           console.log(existingTask)
-          const sprintUpdate = await Sprint.updateOne({_id: existingTask.sprintId}, {$pull: {tasksInSprint: existingTask._id}});
+          const sprintUpdate = await Sprint.updateOne({_id: existingTask.sprintId}, {$pull: {tasksInSprint: task_id}});
           //remove from user
-          const userUpdate = await Users.updateOne({_id:existingTask.assignee}, {$pull:{tasks_assigned:existingTask._id}});
+          const userUpdate = await Users.updateOne({_id:existingTask.assignee}, {$pull:{tasks_assigned:task_id}});
           await Task.deleteOne({_id:task_id});
           res.status(200).send('Assigned tasks removed from sprint, and user.');
         }
