@@ -139,10 +139,10 @@ const createTask = async (req, res) => {
 
   //assign a task....
 const assignTask = async (req, res) =>{
-    // if (!req.session.user_id) {
-    //   res.status(401).send('Authentication required, please login');
-    //   return;
-    // }  
+    if (!req.session.user) {
+      res.status(401).send('Authentication required, please login');
+      return;
+    }  
     const {task_id, user_id} = req.body;
     try{
         if(!task_id){

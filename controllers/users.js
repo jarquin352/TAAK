@@ -193,7 +193,7 @@ const register = async (req, res) => {
               skills: skills,
               tasks_assigned: [],
               teamid: newTeam._id
-            })
+            });
             newTeam.teamMembers.push(user._id);
             await newTeam.save();
           }
@@ -214,15 +214,17 @@ const register = async (req, res) => {
 
 
   //creat a logout function that logs a users out by destroying a session
-  const logout = async(res, req) => {
-    req.session.destroy(function(err){
-      if(err){
+  const logout = async (req, res) => {
+    req.session.destroy(function (err) {
+      if (err) {
         res.status(400).send('Unable to log out.');
         return;
       }
       res.status(200).send();
     });
   };
+  
+  
 
   const getUsers = async (req, res) =>{
     if (!req.session.user) {

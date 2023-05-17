@@ -73,14 +73,17 @@ class Groupchat extends Component {
   }
 
   handleSendMessage = () => {
-    // const { newMessage, messages } = this.state;
-    // if (newMessage.trim() !== '') {
-    //   const newId = messages.length + 1;
-    //   const newMessageData = { id: newId, message: newMessage, sender: 'John' }; // Assuming the user sending the message is "John"
-    //   const updatedMessages = [...messages, newMessageData];
-    //   this.setState({ messages: updatedMessages, newMessage: '' });
-    // }
-    console.log(this.state.newMessage)
+    const message = this.state.newMessage;
+    axios
+      .post('/api/sendMessage', {message})
+      .then(response => {
+        this.setState({newMessage:''});
+        location.reload();
+      })
+      .catch(err => {
+                console.log(err.response.data);
+                alert(err.response.data);
+      });
   };
 
   render() {
@@ -190,7 +193,7 @@ class Groupchat extends Component {
                   border: '3px double rgba(25, 31, 69, 0.1)',
                   borderRadius: '10px',
                 }}
-                onClick={this.handleClickOpen}
+                onClick={this.handleSendMessage}
               >
                 <SendIcon/>
               </Button>

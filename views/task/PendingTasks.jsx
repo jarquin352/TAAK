@@ -210,11 +210,22 @@ handleTaskDelete = () =>{
 //this function will appropriately assign the members to the tasks, and switch to true:
 handleAssigner = (event) => {
   event.preventDefault();
-  const value = event.target.value;
+  const user_id = event.target.value;
   // Extract the user ID from the value
-  const userId = value.startsWith('uid') ? value.substring(3) : null;
-  console.log(userId);
+  const task_id = event.target.closest('tr').getAttribute('data-taskid');  
+  console.log('user-id:', user_id)
+  console.log('task-id:', task_id)
+  axios
+    .post('/api/assignTask', {user_id, task_id})
+    .then(response => {
+      location.reload();
+    })
+    .catch(err => {
+      console.log(err.response.data);
+      alert(err.response.data);
+});
 };
+
 
 /*000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 */
 getPriorityColor = (priority) => {
@@ -361,11 +372,12 @@ getPriorityColor = (priority) => {
                 <TableRow
                   key={task._id}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 }, color:'#202020'}}
+                  data-taskid={task._id}
                 >
                   <TableCell component="th" scope="row">{task.title}</TableCell>
                   <TableCell align="left">{task.description}</TableCell>
                   <TableCell align="left">
-                    <span style={{ backgroundColor: 'this.getPriorityColor(task.priority)', color: '#202020', borderRadius: '15px', padding: '3px 10px' }}>{task.priority}</span>
+                    <span style={{ backgroundColor: this.getPriorityColor(task.priority), color: '#202020', borderRadius: '15px', padding: '3px 10px' }}>{task.priority}</span>
                   </TableCell>
                   <TableCell align="left">{task.taskSkills + " "}</TableCell>
                   <TableCell align="left">{task.progt}</TableCell>
@@ -383,6 +395,7 @@ getPriorityColor = (priority) => {
                           outline: 'none',
                           cursor: 'pointer',
                         }}
+                        data-taskid={task._id} // Add this line to include the task id as a data attribute
                       >
                         <option title>Select a User </option>
                         <option disabled>Suggested User: </option>

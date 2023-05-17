@@ -46,19 +46,30 @@ const getMessages = async (req, res) => {
   };
   
 
-//   const sendMessage = async(req, res)=>{
-//     if (!req.session.user) {
-//       res.status(401).send("Not logged in");
-//       return;
-//     }
-//      try{
-//     } catch (err) {
-//       console.log(err);
-//       res.status(400).send('Unable to send messasge');
-//     };
-//   }
+  const sendMessage = async(req, res)=>{
+    if (!req.session.user) {
+      res.status(401).send("Not logged in");
+      return;
+    }
+    const {message} = req.body
+    const userInfo = await Users.findOne({authid:req.session.user._id});
+     try{
+      const newMessage = await Messages.create({
+        _id: new mongoose.Types.ObjectId(),
+        team: userInfo.teamid,
+        sender: userInfo._id,
+        message: message,
+        createdAt: Date.now(),
+      });
+      await newMessage.save();
+      res.status(200).send({ message: 'Message successfully created', newMessage });
+    } catch (err) {
+      console.log(err);
+      res.status(400).send('Unable to send messasge');
+    };
+  }
 
-module.exports = {getMessages};
+module.exports = {getMessages,sendMessage};
 
 
 
@@ -71,5 +82,19 @@ module.exports = {getMessages};
 //     status: (statusCode) => ({ send: (message) => console.log(statusCode, message) }),
 //   };
 //     await getMessages(req, res);
+
+// }
+
+// //test code for sendMessage
+// const testCode = async() => {
+//   const req = {
+//     session: {user: {_id: '645327bd38a1fae459caa96c'}},body:{message:'Hello world.'} 
+//   };
+  
+//     // const req = {session:{user:{_id:'645327bd38a1fae459caa96b'}}}
+//     const res = {
+//     status: (statusCode) => ({ send: (message) => console.log(statusCode, message) }),
+//   };
+//     await sendMessage(req, res);
 
 // }
