@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-//const bcrypt = require('bcryptjs')
 const Schema = mongoose.Schema
 // const autoIncrement = require('mongoose-auto-increment');
 
@@ -81,9 +80,9 @@ var messegesSchema = new Schema({
 
 //methods
 //checks password, implmenet bcrypt after....
-// authenticationSchema.methods.comparePassword = async function(password){
-//     return await compare(password, this.password)
-// }
+authenticationSchema.methods.comparePassword = async function(password){
+    return await compare(password, this.password)
+}
 
 //this is just for testing....
 authenticationSchema.methods.comparePassword = function(password){
