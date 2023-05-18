@@ -1,24 +1,6 @@
 const mongoose = require('mongoose');
 const { Auth, Users, Projectteam } = require('../models/dataSchema');
 
-// /*Remove after Testing */
-// /*Database connection*/
-// //lines 10 to 23 are configs to .env + database connections
-// const path = require('path');
-// const dotenv = require('dotenv');
-// const e = require('express');
-// const envPath = path.join(__dirname, '..', '.env');
-// dotenv.config({ path: envPath });
-
-// //remove db connection after testing functions
-// mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true })
-//   .then(() => {
-//       console.log('Database connection established');
-//       //testRegister();
-//       testCode();
-//   })
-//   .catch((err) => console.error('Database connection error', err));
-
 //second attp at login
 const login = async (req, res) => {
   const { email, password } = req.body;
@@ -54,70 +36,6 @@ const login = async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 };
-
-// const login = async (req, res) => {
-//   const { email, password } = req.body;
-//   try {
-//     const user = await Auth.findOne({ email: email });
-//     if (!user) {
-//       console.log(`No email: ${email} was found.`);
-//       res.status(400).send('Email not recognized');
-//       return;
-//     }
-//     const passwordCheck = await user.comparePassword(password);
-//     if (!passwordCheck) {
-//       res.status(400).send('Wrong Password!');
-//       return;
-//     }
-
-//     // Create a new session
-//     const foundUser = await Users.findOne({authid: user.authid}).populate('authid');
-//     req.session.regenerate(function (err) {
-//       if (err) {
-//         console.error(err);
-//         res.status(500).send('Internal Server Error');
-//         return;
-//       }
-//       // req.session.user_id = foundUser._id;
-//       // req.session.user = foundUser.name;
-//       req.session.user = foundUser;
-//       req.session.cookie.originalMaxAge = 3600000; // 1 hour
-//       req.session.cookie.reSave = true;
-//       req.session.save(function (err) {
-//         if (err) {
-//           console.error(err);
-//           res.status(500).send('Internal Server Error');
-//           return;
-//         }
-//         console.log(req.session)
-//         res.status(200).send('Login successful');
-//       });
-//     });
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).send('Internal Server Error');
-//   }
-// };
-
-
-
-// const checkLogin = async (req, res) => {
-//   const user = req.session.user;
-//   if (user) {
-//     res.json({ user });
-//   } else {
-//     res.status(401).json({ message: 'You are not logged in' });
-//   }
-// }
-
-// const checkLogin = async (req, res) => {
-//   const user = req.session.user;
-//   if (user) {
-//     res.json({ user });
-//   } else {
-//     res.status(401).json({ message: 'You are not logged in' });
-//   }
-// }
 
 
 //make a function that checks the login of a user, checks session cookies
@@ -331,71 +249,4 @@ const editUser = async (req, res) => {
   
 
   module.exports = {logout, checkLogin, register, login,getUsers, editUser,getSpecificUser, getTeamMembers};
-
-
-/*TEST FUNCTIONS*/
-// const testLogin = async () => {
-//     const req = { body: { email: 'adamadmin@taak.com', password: 'password1' } };
-//     const res = {
-//       status: (statusCode) => ({ send: (message) => console.log(statusCode, message) }),
-//     };
-//     await login(req, res);
-// };
-
-// const testRegister = async() => {
-//     const req = {body: 
-//     {name: 'Node Testing', 
-//     email:'hapsdpy@taak.com', 
-//     password:'password2', 
-//     skills:['Node','Express'],
-//     teamCode: 1231231 }}
-//     const res = {
-//       status: (statusCode) => ({ send: (message) => console.log(statusCode, message) }),
-//     };
-//     await register(req, res);
-// }
-
-//test code for getUserzs
-// const testCode = async() => {
-//     const req = {session:{user:{_id:'645327bd38a1fae459caa96c'}}}
-//     // const req = {session:{user:{_id:'645327bd38a1fae459caa96b'}}}
-//     const res = {
-//     status: (statusCode) => ({ send: (message) => console.log(statusCode, message) }),
-//   };
-//     await getUsers(req, res);
-
-// }
-
-// //test code for editUser
-// const testCode = async() => {
-//     const req = {session:{user:{_id:'645327bd38a1fae459caa96c'}},
-//                  body: { email: 'admin@taak.com', password: 'password',name:'Admin AdminNamechange', skills: ['TestSkills1'] }}
-//     // const req = {session:{user:{_id:'645327bd38a1fae459caa96b'}}}
-//     const res = {
-//     status: (statusCode) => ({ send: (message) => console.log(statusCode, message) }),
-//   };
-//     await editUser(req, res);
-
-// }
-
-//test code for editUser
-// const testCode = async() => {
-//     const req = {session:{user:{_id:'645327bd38a1fae459caa96b'}}}
-//     const res = {
-//     status: (statusCode) => ({ send: (message) => console.log(statusCode, message) }),
-//   };
-//     await getSpecificUser(req, res);
-
-// }
-
-
-//test code for editUser (works)
-// const testCode = async() => {
-//     //adam admin req.session.user._id
-//     const req = {session:{user:{_id:'645327bd38a1fae459caa96c'}}}
-//     const res = {
-//     status: (statusCode) => ({ send: (message) => console.log(statusCode, message) }),
-//   };
-//     await getTeamMembers(req, res);
-// }
 

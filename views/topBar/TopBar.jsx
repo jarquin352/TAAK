@@ -28,7 +28,6 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import axios from 'axios';
 
 //front end data
-//import {users, projTeam} from '../task/tasksTestData'
 
 function stringToColor(string) {
   let hash = 0;

@@ -20,11 +20,6 @@ import axios from "axios";
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
 
-// const StyledButton = styled(Button)({
-//   fontSize: "0.875rem",
-//   fontWeight: "700",
-// });
-
 class Announcements extends React.Component {
     constructor(props) {
       super(props);
@@ -179,32 +174,8 @@ class Announcements extends React.Component {
                       position: 'relative'
                     }}
                   >
-                    {/* <CardContent>
-                      <Typography variant="h5" component="div">
-                        {announcement.title}
-                      </Typography>
-                      <Typography
-                        sx={{ mb: 1.5 }}
-                        color="text.secondary"
-                      >{`${announcement.owner} - ${announcement.dueDate}`}</Typography>
-                      <Typography
-                        sx={{ mb: 1 }}
-                        color="text.secondary"
-                      >
-                        {announcement.description}
-                      </Typography>
-                    </CardContent> */}
                       <CardContent>
                           <Box sx={{ position: 'relative' }}>
-                          
-                          {/* <Typography sx={{top: -10, right: -10, position:'absolute' }}>
-                          <IconButton
-                            onClick={() => console.log('Delete button')}
-                          >
-                          <CloseIcon />
-                        </IconButton>
-                          </Typography> */}
-
                         <Typography sx={{ top: -10, right: -10, position: "absolute" }}>
                           <IconButton onClick={() => this.handleDeleteConfirmOpen(announcement._id)}>
                             {/* <CloseIcon /> */}
@@ -229,22 +200,6 @@ class Announcements extends React.Component {
                 </Grid>
               ))}
               <Grid item xs={12} sm={6} md={4}>
-                {/* <Card
-                  sx={{
-                    minWidth: 275,
-                    borderRadius: 5,
-                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"
-                  }}
-                >
-                  <CardContent>
-                    <Typography variant="h5" component="div">
-                      Create a New Announcement
-                    </Typography>
-                    <Button variant="outlined" onClick={this.handleClickOpen}>
-                      Open Form Dialog
-                    </Button>
-                  </CardContent>
-                </Card> */}
 
               </Grid>
             </Grid>

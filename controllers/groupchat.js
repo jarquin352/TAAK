@@ -1,24 +1,6 @@
 const mongoose = require('mongoose');
 const { Auth, Users, Projectteam, Messages } = require('../models/dataSchema');
 
-// /*Remove after Testing */
-// /*Database connection*/
-// //lines 10 to 23 are configs to .env + database connections
-// const path = require('path');
-// const dotenv = require('dotenv');
-// const e = require('express');
-// const envPath = path.join(__dirname, '..', '.env');
-// dotenv.config({ path: envPath });
-
-// //remove db connection after testing functions
-// mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true })
-//   .then(() => {
-//       console.log('Database connection established');
-//       //testRegister();
-//       testCode();
-//   })
-//   .catch((err) => console.error('Database connection error', err));
-
 const getMessages = async (req, res) => {
     if (!req.session.user) {
       res.status(401).send("Not logged in");
@@ -70,31 +52,3 @@ const getMessages = async (req, res) => {
   }
 
 module.exports = {getMessages,sendMessage};
-
-
-
-
-// //test code for getMessages
-// const testCode = async() => {
-//     const req = {session:{user:{_id:'645327bd38a1fae459caa96c'}}}
-//     // const req = {session:{user:{_id:'645327bd38a1fae459caa96b'}}}
-//     const res = {
-//     status: (statusCode) => ({ send: (message) => console.log(statusCode, message) }),
-//   };
-//     await getMessages(req, res);
-
-// }
-
-// //test code for sendMessage
-// const testCode = async() => {
-//   const req = {
-//     session: {user: {_id: '645327bd38a1fae459caa96c'}},body:{message:'Hello world.'} 
-//   };
-  
-//     // const req = {session:{user:{_id:'645327bd38a1fae459caa96b'}}}
-//     const res = {
-//     status: (statusCode) => ({ send: (message) => console.log(statusCode, message) }),
-//   };
-//     await sendMessage(req, res);
-
-// }

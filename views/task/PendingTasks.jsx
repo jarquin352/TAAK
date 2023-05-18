@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow,TextField, Paper, Button, styled, Input} from '@mui/material';
 import Typography from '@mui/material/Typography';
 import {Dialog,DialogContent,DialogContentText,DialogTitle,DialogActions} from '@mui/material'
@@ -32,11 +31,8 @@ class PendingTasks extends React.Component{
         assignee: '',
         date: null
       },
-      //showForm: false, //this will default our form to false, if it is true, then the form will be open without the need to click the button
       showDialog: false,
-      //pendingTasks: tasks.filter((task) => !task.isAssigned),//current list of pending tasks
       pendingTasks: [],
-      //users: users,
       users: [],
       showDeleteDialog: false,
       selectedTaskId:null,
@@ -83,10 +79,6 @@ getUsers = () => {
   });
 }
 
-/*Adi - assignTask()*/
-// assignTask = () =>{
-  
-// }
 /*000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 */
 
   //first function --> need to toggle the form, this should simply be boolean, turns form off and on nly
@@ -243,12 +235,8 @@ getPriorityColor = (priority) => {
 
 /*000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 */
   render(){
-    // const { showForm, newTask } = this.state;
     const {showDialog, pendingTasks, users, newTask, showDeleteDialog} = this.state;
-    //console.log('Pending Tasks:', pendingTasks);
     const suggestedTaskAssignments = taskAssigner(users, pendingTasks)
-    //console.log(suggestedTaskAssignments)
-    //console.log('Pending Tasks 2:', pendingTasks);
     console.log(users)
     return (
       
@@ -431,46 +419,3 @@ getPriorityColor = (priority) => {
 
 }
 export default PendingTasks;
-
-
-
-/*00 BACK END CODE TO POST THIS DATA INTO OUR MONGODB  0000000000000000000000000000000000000000000000000000000 */
-
-// handleSubmit = (event) => {
-//   event.preventDefault();
-//   const data = new FormData(event.currentTarget);
-//   console.log({
-//     description: data.get('description'),
-//     type_id: data.get('type_id')
-//   });
-
-//   axios
-//     .post("/api/tasks", {
-//       description: data.get('description'),
-//       type_id: data.get('type_id')
-//     })
-//     .then(response => {
-//       location.reload();
-//     })
-//     .catch(err => {
-//       console.log(err.response.data);
-//     });
-// };
-
-/*00 BACK END CODE TO POST THIS DATA INTO OUR MONGODB  0000000000000000000000000000000000000000000000000000000 */
-
-/*0000000000000000000000000000000000____FORM OPTION___0000000000000000000000000000000000000000000000 */
-        {/* {showForm && (
-          <form onSubmit={this.handleSubmit}>
-            <label>Status:</label>
-            <input type="text" name="status" value={newTask.status} onChange={this.handleInputChange} />
-            <label>Task Name:</label>
-            <input type="text" name="name" value={newTask.name} onChange={this.handleInputChange} />
-            <label>Task Priority:</label>
-            <input type="text" name="priority" value={newTask.priority} onChange={this.handleInputChange} />
-            <label>Assignee:</label>
-            <input type="text" name="assignee" value={newTask.assignee} onChange={this.handleInputChange} />
-            <button type="submit">Add</button>
-          </form>
-        )} */}
-/*0000000000000000000000000000000000____FORM OPTION___0000000000000000000000000000000000000000000000 */

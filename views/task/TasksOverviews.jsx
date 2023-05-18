@@ -16,13 +16,7 @@ class TasksOverview extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        // tasksOverview: tasks.filter((task) => task.isAssigned),
-        // users: users.reduce((obj, user) => {
-        //   obj[user.uid] = user.name;
-        //   return obj;
-        // }, {}),
         sprint: [],
-        //taskTypes: window.taakmodels.taskTypesModel(),
         tasksOverview: [],
         users:null
       };
@@ -96,9 +90,6 @@ class TasksOverview extends React.Component {
                         <span style={{ mb: 1.5,backgroundColor: this.getPriorityColor(priority), color: '#202020', borderRadius: '15px', padding: '3px 10px' }}>{priority}</span>
                         <Typography sx={{ mb: 1 }} color="text.secondary">Assignee:{assignee.name}</Typography>
                         <Typography sx={{ mb: 1 }} color="text.secondary">Description:{description}</Typography>
-                        {/* <Typography sx={{ mb: 1 }} color="text.secondary">Term: {term}</Typography>
-                        <Typography sx={{ mb: 1 }} color="text.secondary">Status: {status}</Typography>
-                        <Typography sx={{ mb: 1 }} color="text.secondary">Sprint Timeline: {dueDate}</Typography> */}
                       </CardContent>
                     </Card>
                   </Grid>
@@ -114,4 +105,3 @@ class TasksOverview extends React.Component {
   
   export default TasksOverview;
   
-  // <div style={{background:"rgba(142, 142, 142, 0.2)", margin:30, padding: 16, borderRadius: 30}}></div>

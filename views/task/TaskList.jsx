@@ -18,8 +18,6 @@ class TaskList extends React.Component {
     super(props);
     this.state = {
       inputLetters: '',
-      // tasks:tasks.filter((task) => task.isAssigned),
-      // taskTypes: taskTypes
       tasks: [],
       taskTypes: [],
     };
